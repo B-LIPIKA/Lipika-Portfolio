@@ -26,46 +26,31 @@
           },
           colors: {
             brand: {
+              300: '#7dd3fc',
               400: '#38bdf8',
               500: '#0ea5e9',
               600: '#0284c7',
             },
-            accent: {
-              cyan: '#06b6d4',
-              indigo: '#6366f1',
-              emerald: '#10b981',
-              amber: '#f59e0b',
-              rose: '#f43f5e',
-            },
             space: {
-              950: '#05070f',
-              900: '#090d1a',
-              850: '#0e1426',
-              800: '#151d38',
+              950: '#03050c',
+              900: '#070a14',
+              850: '#0d1222',
+              800: '#131b31',
             }
           },
           animation: {
             'glow-pulse': 'glow 4s ease-in-out infinite',
-            'float-slow': 'float 5s ease-in-out infinite',
-            'radar-spin': 'radar 12s linear infinite',
-            'avatar-breathe': 'breathe 4s ease-in-out infinite',
+            'float-smooth': 'float 5s ease-in-out infinite',
+            'spin-slow': 'spin 16s linear infinite',
           },
           keyframes: {
             glow: {
-              '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
-              '50%': { opacity: '0.8', transform: 'scale(1.08)' },
+              '0%, 100%': { opacity: '0.3', transform: 'scale(1)' },
+              '50%': { opacity: '0.7', transform: 'scale(1.06)' },
             },
             float: {
               '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-10px)' },
-            },
-            breathe: {
-              '0%, 100%': { transform: 'scale(1)' },
-              '50%': { transform: 'scale(1.02)' },
-            },
-            radar: {
-              '0%': { transform: 'rotate(0deg)' },
-              '100%': { transform: 'rotate(360deg)' }
+              '50%': { transform: 'translateY(-8px)' },
             }
           }
         }
@@ -75,6 +60,9 @@
 
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Motion (Framer Motion Vanilla Engine for Smooth Spring Physics) -->
+  <script src="https://cdn.jsdelivr.net/npm/motion@11.11.17/dist/motion.js"></script>
 
   <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -86,48 +74,43 @@
 
   <style>
     /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 7px; }
-    ::-webkit-scrollbar-track { background: #05070f; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #03050c; }
     ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #334155; }
 
-    /* Dot Grid Background Pattern */
-    .bg-dot-grid {
-      background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-      background-size: 28px 28px;
+    /* Minimalist AI Dot Matrix Background */
+    .bg-dot-matrix {
+      background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 24px 24px;
     }
 
     /* Glass Panels */
-    .glass-panel {
-      background: rgba(14, 20, 38, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+    .ai-card {
+      background: rgba(13, 18, 34, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .glass-panel-hover {
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .glass-panel-hover:hover {
-      background: rgba(20, 29, 56, 0.85);
+    .ai-card:hover {
+      background: rgba(19, 27, 49, 0.85);
       border-color: rgba(56, 189, 248, 0.4);
-      transform: translateY(-5px);
-      box-shadow: 0 16px 36px -10px rgba(6, 182, 212, 0.25);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px -12px rgba(14, 165, 233, 0.25);
     }
 
-    /* Scroll reveal transitions */
-    .reveal-item {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal-item.revealed {
-      opacity: 1;
-      transform: translateY(0);
+    /* Profile Hologram Frame */
+    .profile-glow-ring {
+      position: relative;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.5), rgba(99, 102, 241, 0.4), rgba(16, 185, 129, 0.4));
+      padding: 2px;
+      border-radius: 1.75rem;
     }
 
-    /* Card active filtering */
+    /* Project Filtering */
     .project-card {
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
     .project-card.is-hidden {
       display: none !important;
@@ -142,24 +125,16 @@
 
     /* Modern Dialog Backdrop */
     dialog::backdrop {
-      background: rgba(5, 7, 15, 0.85);
-      backdrop-filter: blur(8px);
-    }
-
-    /* Holographic Avatar Border Glow */
-    .holo-border {
-      position: relative;
-      border-radius: 1.5rem;
-      background: linear-gradient(135deg, rgba(6, 182, 212, 0.4), rgba(99, 102, 241, 0.4), rgba(244, 63, 94, 0.3));
-      padding: 2px;
+      background: rgba(3, 5, 12, 0.88);
+      backdrop-filter: blur(10px);
     }
   </style>
 </head>
 
-<body class="bg-space-950 text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-cyan-500 selection:text-white relative bg-dot-grid">
+<body class="bg-space-950 text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white relative bg-dot-matrix">
 
   <!-- ========================================================================= -->
-  <!-- 🎬 CINEMATIC VIDEO-STYLE OPENING: AI ROBOT WALK, COIN TOSS & THUNDER STORM -->
+  <!-- 🎬 CINEMATIC OPENING: AI SENTINEL DRONE, COIN TOSS & THUNDER REVEAL -->
   <!-- ========================================================================= -->
   <div id="intro-overlay" class="fixed inset-0 z-[100] bg-black flex items-center justify-center overflow-hidden transition-opacity duration-1000">
     <canvas id="intro-canvas" class="absolute inset-0 w-full h-full block"></canvas>
@@ -169,13 +144,13 @@
 
     <!-- Cinematic Top Controls -->
     <div class="absolute top-6 inset-x-6 flex items-center justify-between z-10 pointer-events-auto">
-      <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-white/10 text-xs font-mono text-cyan-400">
+      <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-white/10 text-xs font-mono text-cyan-400">
         <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-        <span>CINEMATIC INTRO SEQUENCE</span>
+        <span>AI AUTONOMOUS SENTINEL // ONLINE</span>
       </div>
 
       <div class="flex items-center gap-3">
-        <button id="toggle-sound-btn" class="px-3 py-1.5 rounded-full bg-slate-900/80 hover:bg-slate-800 border border-white/10 text-xs font-mono text-slate-300 transition flex items-center gap-1.5">
+        <button id="toggle-sound-btn" class="px-3 py-1.5 rounded-full bg-slate-900/90 hover:bg-slate-800 border border-white/10 text-xs font-mono text-slate-300 transition flex items-center gap-1.5">
           <i data-lucide="volume-2" id="sound-icon" class="w-3.5 h-3.5 text-cyan-400"></i>
           <span id="sound-text">Audio On</span>
         </button>
@@ -188,30 +163,30 @@
 
     <!-- Subtitle / Cinematic Text Overlay -->
     <div id="intro-caption" class="absolute bottom-10 inset-x-0 text-center font-mono text-xs sm:text-sm text-cyan-300 tracking-widest uppercase transition-opacity duration-500 pointer-events-none drop-shadow-[0_0_12px_rgba(6,182,212,0.8)]">
-      // AI AGENT DEPLOYING TO STAGE...
+      // AI SENTINEL APPROACHING DOCK...
     </div>
   </div>
 
-  <!-- Ambient Glowing Auras -->
+  <!-- Ambient Glowing Radial Auras -->
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <div class="absolute -top-32 -left-32 w-[600px] h-[600px] bg-cyan-600/15 rounded-full blur-[140px] animate-glow-pulse"></div>
-    <div class="absolute top-1/3 -right-32 w-[650px] h-[650px] bg-indigo-600/15 rounded-full blur-[150px] animate-glow-pulse" style="animation-delay: 2s;"></div>
-    <div class="absolute -bottom-40 left-1/4 w-[700px] h-[700px] bg-blue-600/10 rounded-full blur-[160px] animate-glow-pulse" style="animation-delay: 4s;"></div>
+    <div class="absolute -top-32 -left-32 w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-[140px] animate-glow-pulse"></div>
+    <div class="absolute top-1/3 -right-32 w-[650px] h-[650px] bg-indigo-600/10 rounded-full blur-[150px] animate-glow-pulse" style="animation-delay: 2s;"></div>
+    <div class="absolute -bottom-40 left-1/4 w-[700px] h-[700px] bg-emerald-500/10 rounded-full blur-[160px] animate-glow-pulse" style="animation-delay: 4s;"></div>
   </div>
 
   <!-- ======================== FLOATING ISLAND NAVBAR ======================== -->
   <header class="fixed top-5 inset-x-0 z-50 px-4 sm:px-6">
-    <nav class="max-w-6xl mx-auto h-16 rounded-full glass-panel px-6 flex items-center justify-between shadow-2xl shadow-black/60 border border-white/10">
+    <nav class="max-w-6xl mx-auto h-16 rounded-full ai-card px-6 flex items-center justify-between shadow-2xl shadow-black/80 border border-white/10">
       
       <!-- Brand & Status Beacon -->
       <a href="#home" class="flex items-center gap-3 group">
         <div class="relative flex items-center justify-center">
-          <span class="w-3.5 h-3.5 rounded-full bg-cyan-400 group-hover:scale-125 transition-transform"></span>
-          <span class="absolute w-3.5 h-3.5 rounded-full bg-cyan-400 animate-ping opacity-75"></span>
+          <span class="w-3 h-3 rounded-full bg-brand-400 group-hover:scale-125 transition-transform"></span>
+          <span class="absolute w-3 h-3 rounded-full bg-brand-400 animate-ping opacity-75"></span>
         </div>
         <div class="flex flex-col">
           <span class="text-sm font-bold tracking-tight text-white font-mono leading-none">
-            B. LIPIKA<span class="text-cyan-400">.ai</span>
+            B. LIPIKA<span class="text-brand-400">.ai</span>
           </span>
           <span class="text-[10px] text-slate-400 font-mono tracking-wider">ML ENGINEER</span>
         </div>
@@ -219,27 +194,27 @@
 
       <!-- Desktop Nav Items -->
       <div class="hidden lg:flex items-center gap-7 text-xs font-semibold tracking-wider text-slate-300 uppercase font-mono">
-        <a href="#home" class="hover:text-cyan-400 transition-colors">Intro</a>
-        <a href="#telemetry" class="hover:text-cyan-400 transition-colors">Live Demo</a>
-        <a href="#projects" class="hover:text-cyan-400 transition-colors">Projects</a>
+        <a href="#home" class="hover:text-brand-400 transition-colors">Overview</a>
+        <a href="#telemetry" class="hover:text-brand-400 transition-colors">Live Telemetry</a>
+        <a href="#projects" class="hover:text-brand-400 transition-colors">Projects (8)</a>
         <a href="#patent" class="hover:text-amber-300 transition-colors flex items-center gap-1.5">
           <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400"></i>
           <span>Patent</span>
         </a>
-        <a href="#experience" class="hover:text-cyan-400 transition-colors">Experience</a>
-        <a href="#skills" class="hover:text-cyan-400 transition-colors">Stack</a>
-        <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
+        <a href="#experience" class="hover:text-brand-400 transition-colors">Experience</a>
+        <a href="#skills" class="hover:text-brand-400 transition-colors">Stack</a>
+        <a href="#contact" class="hover:text-brand-400 transition-colors">Contact</a>
       </div>
 
       <!-- Action Cluster -->
       <div class="flex items-center gap-3">
         <!-- Replay Cinematic Intro Button -->
-        <button id="replay-intro-btn" title="Replay AI Robot Coin & Thunder Intro" class="p-2.5 rounded-full bg-slate-900/90 hover:bg-slate-800 text-cyan-400 hover:text-cyan-300 border border-cyan-500/30 transition shadow-lg shadow-cyan-500/10 flex items-center gap-1">
+        <button id="replay-intro-btn" title="Replay AI Sentinel Coin & Thunder Intro" class="p-2.5 rounded-full bg-slate-900/90 hover:bg-slate-800 text-brand-400 hover:text-brand-300 border border-brand-500/30 transition shadow-lg shadow-brand-500/10 flex items-center gap-1">
           <i data-lucide="zap" class="w-4 h-4"></i>
-          <span class="hidden xl:inline text-[11px] font-mono font-bold pr-1">Intro ⚡</span>
+          <span class="hidden xl:inline text-[11px] font-mono font-bold pr-1">Replay ⚡</span>
         </button>
 
-        <a href="Lipika_B_Resume.pdf" download class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white text-xs font-bold font-mono tracking-wide transition shadow-lg shadow-cyan-500/25">
+        <a href="Lipika_B_Resume.pdf" download class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-brand-500 to-indigo-600 hover:from-brand-400 hover:to-indigo-500 text-white text-xs font-bold font-mono tracking-wide transition shadow-lg shadow-brand-500/25">
           <i data-lucide="file-down" class="w-3.5 h-3.5"></i>
           <span class="hidden sm:inline">Resume PDF</span>
           <span class="sm:hidden">CV</span>
@@ -255,15 +230,15 @@
     </nav>
 
     <!-- Mobile Dropdown -->
-    <div id="mobile-nav" class="hidden lg:hidden max-w-md mx-auto mt-2 rounded-2xl glass-panel p-5 space-y-3 border border-white/10 text-sm font-mono uppercase">
-      <a href="#home" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-slate-300">Intro & About</a>
+    <div id="mobile-nav" class="hidden lg:hidden max-w-md mx-auto mt-2 rounded-2xl ai-card p-5 space-y-3 border border-white/10 text-sm font-mono uppercase">
+      <a href="#home" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-slate-300">Overview & Bio</a>
       <a href="#telemetry" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-slate-300">Live Telemetry</a>
       <a href="#projects" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-slate-300">Projects</a>
       <a href="#patent" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-amber-300">Indian Patent</a>
       <a href="#experience" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-slate-300">Experience</a>
-      <a href="#skills" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-slate-300">Skills</a>
+      <a href="#skills" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-slate-300">Stack</a>
       <a href="#contact" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-slate-300">Contact</a>
-      <button id="mobile-replay-btn" class="w-full text-left py-2 px-3 rounded-lg hover:bg-cyan-500/10 text-cyan-400 flex items-center gap-2">
+      <button id="mobile-replay-btn" class="w-full text-left py-2 px-3 rounded-lg hover:bg-brand-500/10 text-brand-400 flex items-center gap-2">
         <i data-lucide="zap" class="w-4 h-4"></i>
         <span>Replay Cinematic Intro</span>
       </button>
@@ -271,103 +246,64 @@
   </header>
 
   <!-- ========================================================================= -->
-  <!-- HERO INTRO: ANIMATED PROFILE PICTURE BESIDE COMPREHENSIVE ABOUT ME INFO  -->
+  <!-- HERO INTRO: USER PHOTO BESIDE CLEAN, IMPACTFUL AI ENGINEER PROFILE -->
   <!-- ========================================================================= -->
   <section id="home" class="min-h-screen pt-36 pb-20 px-6 flex flex-col justify-center relative z-10">
     <div class="max-w-6xl mx-auto w-full space-y-12">
       
-      <!-- Top Status Pill -->
-      <div class="flex flex-wrap items-center gap-3 reveal-item">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-mono">
-          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+      <!-- Top Live Badges -->
+      <div class="flex flex-wrap items-center gap-3 motion-hero-badge">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-950/70 border border-brand-500/40 text-brand-300 text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span>
           <span>AIML Trainee @ Tiny Prism Labs • Manipal</span>
         </div>
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-950/50 border border-amber-500/30 text-amber-300 text-xs font-mono">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-950/50 border border-amber-500/40 text-amber-300 text-xs font-mono">
           <i data-lucide="shield-check" class="w-3.5 h-3.5 text-amber-400"></i>
           <span>Indian Utility Patent Granted (No. 202541061616)</span>
         </div>
       </div>
 
-      <!-- Main Two-Column Intro Grid: Animated Pic Beside Info -->
+      <!-- Main Two-Column Intro Grid: Real Photo Beside Concise Value Info -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
         
         <!-- ============================================================ -->
-        <!-- LEFT COLUMN: ANIMATED HOLOGRAPHIC PROFILE PICTURE CARD -->
+        <!-- LEFT COLUMN: USER'S REAL PHOTO IN SLEEK AI HOLOGRAPHIC FRAME -->
         <!-- ============================================================ -->
-        <div class="lg:col-span-5 flex flex-col items-center reveal-item">
-          <div class="holo-border w-full max-w-sm shadow-2xl shadow-cyan-950/60 animate-float-slow">
-            <div class="rounded-[1.4rem] bg-space-950/90 backdrop-blur-2xl p-6 border border-white/10 flex flex-col items-center relative overflow-hidden">
+        <div class="lg:col-span-5 flex flex-col items-center motion-profile-card">
+          <div class="profile-glow-ring w-full max-w-sm shadow-2xl shadow-brand-950/60 animate-float-smooth">
+            <div class="rounded-[1.6rem] bg-space-950/90 backdrop-blur-2xl p-5 border border-white/10 flex flex-col items-center relative overflow-hidden">
               
-              <!-- Subtle Hologram Scanline Effect -->
-              <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/5 to-transparent pointer-events-none opacity-60 animate-pulse"></div>
-
-              <!-- Top Hologram Identifier -->
-              <div class="w-full flex items-center justify-between pb-4 border-b border-white/5 text-[11px] font-mono">
-                <span class="text-cyan-400 font-bold flex items-center gap-1.5">
-                  <i data-lucide="sparkles" class="w-3 h-3 text-cyan-300"></i>
-                  <span>AI SPEC: ML_ENG</span>
+              <!-- Subtle Holographic Corner Markers -->
+              <div class="w-full flex items-center justify-between pb-3 border-b border-white/5 text-[11px] font-mono">
+                <span class="text-brand-400 font-bold flex items-center gap-1.5">
+                  <i data-lucide="cpu" class="w-3.5 h-3.5 text-brand-300"></i>
+                  <span>ML ENGINEER // 2026</span>
                 </span>
-                <span class="px-2 py-0.5 rounded bg-cyan-950 border border-cyan-500/30 text-cyan-300 font-bold">
+                <span class="px-2 py-0.5 rounded bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 font-bold text-[10px]">
                   ● ACTIVE
                 </span>
               </div>
 
-              <!-- Avatar Image Box (Animated SVG Fallback + User Custom Pic) -->
-              <div class="relative w-56 h-56 sm:w-64 sm:h-64 my-6 rounded-2xl overflow-hidden bg-space-900 border border-cyan-500/30 shadow-inner group">
+              <!-- Real Photo Box with Subtle Depth & Cyber Accents -->
+              <div class="relative w-64 h-64 sm:w-72 sm:h-72 my-5 rounded-2xl overflow-hidden bg-space-900 border border-brand-500/40 shadow-xl group">
                 
-                <!-- 1. Real Uploaded / Local Profile Picture -->
-                <img id="avatar-image" src="profile.png" alt="B. Lipika Profile" class="w-full h-full object-cover hidden" onerror="showAvatarFallback();" />
+                <!-- 1. USER'S ACTUAL PROFILE PHOTO (Uploaded by User) -->
+                <img id="avatar-image" src="profile.jpg" alt="B. Lipika - Machine Learning Engineer" class="w-full h-full object-cover object-center filter brightness-105 contrast-105 transition-transform duration-500 group-hover:scale-105" onerror="this.src='profile.png';" />
 
-                <!-- 2. Animated Cyberpunk Engineer SVG Avatar (Default) -->
-                <div id="avatar-vector-fallback" class="w-full h-full flex items-center justify-center p-2 relative bg-gradient-to-br from-space-900 via-slate-900 to-cyan-950/40">
-                  <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-[0_0_20px_rgba(6,182,212,0.4)] animate-avatar-breathe">
-                    <!-- Ambient Glow -->
-                    <circle cx="120" cy="110" r="70" fill="url(#avatarGlow)" fill-opacity="0.25"/>
-                    
-                    <!-- Headset / Cyber Band -->
-                    <path d="M60 110C60 76.8629 86.8629 50 120 50C153.137 50 180 76.8629 180 110" stroke="#06b6d4" stroke-width="4" stroke-linecap="round"/>
-                    <rect x="52" y="100" width="16" height="24" rx="6" fill="#0e7490" stroke="#22d3ee" stroke-width="2"/>
-                    <rect x="172" y="100" width="16" height="24" rx="6" fill="#0e7490" stroke="#22d3ee" stroke-width="2"/>
-                    
-                    <!-- Hair Silhouette -->
-                    <path d="M72 108C72 75 92 60 120 60C148 60 168 75 168 108C168 135 162 145 160 165C155 140 148 135 140 135C132 135 128 140 120 140C112 140 108 135 100 135C92 135 85 140 80 165C78 145 72 135 72 108Z" fill="#1e293b"/>
-                    
-                    <!-- Face Contour -->
-                    <path d="M88 105C88 87.3269 102.327 73 120 73C137.673 73 152 87.3269 152 105V118C152 135.673 137.673 150 120 150C102.327 150 88 135.673 88 118V105Z" fill="#fed7aa"/>
-                    
-                    <!-- Glowing AR Visor Glasses -->
-                    <rect x="86" y="98" width="68" height="18" rx="6" fill="#0f172a" fill-opacity="0.8" stroke="#38bdf8" stroke-width="2"/>
-                    <line x1="90" y1="107" x2="150" y2="107" stroke="#22d3ee" stroke-width="2" stroke-linecap="round"/>
-                    
-                    <!-- Neck & Cyber Collar -->
-                    <path d="M110 145V168H130V145" fill="#fbcfe8"/>
-                    <path d="M68 215C68 185 90 170 120 170C150 170 172 185 172 215H68Z" fill="#0f172a" stroke="#6366f1" stroke-width="2"/>
-                    
-                    <!-- Torso Arc Reactor Light -->
-                    <circle cx="120" cy="195" r="8" fill="#06b6d4" />
-                    <circle cx="120" cy="195" r="14" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="3 3"/>
-                    
-                    <!-- Circuit trace highlights -->
-                    <path d="M90 190L105 195L90 205" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/>
-                    <path d="M150 190L135 195L150 205" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round"/>
+                <!-- Futuristic Corner HUD Accents -->
+                <div class="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-brand-400 pointer-events-none"></div>
+                <div class="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-brand-400 pointer-events-none"></div>
+                <div class="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-brand-400 pointer-events-none"></div>
+                <div class="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-brand-400 pointer-events-none"></div>
 
-                    <defs>
-                      <radialGradient id="avatarGlow" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
-                        <stop offset="0%" stop-color="#06b6d4" stop-opacity="1"/>
-                        <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
-                      </radialGradient>
-                    </defs>
-                  </svg>
-                </div>
-
-                <!-- Hover Overlay with Image Upload Trigger -->
+                <!-- Hover Overlay for Instant Local Photo Change/Upload Preview -->
                 <div class="absolute inset-0 bg-space-950/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-3 text-center">
-                  <button id="upload-avatar-trigger" class="px-3.5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono font-bold text-xs flex items-center gap-1.5 shadow-lg transition">
+                  <button id="upload-avatar-trigger" class="px-4 py-2 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-mono font-bold text-xs flex items-center gap-1.5 shadow-lg transition">
                     <i data-lucide="camera" class="w-3.5 h-3.5"></i>
-                    <span>Set Custom Pic</span>
+                    <span>Swap Photo</span>
                   </button>
                   <span class="text-[10px] text-slate-400 font-mono mt-2">
-                    Pick any picture or save as profile.png in repo
+                    Profile photo: profile.jpg
                   </span>
                 </div>
                 <!-- Hidden file input for custom image upload -->
@@ -375,17 +311,17 @@
 
               </div>
 
-              <!-- Persona Title & Bio Strip -->
+              <!-- Persona Name & Primary Tags -->
               <div class="w-full text-center space-y-1">
-                <h3 class="text-lg font-bold text-white font-mono tracking-tight">B. LIPIKA</h3>
-                <p class="text-xs font-semibold text-cyan-300 font-mono">Machine Learning Engineer</p>
-                <p class="text-[11px] text-slate-400 font-mono">Tiny Prism Labs • VTU Alumni</p>
+                <h3 class="text-xl font-extrabold text-white font-mono tracking-tight">B. LIPIKA</h3>
+                <p class="text-xs font-semibold text-brand-300 font-mono">Machine Learning Engineer</p>
+                <p class="text-[11px] text-slate-400 font-mono">Tiny Prism Labs • Information Science (VTU)</p>
               </div>
 
-              <!-- Indian Patent Badge Banner -->
+              <!-- Official Patent Identifier -->
               <div class="w-full mt-4 pt-3 border-t border-white/5 flex items-center justify-center gap-2 text-[11px] font-mono text-amber-300 bg-amber-950/30 py-2 rounded-xl border border-amber-500/20">
                 <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400"></i>
-                <span class="font-bold">Patent: 202541061616</span>
+                <span class="font-bold">Indian Patent No. 202541061616</span>
               </div>
 
             </div>
@@ -393,76 +329,85 @@
         </div>
 
         <!-- ============================================================ -->
-        <!-- RIGHT COLUMN: COMPREHENSIVE INFO ABOUT ME BESIDE THE PICTURE -->
+        <!-- RIGHT COLUMN: CLEAN, PUNCHY INFO DESIGNED FOR AUDIENCE CLARITY -->
         <!-- ============================================================ -->
-        <div class="lg:col-span-7 space-y-6 reveal-item">
+        <div class="lg:col-span-7 space-y-6 motion-hero-info">
           
           <div class="space-y-3">
-            <p class="text-xs font-mono font-semibold text-cyan-400 uppercase tracking-widest flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+            <p class="text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-brand-400"></span>
               <span>Industrial AI • Foundation Time-Series • Multi-Agent Workflows</span>
             </p>
             <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
               Architecting <br />
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-fuchsia-400">
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-brand-400">
                 Industrial Intelligence
               </span>
             </h1>
           </div>
 
           <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-            I am <strong class="text-white font-semibold">B. Lipika</strong>, an applied Machine Learning Engineer engineering reliable, data-grounded AI systems for mission-critical industrial telemetry.
+            I am <strong class="text-white font-semibold">B. Lipika</strong>, an applied Machine Learning Engineer building evidence-grounded AI architectures for critical physical systems and industrial operations.
           </p>
 
-          <p class="text-slate-400 text-sm leading-relaxed">
-            My work focuses on fine-tuning 
-            <span class="text-cyan-300 font-medium">IBM Granite TTM-R3</span> foundation patch-mixers, architecting 
-            <span class="text-indigo-300 font-medium">LangGraph</span> multi-agent supervisory networks with deterministic tool execution, and building high-throughput anomaly detection pipelines across 
-            <span class="text-rose-300 font-medium">2.3M+ sensor records</span>.
-          </p>
-
-          <!-- Key Metrics Grid -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-            <div class="p-4 rounded-xl glass-panel border border-white/5 space-y-1">
-              <span class="text-xs font-mono text-cyan-400">MAE REDUCTION</span>
-              <p class="text-2xl font-bold font-mono text-white">61.8%</p>
-              <span class="text-[11px] text-slate-400">vs DLinear baseline</span>
+          <!-- 3-Pillar Executive Summary -->
+          <div class="space-y-2 text-xs sm:text-sm text-slate-300 font-sans">
+            <div class="flex items-start gap-2.5">
+              <span class="text-brand-400 font-mono font-bold mt-0.5">01 //</span>
+              <span><strong>Foundation Forecasting:</strong> Fine-tuned <strong>IBM Granite TTM-R3</strong> mixer on 15-minute sensor streams, achieving a <strong>61.8% MAE reduction</strong> over baselines.</span>
             </div>
-            <div class="p-4 rounded-xl glass-panel border border-white/5 space-y-1">
-              <span class="text-xs font-mono text-indigo-400">DATA STREAM</span>
-              <p class="text-2xl font-bold font-mono text-white">2.3M+</p>
-              <span class="text-[11px] text-slate-400">Vibration records</span>
+            <div class="flex items-start gap-2.5">
+              <span class="text-brand-400 font-mono font-bold mt-0.5">02 //</span>
+              <span><strong>Agentic Orchestration:</strong> Engineered <strong>LangGraph</strong> supervisors that decouple model reasoning from deterministic SQL and telemetry execution.</span>
             </div>
-            <div class="p-4 rounded-xl glass-panel border border-white/5 space-y-1">
-              <span class="text-xs font-mono text-amber-400">PATENT</span>
-              <p class="text-2xl font-bold font-mono text-white">1 Utility</p>
-              <span class="text-[11px] text-slate-400">AgriFlow IoT system</span>
-            </div>
-            <div class="p-4 rounded-xl glass-panel border border-white/5 space-y-1">
-              <span class="text-xs font-mono text-emerald-400">INFERENCE</span>
-              <p class="text-2xl font-bold font-mono text-white">&lt;15ms</p>
-              <span class="text-[11px] text-slate-400">FastAPI microservice</span>
+            <div class="flex items-start gap-2.5">
+              <span class="text-brand-400 font-mono font-bold mt-0.5">03 //</span>
+              <span><strong>Edge Telemetry:</strong> Ingested <strong>2.3M+ sensor records</strong> classifying vibration anomalies against ISO 10816 standards.</span>
             </div>
           </div>
 
-          <!-- CTAs -->
-          <div class="flex flex-wrap items-center gap-3.5 pt-3">
-            <a href="#projects" class="px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm font-mono tracking-wide transition shadow-lg shadow-cyan-500/20 flex items-center gap-2">
+          <!-- Key Metrics Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+            <div class="p-3.5 rounded-xl ai-card border border-white/5 space-y-1">
+              <span class="text-[11px] font-mono text-brand-400">MAE REDUCTION</span>
+              <p class="text-2xl font-extrabold font-mono text-white">61.8%</p>
+              <span class="text-[10px] text-slate-400">IBM Granite vs DLinear</span>
+            </div>
+            <div class="p-3.5 rounded-xl ai-card border border-white/5 space-y-1">
+              <span class="text-[11px] font-mono text-indigo-400">DATA VOLUME</span>
+              <p class="text-2xl font-extrabold font-mono text-white">2.3M+</p>
+              <span class="text-[10px] text-slate-400">Vibration records</span>
+            </div>
+            <div class="p-3.5 rounded-xl ai-card border border-white/5 space-y-1">
+              <span class="text-[11px] font-mono text-amber-400">PATENT</span>
+              <p class="text-2xl font-extrabold font-mono text-white">1 Utility</p>
+              <span class="text-[10px] text-slate-400">AgriFlow IoT system</span>
+            </div>
+            <div class="p-3.5 rounded-xl ai-card border border-white/5 space-y-1">
+              <span class="text-[11px] font-mono text-emerald-400">LATENCY</span>
+              <p class="text-2xl font-extrabold font-mono text-white">&lt;15ms</p>
+              <span class="text-[10px] text-slate-400">FastAPI microservice</span>
+            </div>
+          </div>
+
+          <!-- Action CTAs -->
+          <div class="flex flex-wrap items-center gap-3.5 pt-2">
+            <a href="#projects" class="px-6 py-3.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-sm font-mono tracking-wide transition shadow-lg shadow-brand-500/20 flex items-center gap-2">
               <span>EXPLORE SYSTEMS</span>
               <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
             </a>
-            <a href="Lipika_B_Resume.pdf" download class="px-6 py-3.5 rounded-xl glass-panel hover:border-slate-400 text-white font-semibold text-sm font-mono transition flex items-center gap-2">
-              <i data-lucide="download" class="w-4 h-4 text-cyan-400"></i>
+            <a href="Lipika_B_Resume.pdf" download class="px-6 py-3.5 rounded-xl ai-card hover:border-slate-400 text-white font-semibold text-sm font-mono transition flex items-center gap-2">
+              <i data-lucide="download" class="w-4 h-4 text-brand-400"></i>
               <span>DOWNLOAD RESUME</span>
             </a>
-            <button id="hero-replay-btn" class="px-4 py-3.5 rounded-xl glass-panel hover:border-cyan-400 text-cyan-300 font-semibold text-xs font-mono transition flex items-center gap-1.5">
-              <i data-lucide="zap" class="w-4 h-4 text-cyan-400"></i>
+            <button id="hero-replay-btn" class="px-4 py-3.5 rounded-xl ai-card hover:border-brand-400 text-brand-300 font-semibold text-xs font-mono transition flex items-center gap-1.5">
+              <i data-lucide="zap" class="w-4 h-4 text-brand-400"></i>
               <span>REPLAY INTRO ⚡</span>
             </button>
-            <a href="https://linkedin.com/in/lipika2004" target="_blank" class="p-3.5 rounded-xl glass-panel hover:text-cyan-400 text-slate-400 transition" aria-label="LinkedIn">
+            <a href="https://linkedin.com/in/lipika2004" target="_blank" class="p-3.5 rounded-xl ai-card hover:text-brand-400 text-slate-400 transition" aria-label="LinkedIn">
               <i data-lucide="linkedin" class="w-5 h-5"></i>
             </a>
-            <a href="https://github.com/B-LIPIKA" target="_blank" class="p-3.5 rounded-xl glass-panel hover:text-cyan-400 text-slate-400 transition" aria-label="GitHub">
+            <a href="https://github.com/B-LIPIKA" target="_blank" class="p-3.5 rounded-xl ai-card hover:text-brand-400 text-slate-400 transition" aria-label="GitHub">
               <i data-lucide="github" class="w-5 h-5"></i>
             </a>
           </div>
@@ -474,8 +419,8 @@
       <!-- ============================================================ -->
       <!-- FULL-WIDTH COMMAND CENTER: SIMULATED NEURAL INFERENCE TERMINAL -->
       <!-- ============================================================ -->
-      <div class="pt-6 reveal-item">
-        <div class="rounded-2xl glass-panel border border-white/10 shadow-2xl overflow-hidden">
+      <div class="pt-6 motion-command-center">
+        <div class="rounded-2xl ai-card border border-white/10 shadow-2xl overflow-hidden">
           
           <!-- Terminal Header -->
           <div class="bg-space-900/90 px-5 py-3.5 border-b border-white/5 flex items-center justify-between">
@@ -485,15 +430,15 @@
               <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
               <span class="ml-2 text-xs font-mono text-slate-400">lipika@edge-cluster:~ (Live Inference Testbench)</span>
             </div>
-            <div class="flex items-center gap-2 bg-space-950 px-3 py-1 rounded-md border border-white/5 text-[11px] font-mono text-cyan-400">
+            <div class="flex items-center gap-2 bg-space-950 px-3 py-1 rounded-md border border-white/5 text-[11px] font-mono text-brand-400">
               <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
-              <span>CUDA ENGINE :: READY</span>
+              <span>CUDA ENGINE :: ACTIVE</span>
             </div>
           </div>
 
           <!-- Terminal Tabs -->
           <div class="flex border-b border-white/5 bg-space-950/60 text-xs font-mono">
-            <button id="tab-ttm" class="term-tab active px-5 py-2.5 border-b-2 border-cyan-400 text-cyan-300 bg-white/5 transition flex items-center gap-2">
+            <button id="tab-ttm" class="term-tab active px-5 py-2.5 border-b-2 border-brand-400 text-brand-300 bg-white/5 transition flex items-center gap-2">
               <i data-lucide="activity" class="w-3.5 h-3.5"></i>
               <span>TTM-R3_Forecasting.py</span>
             </button>
@@ -514,8 +459,8 @@
 
           <!-- Terminal Footer Controls -->
           <div class="px-5 py-3 bg-space-900/80 border-t border-white/5 flex items-center justify-between">
-            <span class="text-[11px] font-mono text-slate-400">Simulation Status: Verified Execution</span>
-            <button id="run-sim-btn" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 text-xs font-mono transition">
+            <span class="text-[11px] font-mono text-slate-400">Status: Verified Execution Pipeline</span>
+            <button id="run-sim-btn" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-brand-500/20 hover:bg-brand-500/30 text-brand-300 border border-brand-500/40 text-xs font-mono transition">
               <i data-lucide="play" class="w-3 h-3"></i>
               <span>Re-run Simulation</span>
             </button>
@@ -529,11 +474,11 @@
 
   <!-- ======================== LIVE TELEMETRY / VIBRATION VISUALIZER ======================== -->
   <section id="telemetry" class="py-20 px-6 border-t border-white/5 relative z-10">
-    <div class="max-w-6xl mx-auto space-y-8 reveal-item">
+    <div class="max-w-6xl mx-auto space-y-8">
       
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <span class="text-xs font-mono font-semibold text-cyan-400 uppercase tracking-widest">// Industrial Edge Telemetry</span>
+          <span class="text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest">// Industrial Edge Telemetry</span>
           <h2 class="text-3xl font-extrabold text-white mt-1">Real-Time Sensor Frequency & ISO 10816 Waveform</h2>
           <p class="text-slate-400 text-sm max-w-xl mt-1">
             Simulating live accelerometer signals across 3 axes. Demonstrates algorithmic threshold detection with local anomaly classification.
@@ -548,7 +493,7 @@
       </div>
 
       <!-- Canvas Visualizer Card -->
-      <div class="rounded-2xl glass-panel p-6 border border-white/10 space-y-4">
+      <div class="rounded-2xl ai-card p-6 border border-white/10 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-4 text-xs font-mono pb-2 border-b border-white/5">
           <div class="flex items-center gap-4">
             <span class="text-slate-400">ASSET: <strong class="text-white">Hydraulic Pump #04</strong></span>
@@ -577,7 +522,7 @@
           </div>
           <div class="p-3 rounded-lg bg-space-950/60 border border-white/5">
             <span class="text-slate-500 block text-[10px]">PREDICTIVE HEALTH INDEX</span>
-            <span class="text-base font-bold text-cyan-400" id="stat-health">98.4% OPTIMAL</span>
+            <span class="text-base font-bold text-brand-400" id="stat-health">98.4% OPTIMAL</span>
             <span class="text-[10px] text-slate-400 block mt-0.5">Estimated RUL: 8,400 hrs</span>
           </div>
         </div>
@@ -588,12 +533,12 @@
 
   <!-- ======================== ALL GITHUB & PRODUCTION PROJECTS ======================== -->
   <section id="projects" class="py-24 px-6 border-t border-white/5 relative z-10">
-    <div class="max-w-6xl mx-auto space-y-12 reveal-item">
+    <div class="max-w-6xl mx-auto space-y-12">
       
       <!-- Section Header -->
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <span class="text-xs font-mono font-semibold text-cyan-400 uppercase tracking-widest">// Portfolios & Codebases</span>
+          <span class="text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest">// Portfolios & Codebases</span>
           <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mt-1">Featured Production Systems</h2>
           <p class="text-slate-400 text-sm sm:text-base max-w-xl mt-2">
             Every repository is fully functional, complete with production architectures, documentation, and verified benchmarks.
@@ -602,7 +547,7 @@
 
         <!-- Filter Pill Bar -->
         <div class="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-space-900 border border-white/10 text-xs font-mono">
-          <button class="filter-tab px-4 py-2 rounded-xl font-bold bg-cyan-500 text-slate-950 transition" data-category="all">All (8)</button>
+          <button class="filter-tab px-4 py-2 rounded-xl font-bold bg-brand-500 text-slate-950 transition" data-category="all">All (8)</button>
           <button class="filter-tab px-4 py-2 rounded-xl text-slate-400 hover:text-white transition" data-category="ml">Foundation ML</button>
           <button class="filter-tab px-4 py-2 rounded-xl text-slate-400 hover:text-white transition" data-category="agents">AI Agents</button>
           <button class="filter-tab px-4 py-2 rounded-xl text-slate-400 hover:text-white transition" data-category="iot">IoT & Hardware</button>
@@ -614,16 +559,16 @@
       <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
         <!-- Project 1: Industrial Time-Series Forecasting (TTM-R3) -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl glass-panel p-6 glass-panel-hover border border-white/10" data-category="ml">
+        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-white/10" data-category="ml">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 font-semibold">
+              <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-brand-500/15 text-brand-300 border border-brand-500/30 font-semibold">
                 Foundation Time-Series
               </span>
               <span class="text-[11px] font-mono text-slate-400">IBM Granite</span>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-white hover:text-cyan-300 transition">
+              <h3 class="text-xl font-bold text-white hover:text-brand-300 transition">
                 Industrial Inflow Forecasting (TTM-R3)
               </h3>
               <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
@@ -638,7 +583,7 @@
             </div>
           </div>
           <div class="pt-6 border-t border-white/5 flex items-center justify-between">
-            <a href="https://github.com/B-LIPIKA/Industrial-Time-Series-Forecasting-TTM-R3" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-cyan-400 hover:text-cyan-300 transition">
+            <a href="https://github.com/B-LIPIKA/Industrial-Time-Series-Forecasting-TTM-R3" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-brand-400 hover:text-brand-300 transition">
               <span>View Code</span>
               <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
             </a>
@@ -649,7 +594,7 @@
         </div>
 
         <!-- Project 2: Industrial AI Agent Platform -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl glass-panel p-6 glass-panel-hover border border-white/10" data-category="agents">
+        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-white/10" data-category="agents">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 font-semibold">
@@ -684,7 +629,7 @@
         </div>
 
         <!-- Project 3: Industrial Vibration Anomaly Detection -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl glass-panel p-6 glass-panel-hover border border-white/10" data-category="ml">
+        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-white/10" data-category="ml">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-rose-500/15 text-rose-300 border border-rose-500/30 font-semibold">
@@ -724,7 +669,7 @@
         </div>
 
         <!-- Project 4: AI Data Scientist Agent -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl glass-panel p-6 glass-panel-hover border border-white/10" data-category="agents">
+        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-white/10" data-category="agents">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-semibold">
@@ -759,7 +704,7 @@
         </div>
 
         <!-- Project 5: AgriFlow (Indian Utility Patent) -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl glass-panel p-6 glass-panel-hover border border-amber-500/30 bg-amber-950/10" data-category="iot">
+        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-amber-500/30 bg-amber-950/10" data-category="iot">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1">
@@ -795,7 +740,7 @@
         </div>
 
         <!-- Project 6: leetcode_learning (DSA Solutions) -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl glass-panel p-6 glass-panel-hover border border-white/10" data-category="dsa">
+        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-white/10" data-category="dsa">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-amber-500/15 text-amber-300 border border-amber-500/30 font-semibold">
@@ -828,7 +773,7 @@
         </div>
 
         <!-- Project 7: Air-Board Gesture Canvas -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl glass-panel p-6 glass-panel-hover border border-white/10" data-category="dsa">
+        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-white/10" data-category="dsa">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-teal-500/15 text-teal-300 border border-teal-500/30 font-semibold">
@@ -860,7 +805,7 @@
         </div>
 
         <!-- Project 8: Live Edge Detection to ESP8266 -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl glass-panel p-6 glass-panel-hover border border-white/10" data-category="iot">
+        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-white/10" data-category="iot">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
               <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-blue-500/15 text-blue-300 border border-blue-500/30 font-semibold">
@@ -898,7 +843,7 @@
 
   <!-- ======================== INDIAN UTILITY PATENT SPOTLIGHT ======================== -->
   <section id="patent" class="py-24 px-6 border-t border-white/5 relative z-10 bg-amber-950/10">
-    <div class="max-w-6xl mx-auto space-y-12 reveal-item">
+    <div class="max-w-6xl mx-auto space-y-12">
       
       <div class="text-center max-w-2xl mx-auto space-y-3">
         <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">// Intellectual Property & Hardware</span>
@@ -909,7 +854,7 @@
       </div>
 
       <!-- Patent Master Card -->
-      <div class="rounded-3xl glass-panel p-8 sm:p-12 border border-amber-500/40 relative overflow-hidden shadow-2xl shadow-amber-950/40">
+      <div class="rounded-3xl ai-card p-8 sm:p-12 border border-amber-500/40 relative overflow-hidden shadow-2xl shadow-amber-950/40">
         
         <!-- Background Ambient Glow -->
         <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
@@ -984,10 +929,10 @@
 
   <!-- ======================== EXPERIENCE & EDUCATION TIMELINE ======================== -->
   <section id="experience" class="py-24 px-6 border-t border-white/5 relative z-10">
-    <div class="max-w-6xl mx-auto space-y-14 reveal-item">
+    <div class="max-w-6xl mx-auto space-y-14">
       
       <div class="text-center max-w-2xl mx-auto space-y-2">
-        <span class="text-xs font-mono font-semibold text-cyan-400 uppercase tracking-widest">// Career Milestones</span>
+        <span class="text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest">// Career Milestones</span>
         <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Experience & Education</h2>
         <p class="text-slate-400 text-sm">
           Bridging rigorous academic computer science foundations with real-world industrial AI implementation.
@@ -998,40 +943,40 @@
         
         <!-- Experience Column -->
         <div class="space-y-6">
-          <h3 class="text-lg font-bold font-mono text-cyan-400 uppercase tracking-wider flex items-center gap-2">
+          <h3 class="text-lg font-bold font-mono text-brand-400 uppercase tracking-wider flex items-center gap-2">
             <i data-lucide="briefcase" class="w-5 h-5"></i>
             <span>Professional Experience</span>
           </h3>
 
           <!-- Role 1: Tiny Prism Labs -->
-          <div class="rounded-2xl glass-panel p-6 border border-cyan-500/30 space-y-4">
+          <div class="rounded-2xl ai-card p-6 border border-brand-500/30 space-y-4">
             <div class="flex items-start justify-between gap-2">
               <div>
                 <h4 class="text-xl font-bold text-white">AIML Trainee</h4>
-                <p class="text-sm font-semibold text-cyan-300">Tiny Prism Labs • Manipal, India</p>
+                <p class="text-sm font-semibold text-brand-300">Tiny Prism Labs • Manipal, India</p>
               </div>
-              <span class="text-xs font-mono px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 whitespace-nowrap">
+              <span class="text-xs font-mono px-3 py-1 rounded-full bg-brand-500/15 text-brand-300 border border-brand-500/30 whitespace-nowrap">
                 Feb 2026 – Present
               </span>
             </div>
             <ul class="text-xs sm:text-sm text-slate-300 space-y-2.5 leading-relaxed">
               <li class="flex items-start gap-2">
-                <span class="text-cyan-400 mt-0.5">▸</span>
+                <span class="text-brand-400 mt-0.5">▸</span>
                 <span>Engineering time-series foundation forecasting models (IBM Granite TTM-R3) for industrial telemetry prediction.</span>
               </li>
               <li class="flex items-start gap-2">
-                <span class="text-cyan-400 mt-0.5">▸</span>
+                <span class="text-brand-400 mt-0.5">▸</span>
                 <span>Architecting LangGraph multi-agent supervisors with deterministic SQL sandbox tool execution.</span>
               </li>
               <li class="flex items-start gap-2">
-                <span class="text-cyan-400 mt-0.5">▸</span>
+                <span class="text-brand-400 mt-0.5">▸</span>
                 <span>Building automated dataset health diagnostics and sub-15ms rolling inference FastAPI endpoints.</span>
               </li>
             </ul>
           </div>
 
           <!-- Role 2: InTimeTec -->
-          <div class="rounded-2xl glass-panel p-6 border border-white/10 space-y-4">
+          <div class="rounded-2xl ai-card p-6 border border-white/10 space-y-4">
             <div class="flex items-start justify-between gap-2">
               <div>
                 <h4 class="text-xl font-bold text-white">Machine Learning Intern</h4>
@@ -1062,7 +1007,7 @@
             <span>Education & Honors</span>
           </h3>
 
-          <div class="rounded-2xl glass-panel p-6 border border-emerald-500/30 space-y-4">
+          <div class="rounded-2xl ai-card p-6 border border-emerald-500/30 space-y-4">
             <div class="flex items-start justify-between gap-2">
               <div>
                 <h4 class="text-xl font-bold text-white">Bachelor of Engineering (B.E.)</h4>
@@ -1086,8 +1031,8 @@
               </div>
 
               <div class="p-3.5 rounded-xl bg-space-950/70 border border-white/5 space-y-1">
-                <span class="text-xs font-mono font-bold text-cyan-300 flex items-center gap-1.5">
-                  <i data-lucide="check-circle" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span class="text-xs font-mono font-bold text-brand-300 flex items-center gap-1.5">
+                  <i data-lucide="check-circle" class="w-3.5 h-3.5 text-brand-400"></i>
                   <span>Professional Certifications</span>
                 </span>
                 <p class="text-xs text-slate-400">
@@ -1100,13 +1045,13 @@
           </div>
 
           <!-- LeetCode Spotlight Banner -->
-          <div class="rounded-2xl glass-panel p-6 border border-amber-500/30 bg-amber-950/10 space-y-3">
+          <div class="rounded-2xl ai-card p-6 border border-amber-500/30 bg-amber-950/10 space-y-3">
             <div class="flex items-center justify-between">
               <span class="text-xs font-mono font-bold text-amber-400 flex items-center gap-1.5">
                 <i data-lucide="code" class="w-4 h-4"></i>
                 <span>ALGORITHMIC PROBLEM SOLVING</span>
               </span>
-              <a href="https://github.com/B-LIPIKA/leetcode_learning" target="_blank" class="text-xs font-mono text-cyan-400 hover:underline">
+              <a href="https://github.com/B-LIPIKA/leetcode_learning" target="_blank" class="text-xs font-mono text-brand-400 hover:underline">
                 B-LIPIKA/leetcode_learning →
               </a>
             </div>
@@ -1124,10 +1069,10 @@
 
   <!-- ======================== COMPREHENSIVE TECH STACK ======================== -->
   <section id="skills" class="py-24 px-6 border-t border-white/5 relative z-10">
-    <div class="max-w-6xl mx-auto space-y-12 reveal-item">
+    <div class="max-w-6xl mx-auto space-y-12">
       
       <div class="text-center max-w-2xl mx-auto space-y-2">
-        <span class="text-xs font-mono font-semibold text-cyan-400 uppercase tracking-widest">// Technical Mastery</span>
+        <span class="text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest">// Technical Mastery</span>
         <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Engineered Stack</h2>
         <p class="text-slate-400 text-sm">
           Hands-on production proficiencies categorized by domain and architecture level.
@@ -1137,37 +1082,37 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         
         <!-- Category 1 -->
-        <div class="rounded-2xl glass-panel p-6 border border-white/10 space-y-4">
-          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+        <div class="rounded-2xl ai-card p-6 border border-white/10 space-y-4">
+          <div class="w-10 h-10 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400">
             <i data-lucide="brain" class="w-5 h-5"></i>
           </div>
           <h3 class="text-base font-bold font-mono text-white">Machine Learning & Deep Learning</h3>
           <ul class="text-xs font-mono text-slate-300 space-y-2">
             <li class="flex items-center justify-between border-b border-white/5 pb-1">
               <span>IBM Granite TTM-R3</span>
-              <span class="text-cyan-400">High</span>
+              <span class="text-brand-400">High</span>
             </li>
             <li class="flex items-center justify-between border-b border-white/5 pb-1">
               <span>PyTorch</span>
-              <span class="text-cyan-400">High</span>
+              <span class="text-brand-400">High</span>
             </li>
             <li class="flex items-center justify-between border-b border-white/5 pb-1">
               <span>Scikit-learn</span>
-              <span class="text-cyan-400">High</span>
+              <span class="text-brand-400">High</span>
             </li>
             <li class="flex items-center justify-between border-b border-white/5 pb-1">
               <span>Isolation Forest</span>
-              <span class="text-cyan-400">High</span>
+              <span class="text-brand-400">High</span>
             </li>
             <li class="flex items-center justify-between">
               <span>OpenCV Vision</span>
-              <span class="text-cyan-400">Medium</span>
+              <span class="text-brand-400">Medium</span>
             </li>
           </ul>
         </div>
 
         <!-- Category 2 -->
-        <div class="rounded-2xl glass-panel p-6 border border-white/10 space-y-4">
+        <div class="rounded-2xl ai-card p-6 border border-white/10 space-y-4">
           <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
             <i data-lucide="bot" class="w-5 h-5"></i>
           </div>
@@ -1197,7 +1142,7 @@
         </div>
 
         <!-- Category 3 -->
-        <div class="rounded-2xl glass-panel p-6 border border-white/10 space-y-4">
+        <div class="rounded-2xl ai-card p-6 border border-white/10 space-y-4">
           <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
             <i data-lucide="cpu" class="w-5 h-5"></i>
           </div>
@@ -1227,7 +1172,7 @@
         </div>
 
         <!-- Category 4 -->
-        <div class="rounded-2xl glass-panel p-6 border border-white/10 space-y-4">
+        <div class="rounded-2xl ai-card p-6 border border-white/10 space-y-4">
           <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
             <i data-lucide="server" class="w-5 h-5"></i>
           </div>
@@ -1263,10 +1208,10 @@
 
   <!-- ======================== CONTACT SECTION ======================== -->
   <section id="contact" class="py-24 px-6 border-t border-white/5 relative z-10">
-    <div class="max-w-4xl mx-auto space-y-12 reveal-item">
+    <div class="max-w-4xl mx-auto space-y-12">
       
       <div class="text-center space-y-3">
-        <span class="text-xs font-mono font-semibold text-cyan-400 uppercase tracking-widest">// Direct Channel</span>
+        <span class="text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest">// Direct Channel</span>
         <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Initiate Communication</h2>
         <p class="text-slate-400 text-sm sm:text-base max-w-lg mx-auto">
           Currently open to full-time Machine Learning Engineer, Industrial AI, and Agentic Systems opportunities.
@@ -1277,21 +1222,21 @@
         
         <!-- Left Contact Info -->
         <div class="md:col-span-5 space-y-4">
-          <div class="rounded-2xl glass-panel p-6 border border-white/10 space-y-4">
+          <div class="rounded-2xl ai-card p-6 border border-white/10 space-y-4">
             <h3 class="text-sm font-bold font-mono text-white uppercase tracking-wider">Direct Contacts</h3>
             
-            <a href="mailto:Kulal123lipika@gmail.com" class="flex items-center gap-3 text-xs font-mono text-slate-300 hover:text-cyan-400 transition p-2 rounded-lg hover:bg-white/5">
-              <i data-lucide="mail" class="w-4 h-4 text-cyan-400"></i>
+            <a href="mailto:Kulal123lipika@gmail.com" class="flex items-center gap-3 text-xs font-mono text-slate-300 hover:text-brand-400 transition p-2 rounded-lg hover:bg-white/5">
+              <i data-lucide="mail" class="w-4 h-4 text-brand-400"></i>
               <span>Kulal123lipika@gmail.com</span>
             </a>
 
-            <a href="https://linkedin.com/in/lipika2004" target="_blank" class="flex items-center gap-3 text-xs font-mono text-slate-300 hover:text-cyan-400 transition p-2 rounded-lg hover:bg-white/5">
-              <i data-lucide="linkedin" class="w-4 h-4 text-cyan-400"></i>
+            <a href="https://linkedin.com/in/lipika2004" target="_blank" class="flex items-center gap-3 text-xs font-mono text-slate-300 hover:text-brand-400 transition p-2 rounded-lg hover:bg-white/5">
+              <i data-lucide="linkedin" class="w-4 h-4 text-brand-400"></i>
               <span>linkedin.com/in/lipika2004</span>
             </a>
 
-            <a href="https://github.com/B-LIPIKA" target="_blank" class="flex items-center gap-3 text-xs font-mono text-slate-300 hover:text-cyan-400 transition p-2 rounded-lg hover:bg-white/5">
-              <i data-lucide="github" class="w-4 h-4 text-cyan-400"></i>
+            <a href="https://github.com/B-LIPIKA" target="_blank" class="flex items-center gap-3 text-xs font-mono text-slate-300 hover:text-brand-400 transition p-2 rounded-lg hover:bg-white/5">
+              <i data-lucide="github" class="w-4 h-4 text-brand-400"></i>
               <span>github.com/B-LIPIKA</span>
             </a>
 
@@ -1301,9 +1246,9 @@
             </div>
           </div>
 
-          <div class="rounded-2xl glass-panel p-6 border border-cyan-500/20 bg-cyan-950/20 space-y-2">
-            <span class="text-xs font-mono font-bold text-cyan-300 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+          <div class="rounded-2xl ai-card p-6 border border-brand-500/20 bg-brand-950/20 space-y-2">
+            <span class="text-xs font-mono font-bold text-brand-300 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span>
               <span>Available for Hiring</span>
             </span>
             <p class="text-xs text-slate-400 leading-relaxed">
@@ -1314,29 +1259,29 @@
 
         <!-- Right EmailJS Contact Form -->
         <div class="md:col-span-7">
-          <form id="contact-form" class="rounded-2xl glass-panel p-6 sm:p-8 border border-white/10 space-y-4">
+          <form id="contact-form" class="rounded-2xl ai-card p-6 sm:p-8 border border-white/10 space-y-4">
             
             <div class="space-y-1.5">
               <label for="user_name" class="block text-xs font-mono text-slate-400">YOUR NAME</label>
-              <input type="text" id="user_name" name="name" required placeholder="Dr. Alex Rivera" class="w-full px-4 py-3 rounded-xl bg-space-950 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 text-sm font-mono transition" />
+              <input type="text" id="user_name" name="name" required placeholder="Dr. Alex Rivera" class="w-full px-4 py-3 rounded-xl bg-space-950 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-brand-400 text-sm font-mono transition" />
             </div>
 
             <div class="space-y-1.5">
               <label for="user_email" class="block text-xs font-mono text-slate-400">YOUR EMAIL</label>
-              <input type="email" id="user_email" name="email" required placeholder="alex@tech-enterprise.com" class="w-full px-4 py-3 rounded-xl bg-space-950 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 text-sm font-mono transition" />
+              <input type="email" id="user_email" name="email" required placeholder="alex@tech-enterprise.com" class="w-full px-4 py-3 rounded-xl bg-space-950 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-brand-400 text-sm font-mono transition" />
             </div>
 
             <div class="space-y-1.5">
               <label for="user_subject" class="block text-xs font-mono text-slate-400">SUBJECT</label>
-              <input type="text" id="user_subject" name="subject" required placeholder="ML Engineering Opportunity / Collaboration" class="w-full px-4 py-3 rounded-xl bg-space-950 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 text-sm font-mono transition" />
+              <input type="text" id="user_subject" name="subject" required placeholder="ML Engineering Opportunity / Collaboration" class="w-full px-4 py-3 rounded-xl bg-space-950 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-brand-400 text-sm font-mono transition" />
             </div>
 
             <div class="space-y-1.5">
               <label for="user_message" class="block text-xs font-mono text-slate-400">MESSAGE</label>
-              <textarea id="user_message" name="message" rows="4" required placeholder="Hello Lipika, we reviewed your IBM Granite TTM-R3 and patent work..." class="w-full px-4 py-3 rounded-xl bg-space-950 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-400 text-sm font-mono transition resize-none"></textarea>
+              <textarea id="user_message" name="message" rows="4" required placeholder="Hello Lipika, we reviewed your IBM Granite TTM-R3 and patent work..." class="w-full px-4 py-3 rounded-xl bg-space-950 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-brand-400 text-sm font-mono transition resize-none"></textarea>
             </div>
 
-            <button type="submit" id="submit-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-slate-950 font-bold text-sm font-mono tracking-wider transition shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2">
+            <button type="submit" id="submit-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-500 to-indigo-600 hover:from-brand-400 hover:to-indigo-500 text-slate-950 font-bold text-sm font-mono tracking-wider transition shadow-lg shadow-brand-500/20 flex items-center justify-center gap-2">
               <i data-lucide="send" class="w-4 h-4"></i>
               <span>TRANSMIT DISPATCH</span>
             </button>
@@ -1355,13 +1300,13 @@
   <footer class="py-10 px-6 border-t border-white/5 bg-space-950 text-slate-500 text-xs font-mono relative z-10">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+        <span class="w-2 h-2 rounded-full bg-brand-400"></span>
         <span class="text-slate-400">© 2026 B. Lipika • Indian Utility Patent #202541061616</span>
       </div>
       <div class="flex items-center gap-6 text-slate-400">
-        <a href="#home" class="hover:text-cyan-400 transition">Return to Top ↑</a>
-        <a href="https://github.com/B-LIPIKA" target="_blank" class="hover:text-cyan-400 transition">GitHub Profile</a>
-        <a href="Lipika_B_Resume.pdf" download class="hover:text-cyan-400 transition">Resume PDF</a>
+        <a href="#home" class="hover:text-brand-400 transition">Return to Top ↑</a>
+        <a href="https://github.com/B-LIPIKA" target="_blank" class="hover:text-brand-400 transition">GitHub Profile</a>
+        <a href="Lipika_B_Resume.pdf" download class="hover:text-brand-400 transition">Resume PDF</a>
       </div>
     </div>
   </footer>
@@ -1369,11 +1314,11 @@
   <!-- ======================== BLUEPRINT MODALS (<dialog closedby="any">) ======================== -->
   
   <!-- Blueprint 1: TTM-R3 -->
-  <dialog id="modal-ttm" closedby="any" class="rounded-3xl glass-panel p-6 sm:p-8 border border-cyan-500/40 text-slate-200 max-w-2xl w-full mx-auto my-auto shadow-2xl backdrop:bg-black/80">
+  <dialog id="modal-ttm" closedby="any" class="rounded-3xl ai-card p-6 sm:p-8 border border-brand-500/40 text-slate-200 max-w-2xl w-full mx-auto my-auto shadow-2xl backdrop:bg-black/80">
     <div class="space-y-6">
       <div class="flex items-center justify-between border-b border-white/10 pb-4">
         <div>
-          <span class="text-xs font-mono text-cyan-400">// System Architecture Blueprint</span>
+          <span class="text-xs font-mono text-brand-400">// System Architecture Blueprint</span>
           <h3 class="text-xl font-bold text-white">IBM Granite TTM-R3 Inflow Pipeline</h3>
         </div>
         <button class="modal-close p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white">
@@ -1383,14 +1328,14 @@
 
       <div class="space-y-4 text-xs font-mono">
         <div class="p-4 rounded-xl bg-space-950 border border-white/5 space-y-2">
-          <span class="text-cyan-400 font-bold">1. DATA INGESTION & ROLLING PATCH MIXING:</span>
+          <span class="text-brand-400 font-bold">1. DATA INGESTION & ROLLING PATCH MIXING:</span>
           <p class="text-slate-400">
             Raw industrial telemetry → 15-minute rolling window patches → RevIN Instance Normalization → Multi-layer Perceptron Mixer Blocks.
           </p>
         </div>
 
         <div class="p-4 rounded-xl bg-space-950 border border-white/5 space-y-2">
-          <span class="text-cyan-400 font-bold">2. BENCHMARK COMPARISON MATRIX:</span>
+          <span class="text-brand-400 font-bold">2. BENCHMARK COMPARISON MATRIX:</span>
           <p class="text-slate-400">
             • IBM Granite TTM-R3: <strong>MAE 0.142</strong> (61.8% improvement)<br />
             • DLinear Baseline: <strong>MAE 0.372</strong><br />
@@ -1399,7 +1344,7 @@
         </div>
 
         <div class="p-4 rounded-xl bg-space-950 border border-white/5 space-y-2">
-          <span class="text-cyan-400 font-bold">3. PRODUCTION SERVICE LATENCY:</span>
+          <span class="text-brand-400 font-bold">3. PRODUCTION SERVICE LATENCY:</span>
           <p class="text-slate-400">
             Packaged as an asynchronous FastAPI microservice with sub-15ms rolling inference and automated anomaly thresholds.
           </p>
@@ -1407,7 +1352,7 @@
       </div>
 
       <div class="pt-2 flex justify-end">
-        <a href="https://github.com/B-LIPIKA/Industrial-Time-Series-Forecasting-TTM-R3" target="_blank" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs font-mono">
+        <a href="https://github.com/B-LIPIKA/Industrial-Time-Series-Forecasting-TTM-R3" target="_blank" class="px-4 py-2 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-xs font-mono">
           Go to Repository →
         </a>
       </div>
@@ -1415,7 +1360,7 @@
   </dialog>
 
   <!-- Blueprint 2: LangGraph Agent -->
-  <dialog id="modal-agent" closedby="any" class="rounded-3xl glass-panel p-6 sm:p-8 border border-indigo-500/40 text-slate-200 max-w-2xl w-full mx-auto my-auto shadow-2xl backdrop:bg-black/80">
+  <dialog id="modal-agent" closedby="any" class="rounded-3xl ai-card p-6 sm:p-8 border border-indigo-500/40 text-slate-200 max-w-2xl w-full mx-auto my-auto shadow-2xl backdrop:bg-black/80">
     <div class="space-y-6">
       <div class="flex items-center justify-between border-b border-white/10 pb-4">
         <div>
@@ -1452,7 +1397,7 @@
   </dialog>
 
   <!-- Blueprint 3: AI Data Scientist Agent -->
-  <dialog id="modal-eda" closedby="any" class="rounded-3xl glass-panel p-6 sm:p-8 border border-emerald-500/40 text-slate-200 max-w-2xl w-full mx-auto my-auto shadow-2xl backdrop:bg-black/80">
+  <dialog id="modal-eda" closedby="any" class="rounded-3xl ai-card p-6 sm:p-8 border border-emerald-500/40 text-slate-200 max-w-2xl w-full mx-auto my-auto shadow-2xl backdrop:bg-black/80">
     <div class="space-y-6">
       <div class="flex items-center justify-between border-b border-white/10 pb-4">
         <div>
@@ -1485,7 +1430,7 @@
   </dialog>
 
   <!-- Blueprint 4: Vibration Anomaly Detection -->
-  <dialog id="modal-vibration" closedby="any" class="rounded-3xl glass-panel p-6 sm:p-8 border border-rose-500/40 text-slate-200 max-w-2xl w-full mx-auto my-auto shadow-2xl backdrop:bg-black/80">
+  <dialog id="modal-vibration" closedby="any" class="rounded-3xl ai-card p-6 sm:p-8 border border-rose-500/40 text-slate-200 max-w-2xl w-full mx-auto my-auto shadow-2xl backdrop:bg-black/80">
     <div class="space-y-6">
       <div class="flex items-center justify-between border-b border-white/10 pb-4">
         <div>
@@ -1524,24 +1469,46 @@
     </div>
   </dialog>
 
-  <!-- ======================== INTERACTIVE JAVASCRIPT ======================== -->
+  <!-- ======================== INTERACTIVE JAVASCRIPT & MOTION ENGINE ======================== -->
   <script>
     // Initialize Lucide Icons
     lucide.createIcons();
 
-    // Profile Avatar Fallback Helper
-    function showAvatarFallback() {
-      const img = document.getElementById('avatar-image');
-      const vec = document.getElementById('avatar-vector-fallback');
-      if (img) img.classList.add('hidden');
-      if (vec) vec.classList.remove('hidden');
+    // =========================================================================
+    // FRAMER MOTION VANILLA INTEGRATION FOR BUTTERY SMOOTH SPRING PHYSICS
+    // =========================================================================
+    function runFramerMotionSprings() {
+      if (window.Motion && window.Motion.animate) {
+        // Animate Hero Badges
+        window.Motion.animate(".motion-hero-badge", 
+          { opacity: [0, 1], y: [20, 0] }, 
+          { duration: 0.8, easing: [0.16, 1, 0.3, 1] }
+        );
+
+        // Animate Profile Card with Smooth Spring
+        window.Motion.animate(".motion-profile-card", 
+          { opacity: [0, 1], scale: [0.93, 1], y: [30, 0] }, 
+          { duration: 1.0, easing: [0.16, 1, 0.3, 1] }
+        );
+
+        // Animate Hero Info Column with Staggered Easing
+        window.Motion.animate(".motion-hero-info", 
+          { opacity: [0, 1], x: [25, 0] }, 
+          { duration: 0.9, delay: 0.2, easing: [0.16, 1, 0.3, 1] }
+        );
+
+        // Animate Command Center Terminal
+        window.Motion.animate(".motion-command-center", 
+          { opacity: [0, 1], y: [35, 0] }, 
+          { duration: 0.9, delay: 0.4, easing: [0.16, 1, 0.3, 1] }
+        );
+      }
     }
 
     // Avatar File Input Live Preview Handler
     const uploadTrigger = document.getElementById('upload-avatar-trigger');
     const avatarInput = document.getElementById('avatar-file-input');
     const avatarImg = document.getElementById('avatar-image');
-    const avatarVector = document.getElementById('avatar-vector-fallback');
 
     if (uploadTrigger && avatarInput) {
       uploadTrigger.addEventListener('click', () => avatarInput.click());
@@ -1550,8 +1517,6 @@
           const reader = new FileReader();
           reader.onload = function(evt) {
             avatarImg.src = evt.target.result;
-            avatarImg.classList.remove('hidden');
-            avatarVector.classList.add('hidden');
           };
           reader.readAsDataURL(this.files[0]);
         }
@@ -1570,19 +1535,8 @@
       });
     }
 
-    // Scroll Reveal Observer
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal-item').forEach(el => revealObserver.observe(el));
-
     // =========================================================================
-    // 🎬 HIGH-PERFORMANCE PROCEDURAL ROBOT & THUNDER CANVAS ENGINE
+    // 🎬 HIGH-TECH AI SENTINEL DRONE & THUNDER CANVAS ENGINE
     // =========================================================================
     const introOverlay = document.getElementById('intro-overlay');
     const introCanvas = document.getElementById('intro-canvas');
@@ -1600,7 +1554,7 @@
     let introAnimId = null;
     let soundEnabled = true;
 
-    // Web Audio Synthesizer for Zero-Asset SFX
+    // Web Audio Synthesizer for Clean Cyber SFX
     let audioCtx = null;
     function initAudio() {
       if (!audioCtx) {
@@ -1611,15 +1565,32 @@
       }
     }
 
+    function playDroneChime() {
+      if (!soundEnabled || !audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3);
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.6);
+      } catch (e) {}
+    }
+
     function playCoinPing() {
       if (!soundEnabled || !audioCtx) return;
       try {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(987.77, audioCtx.currentTime); // B5 note
-        osc.frequency.exponentialRampToValueAtTime(1318.51, audioCtx.currentTime + 0.1); // E6
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        osc.frequency.setValueAtTime(1046.50, audioCtx.currentTime); // C6
+        osc.frequency.exponentialRampToValueAtTime(1567.98, audioCtx.currentTime + 0.12); // G6
+        gain.gain.setValueAtTime(0.35, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
@@ -1631,7 +1602,6 @@
     function playThunderBoom() {
       if (!soundEnabled || !audioCtx) return;
       try {
-        // Synthesize rolling thunder crash with white noise and low-pass filter
         const bufferSize = audioCtx.sampleRate * 2.5;
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const data = buffer.getChannelData(0);
@@ -1644,18 +1614,18 @@
 
         const filter = audioCtx.createBiquadFilter();
         filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(800, audioCtx.currentTime);
-        filter.frequency.exponentialRampToValueAtTime(80, audioCtx.currentTime + 2.0);
+        filter.frequency.setValueAtTime(850, audioCtx.currentTime);
+        filter.frequency.exponentialRampToValueAtTime(70, audioCtx.currentTime + 2.0);
 
         const gain = audioCtx.createGain();
-        gain.gain.setValueAtTime(0.8, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 2.2);
+        gain.gain.setValueAtTime(0.9, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 2.3);
 
         noise.connect(filter);
         filter.connect(gain);
         gain.connect(audioCtx.destination);
         noise.start();
-        noise.stop(audioCtx.currentTime + 2.2);
+        noise.stop(audioCtx.currentTime + 2.3);
       } catch (e) {}
     }
 
@@ -1666,18 +1636,21 @@
     window.addEventListener('resize', resizeIntroCanvas);
     resizeIntroCanvas();
 
-    // Intro Animation State Machine
-    let simState = {
-      phase: 'WALK', // 'WALK', 'PITCH', 'FLY', 'THUNDER', 'COMPLETE'
+    // Intro Animation State Machine (Sleek Floating AI Sentinel Drone)
+    let droneState = {
+      phase: 'FLY_IN', // 'FLY_IN', 'HOVER_PITCH', 'COIN_ASCEND', 'THUNDER_BURST', 'DONE'
       timer: 0,
-      robotX: -80,
+      x: -120,
+      y: 0,
       targetX: 0,
-      armAngle: 0,
+      targetY: 0,
+      ringAngle: 0,
+      pitchArm: 0,
       coin: { x: 0, y: 0, vx: 0, vy: 0, angle: 0, active: false, particles: [] },
       lightning: [],
       shockwave: { radius: 0, alpha: 0 },
       screenShake: { x: 0, y: 0 },
-      floorY: 0
+      thrusterParticles: []
     };
 
     function startIntroSequence() {
@@ -1688,22 +1661,26 @@
       introOverlay.classList.remove('hidden');
       resizeIntroCanvas();
 
-      simState = {
-        phase: 'WALK',
+      droneState = {
+        phase: 'FLY_IN',
         timer: 0,
-        robotX: -100,
+        x: -120,
+        y: introHeight * 0.48,
         targetX: introWidth * 0.48,
-        armAngle: 0,
+        targetY: introHeight * 0.48,
+        ringAngle: 0,
+        pitchArm: 0,
         coin: { x: 0, y: 0, vx: 0, vy: 0, angle: 0, active: false, particles: [] },
         lightning: [],
         shockwave: { radius: 0, alpha: 0 },
         screenShake: { x: 0, y: 0 },
-        floorY: introHeight * 0.72
+        thrusterParticles: []
       };
 
-      introCaption.textContent = "// AI ROBOT ENTERING STAGE...";
+      introCaption.textContent = "// AI AUTONOMOUS SENTINEL APPROACHING DOCK...";
       introCaption.style.opacity = '1';
       thunderFlash.style.opacity = '0';
+      playDroneChime();
 
       introLoop();
     }
@@ -1714,6 +1691,7 @@
       introOverlay.style.pointerEvents = 'none';
       setTimeout(() => {
         introOverlay.classList.add('hidden');
+        runFramerMotionSprings();
       }, 1000);
     }
 
@@ -1756,48 +1734,64 @@
       ictx.clearRect(0, 0, introWidth, introHeight);
 
       // Screen Shake during Thunder
-      if (simState.screenShake.x !== 0 || simState.screenShake.y !== 0) {
-        ictx.translate(simState.screenShake.x, simState.screenShake.y);
-        simState.screenShake.x *= 0.85;
-        simState.screenShake.y *= 0.85;
-        if (Math.abs(simState.screenShake.x) < 0.5) simState.screenShake.x = 0;
-        if (Math.abs(simState.screenShake.y) < 0.5) simState.screenShake.y = 0;
+      if (droneState.screenShake.x !== 0 || droneState.screenShake.y !== 0) {
+        ictx.translate(droneState.screenShake.x, droneState.screenShake.y);
+        droneState.screenShake.x *= 0.85;
+        droneState.screenShake.y *= 0.85;
+        if (Math.abs(droneState.screenShake.x) < 0.5) droneState.screenShake.x = 0;
+        if (Math.abs(droneState.screenShake.y) < 0.5) droneState.screenShake.y = 0;
       }
 
-      // 1. Draw Sci-Fi Perspective Grid Floor
+      // 1. Draw Geometric Sci-Fi Grid Floor
       drawPerspectiveGrid();
 
       // 2. Logic Update by Phase
-      simState.timer++;
+      droneState.timer++;
+      droneState.ringAngle += 0.05;
 
-      if (simState.phase === 'WALK') {
-        simState.robotX += 3.8;
-        if (simState.robotX >= simState.targetX) {
-          simState.robotX = simState.targetX;
-          simState.phase = 'PITCH';
-          simState.timer = 0;
-          introCaption.textContent = "// INITIALIZING COIN PITCH SEQUENCE...";
+      // Floating sine-wave levitation
+      const hoverOffset = Math.sin(droneState.timer * 0.08) * 8;
+      const currentY = droneState.y + hoverOffset;
+
+      if (droneState.phase === 'FLY_IN') {
+        droneState.x += (droneState.targetX - droneState.x) * 0.045 + 1.2;
+        
+        // Emit blue plasma thruster particles
+        droneState.thrusterParticles.push({
+          x: droneState.x - 30,
+          y: currentY + 12 + (Math.random() - 0.5) * 8,
+          vx: -(Math.random() * 4 + 2),
+          vy: (Math.random() - 0.5) * 2,
+          alpha: 1,
+          size: Math.random() * 3 + 2
+        });
+
+        if (Math.abs(droneState.x - droneState.targetX) < 8) {
+          droneState.x = droneState.targetX;
+          droneState.phase = 'HOVER_PITCH';
+          droneState.timer = 0;
+          introCaption.textContent = "// INITIALIZING MAGNETIC COIN CATAPULT...";
         }
-      } else if (simState.phase === 'PITCH') {
-        // Arm winds up and pitches upward
-        simState.armAngle = Math.min(Math.PI * 0.65, simState.timer * 0.09);
-        if (simState.timer >= 24) {
-          simState.phase = 'FLY';
-          simState.timer = 0;
-          simState.coin.active = true;
-          simState.coin.x = simState.robotX + 42;
-          simState.coin.y = simState.floorY - 145;
-          simState.coin.vx = 0.6;
-          simState.coin.vy = -17.5; // High vertical toss
+      } else if (droneState.phase === 'HOVER_PITCH') {
+        droneState.pitchArm = Math.min(1.0, droneState.timer * 0.06);
+
+        if (droneState.timer >= 22) {
+          droneState.phase = 'COIN_ASCEND';
+          droneState.timer = 0;
+          droneState.coin.active = true;
+          droneState.coin.x = droneState.x + 36;
+          droneState.coin.y = currentY - 24;
+          droneState.coin.vx = 0.5;
+          droneState.coin.vy = -18.5; // High vertical toss
           playCoinPing();
           introCaption.textContent = "// APEX TELEMETRY ASCENDING...";
         }
-      } else if (simState.phase === 'FLY') {
-        // Coin physics in flight
-        const c = simState.coin;
+      } else if (droneState.phase === 'COIN_ASCEND') {
+        // Coin flight
+        const c = droneState.coin;
         c.x += c.vx;
         c.y += c.vy;
-        c.vy += 0.38; // Gravity
+        c.vy += 0.40; // Gravity
         c.angle += 0.28;
 
         // Particle sparks behind coin
@@ -1811,49 +1805,65 @@
 
         // Trigger Thunder when coin reaches Apex
         if (c.vy >= -0.8) {
-          simState.phase = 'THUNDER';
-          simState.timer = 0;
-          simState.shockwave = { radius: 10, alpha: 1 };
-          simState.screenShake = { x: 16, y: -16 };
+          droneState.phase = 'THUNDER_BURST';
+          droneState.timer = 0;
+          droneState.shockwave = { radius: 10, alpha: 1 };
+          droneState.screenShake = { x: 18, y: -18 };
           playThunderBoom();
 
           // Flash Screen Blinding White
           thunderFlash.style.opacity = '1';
-          setTimeout(() => { thunderFlash.style.opacity = '0.4'; }, 80);
+          setTimeout(() => { thunderFlash.style.opacity = '0.35'; }, 80);
           setTimeout(() => { thunderFlash.style.opacity = '0'; }, 550);
 
           introCaption.textContent = "⚡ SYSTEM ENERGIZED // WELCOME TO B. LIPIKA'S PORTFOLIO";
 
-          // Generate dramatic lightning bolts branching across screen
-          simState.lightning = [];
-          for (let b = 0; b < 10; b++) {
-            const angle = (Math.PI * 2 / 10) * b + (Math.random() - 0.5) * 0.4;
-            const dist = Math.max(introWidth, introHeight) * 0.8;
+          // Generate branching lightning bolts across entire screen
+          droneState.lightning = [];
+          for (let b = 0; b < 12; b++) {
+            const angle = (Math.PI * 2 / 12) * b + (Math.random() - 0.5) * 0.35;
+            const dist = Math.max(introWidth, introHeight) * 0.9;
             const endX = c.x + Math.cos(angle) * dist;
             const endY = c.y + Math.sin(angle) * dist;
-            simState.lightning.push(...createLightningBranch(c.x, c.y, endX, endY, 70, 4));
+            droneState.lightning.push(...createLightningBranch(c.x, c.y, endX, endY, 75, 4));
           }
         }
-      } else if (simState.phase === 'THUNDER') {
-        simState.shockwave.radius += 26;
-        simState.shockwave.alpha *= 0.92;
+      } else if (droneState.phase === 'THUNDER_BURST') {
+        droneState.shockwave.radius += 28;
+        droneState.shockwave.alpha *= 0.92;
 
-        if (simState.timer >= 50) {
-          simState.phase = 'COMPLETE';
+        if (droneState.timer >= 52) {
+          droneState.phase = 'DONE';
           setTimeout(finishIntroSequence, 200);
         }
       }
 
-      // 3. Render Robot
-      drawRobot(simState.robotX, simState.floorY, simState.phase, simState.timer);
+      // Update thruster particles
+      for (let i = droneState.thrusterParticles.length - 1; i >= 0; i--) {
+        const tp = droneState.thrusterParticles[i];
+        tp.x += tp.vx;
+        tp.y += tp.vy;
+        tp.alpha -= 0.04;
+        if (tp.alpha <= 0) {
+          droneState.thrusterParticles.splice(i, 1);
+          continue;
+        }
+        ictx.fillStyle = `rgba(14, 165, 233, ${tp.alpha})`;
+        ictx.beginPath();
+        ictx.arc(tp.x, tp.y, tp.size, 0, Math.PI * 2);
+        ictx.fill();
+      }
+
+      // 3. Render Sleek AI Sentinel Drone
+      drawAISentinelDrone(droneState.x, currentY, droneState.ringAngle, droneState.pitchArm);
 
       // 4. Render Coin & Trail
-      if (simState.coin.active) {
-        drawCoin(simState.coin);
+      if (droneState.coin.active) {
+        drawCoin(droneState.coin);
       }
 
       // 5. Render Lightning Bolts & Shockwaves
-      if (simState.phase === 'THUNDER') {
+      if (droneState.phase === 'THUNDER_BURST') {
         drawLightningEffects();
       }
 
@@ -1861,13 +1871,13 @@
       introAnimId = requestAnimationFrame(introLoop);
     }
 
-    // Grid Floor Renderer
+    // Perspective Grid Floor
     function drawPerspectiveGrid() {
-      const fy = simState.floorY;
-      ictx.strokeStyle = 'rgba(6, 182, 212, 0.15)';
+      const fy = introHeight * 0.75;
+      ictx.strokeStyle = 'rgba(14, 165, 233, 0.12)';
       ictx.lineWidth = 1;
 
-      // Horizontal lines receding into distance
+      // Horizontal lines
       for (let y = fy; y <= introHeight; y += (y - fy) * 0.35 + 8) {
         ictx.beginPath();
         ictx.moveTo(0, y);
@@ -1875,153 +1885,96 @@
         ictx.stroke();
       }
 
-      // Perspective lines converging toward center
+      // Perspective convergence lines
       const centerX = introWidth * 0.5;
-      for (let x = -introWidth; x <= introWidth * 2; x += 90) {
+      for (let x = -introWidth; x <= introWidth * 2; x += 100) {
         ictx.beginPath();
         ictx.moveTo(x, introHeight);
-        ictx.lineTo(centerX + (x - centerX) * 0.15, fy);
+        ictx.lineTo(centerX + (x - centerX) * 0.12, fy);
         ictx.stroke();
       }
-
-      // Horizon line
-      ictx.strokeStyle = 'rgba(99, 102, 241, 0.4)';
-      ictx.beginPath();
-      ictx.moveTo(0, fy);
-      ictx.lineTo(introWidth, fy);
-      ictx.stroke();
     }
 
-    // Procedural Humanoid AI Robot
-    function drawRobot(x, groundY, phase, timer) {
-      const walkCycle = phase === 'WALK' ? x * 0.09 : 0;
-      const bob = Math.abs(Math.sin(walkCycle * 2)) * 5;
-      const robotY = groundY - 140 - (phase === 'WALK' ? bob : 0);
-
+    // Procedural Sleek AI Sentinel Drone (Futuristic & Clean)
+    function drawAISentinelDrone(x, y, ringAngle, armProgress) {
       ictx.save();
-      ictx.translate(x, robotY);
+      ictx.translate(x, y);
 
-      // Drop shadow on ground
-      ictx.fillStyle = 'rgba(6, 182, 212, 0.25)';
+      // Shadow projection on ground
+      const groundDist = (introHeight * 0.75) - y;
+      ictx.fillStyle = 'rgba(14, 165, 233, 0.2)';
       ictx.beginPath();
-      ictx.ellipse(0, groundY - robotY, 36, 10, 0, 0, Math.PI * 2);
+      ictx.ellipse(0, groundDist, 45, 12, 0, 0, Math.PI * 2);
       ictx.fill();
 
-      // Back Arm
+      // Outer Levitating Anti-Gravity Rings
       ictx.save();
-      ictx.translate(-14, 30);
-      ictx.rotate(phase === 'WALK' ? -Math.sin(walkCycle) * 0.4 : 0.1);
-      drawLimb(10, 36, '#1e293b', '#06b6d4');
-      ictx.restore();
-
-      // Back Leg
-      ictx.save();
-      ictx.translate(-10, 75);
-      ictx.rotate(phase === 'WALK' ? -Math.sin(walkCycle) * 0.45 : 0.05);
-      drawLeg(45, '#0f172a');
-      ictx.restore();
-
-      // Front Leg
-      ictx.save();
-      ictx.translate(10, 75);
-      ictx.rotate(phase === 'WALK' ? Math.sin(walkCycle) * 0.45 : -0.05);
-      drawLeg(45, '#1e293b');
-      ictx.restore();
-
-      // Torso / Chassis
-      ictx.fillStyle = '#0f172a';
-      ictx.strokeStyle = '#38bdf8';
-      ictx.lineWidth = 2;
+      ictx.rotate(ringAngle);
+      ictx.strokeStyle = 'rgba(56, 189, 248, 0.6)';
+      ictx.lineWidth = 2.5;
+      ictx.setLineDash([14, 6]);
       ictx.beginPath();
-      ictx.roundRect(-20, 20, 40, 56, 8);
-      ictx.fill();
+      ictx.arc(0, 0, 46, 0, Math.PI * 2);
       ictx.stroke();
+      ictx.restore();
 
-      // Glowing Arc Reactor Power Core
-      ictx.fillStyle = '#22d3ee';
-      ictx.shadowColor = '#06b6d4';
-      ictx.shadowBlur = 15;
-      ictx.beginPath();
-      ictx.arc(0, 46, 8, 0, Math.PI * 2);
-      ictx.fill();
-      ictx.shadowBlur = 0;
-
-      // Head & Helmet
-      ictx.fillStyle = '#1e293b';
-      ictx.strokeStyle = '#38bdf8';
-      ictx.lineWidth = 2;
-      ictx.beginPath();
-      ictx.roundRect(-16, -14, 32, 28, 6);
-      ictx.fill();
-      ictx.stroke();
-
-      // Glowing Cyan Visor Slit
-      ictx.fillStyle = '#38bdf8';
-      ictx.shadowColor = '#38bdf8';
-      ictx.shadowBlur = 12;
-      ictx.fillRect(-11, -3, 22, 6);
-      ictx.shadowBlur = 0;
-
-      // Antenna
-      ictx.strokeStyle = '#38bdf8';
-      ictx.beginPath();
-      ictx.moveTo(0, -14);
-      ictx.lineTo(0, -24);
-      ictx.stroke();
-      ictx.fillStyle = '#06b6d4';
-      ictx.beginPath();
-      ictx.arc(0, -24, 3, 0, Math.PI * 2);
-      ictx.fill();
-
-      // Front Arm (Pitches the coin)
+      // Inner Counter-Rotating Ring
       ictx.save();
-      ictx.translate(14, 30);
-      if (phase === 'PITCH') {
-        ictx.rotate(-simState.armAngle);
-      } else if (phase === 'FLY' || phase === 'THUNDER') {
-        ictx.rotate(-Math.PI * 0.65);
-      } else {
-        ictx.rotate(Math.sin(walkCycle) * 0.4);
-      }
-      drawLimb(10, 38, '#334155', '#22d3ee');
-      ictx.restore();
-
-      ictx.restore();
-    }
-
-    function drawLimb(w, h, color, jointColor) {
-      ictx.fillStyle = color;
-      ictx.strokeStyle = jointColor;
+      ictx.rotate(-ringAngle * 1.4);
+      ictx.strokeStyle = 'rgba(129, 140, 248, 0.6)';
       ictx.lineWidth = 1.5;
       ictx.beginPath();
-      ictx.roundRect(-w/2, 0, w, h, 4);
-      ictx.fill();
+      ictx.arc(0, 0, 38, 0, Math.PI * 2);
       ictx.stroke();
-      // Joint circle
-      ictx.fillStyle = jointColor;
-      ictx.beginPath();
-      ictx.arc(0, 0, 4, 0, Math.PI * 2);
-      ictx.fill();
-    }
+      ictx.restore();
 
-    function drawLeg(len, color) {
-      ictx.fillStyle = color;
+      // Main Drone Chassis (Curved Matte Aerodynamic Hull)
+      ictx.fillStyle = '#0a0f1d';
       ictx.strokeStyle = '#38bdf8';
-      ictx.lineWidth = 1.5;
+      ictx.lineWidth = 2.5;
       ictx.beginPath();
-      ictx.roundRect(-6, 0, 12, len, 4);
+      ictx.arc(0, 0, 28, 0, Math.PI * 2);
       ictx.fill();
       ictx.stroke();
-      // Foot
+
+      // Central Pulsating Optical AI Eye
       ictx.fillStyle = '#0284c7';
       ictx.beginPath();
-      ictx.roundRect(-4, len - 4, 18, 8, 3);
+      ictx.arc(0, 0, 14, 0, Math.PI * 2);
       ictx.fill();
+
+      // Glowing Cyan Pupil Core
+      ictx.fillStyle = '#38bdf8';
+      ictx.shadowColor = '#0ea5e9';
+      ictx.shadowBlur = 18;
+      ictx.beginPath();
+      ictx.arc(0, 0, 7, 0, Math.PI * 2);
+      ictx.fill();
+      ictx.shadowBlur = 0;
+
+      // Magnetic Deployable Catapult Arm
+      ictx.save();
+      ictx.translate(22, 4);
+      ictx.rotate(-armProgress * 1.2);
+      ictx.strokeStyle = '#38bdf8';
+      ictx.lineWidth = 3;
+      ictx.beginPath();
+      ictx.moveTo(0, 0);
+      ictx.lineTo(20, -10);
+      ictx.stroke();
+      // Arm tip magnetic pad
+      ictx.fillStyle = '#22d3ee';
+      ictx.beginPath();
+      ictx.arc(20, -10, 4, 0, Math.PI * 2);
+      ictx.fill();
+      ictx.restore();
+
+      ictx.restore();
     }
 
     // Glowing 3D Spinning Golden Coin
     function drawCoin(c) {
-      // 1. Render Particle Sparks
+      // 1. Particle Sparks
       for (let i = c.particles.length - 1; i >= 0; i--) {
         const p = c.particles[i];
         p.alpha -= 0.025;
@@ -2037,13 +1990,12 @@
       }
       ictx.globalAlpha = 1;
 
-      // 2. Render Metallic Coin
+      // 2. Metallic Coin
       ictx.save();
       ictx.translate(c.x, c.y);
       const scaleX = Math.cos(c.angle);
       ictx.scale(scaleX, 1);
 
-      // Outer Glow
       ictx.shadowColor = '#f59e0b';
       ictx.shadowBlur = 18;
 
@@ -2052,7 +2004,6 @@
       ictx.arc(0, 0, 14, 0, Math.PI * 2);
       ictx.fill();
 
-      // Rim & Symbol
       ictx.strokeStyle = '#d97706';
       ictx.lineWidth = 2;
       ictx.beginPath();
@@ -2068,38 +2019,35 @@
       ictx.restore();
     }
 
-    // Thunder & Lightning Shockwave Effects
+    // Thunder Shockwave & Electric Lightning
     function drawLightningEffects() {
-      // Shockwave ring
-      const sw = simState.shockwave;
+      const sw = droneState.shockwave;
       if (sw.alpha > 0.01) {
-        ictx.strokeStyle = `rgba(34, 211, 238, ${sw.alpha})`;
+        ictx.strokeStyle = `rgba(56, 189, 248, ${sw.alpha})`;
         ictx.lineWidth = 6;
         ictx.beginPath();
-        ictx.arc(simState.coin.x, simState.coin.y, sw.radius, 0, Math.PI * 2);
+        ictx.arc(droneState.coin.x, droneState.coin.y, sw.radius, 0, Math.PI * 2);
         ictx.stroke();
       }
 
-      // Electric Jagged Bolts
-      ictx.shadowColor = '#22d3ee';
+      ictx.shadowColor = '#38bdf8';
       ictx.shadowBlur = 22;
       ictx.strokeStyle = '#ffffff';
       ictx.lineWidth = 3.5;
       ictx.beginPath();
-      simState.lightning.forEach(([x1, y1, x2, y2]) => {
+      droneState.lightning.forEach(([x1, y1, x2, y2]) => {
         ictx.moveTo(x1, y1);
         ictx.lineTo(x2, y2);
       });
       ictx.stroke();
 
-      // Secondary colored electric halo
-      ictx.strokeStyle = '#6366f1';
+      ictx.strokeStyle = '#818cf8';
       ictx.lineWidth = 1.5;
       ictx.stroke();
       ictx.shadowBlur = 0;
     }
 
-    // Start intro sequence upon first page visit!
+    // Launch intro sequence on load
     window.addEventListener('DOMContentLoaded', () => {
       startIntroSequence();
     });
@@ -2110,11 +2058,11 @@
     const terminalData = {
       ttm: [
         { text: "$ python -m models.inference --checkpoint granite_ttm_r3.pt", color: "text-slate-400" },
-        { text: "[INFO] Loaded IBM Granite TTM-R3 Mixer (1024-step context, 96-step horizon)", color: "text-cyan-400" },
+        { text: "[INFO] Loaded IBM Granite TTM-R3 Mixer (1024-step context, 96-step horizon)", color: "text-brand-400" },
         { text: "[DATA] Processing sensor telemetry: batch_size=32, revin_norm=True", color: "text-slate-300" },
         { text: "[METRIC] DLinear Baseline MAE: 0.3721", color: "text-amber-400" },
         { text: "[METRIC] Granite TTM-R3 Fine-tuned MAE: 0.1420 (-61.8%)", color: "text-emerald-400 font-bold" },
-        { text: "[OK] Forecast written to stream. Rolling latency: 12.4ms", color: "text-cyan-300" }
+        { text: "[OK] Forecast written to stream. Rolling latency: 12.4ms", color: "text-brand-300" }
       ],
       agent: [
         { text: "$ python -m agents.orchestrator --query \"Analyze vibration spike on Pump #3\"", color: "text-slate-400" },
@@ -2127,7 +2075,7 @@
       iso: [
         { text: "$ python -m anomaly.detector --stream /data/vibration_2.3M.parquet", color: "text-slate-400" },
         { text: "[INGEST] 2,341,920 records loaded across 16-channel accelerometers", color: "text-slate-300" },
-        { text: "[ISOLATION_FOREST] Contamination=0.015, n_estimators=200", color: "text-cyan-400" },
+        { text: "[ISOLATION_FOREST] Contamination=0.015, n_estimators=200", color: "text-brand-400" },
         { text: "[ISO_10816] Evaluating Class II rigid foundation thresholds", color: "text-amber-400" },
         { text: "[ALERT] Channel #04: Anomaly Score 0.892 (Zone C/D boundary)", color: "text-rose-400 font-bold" },
         { text: "[EXPORT] 1-Click interactive Colab notebook ready.", color: "text-emerald-400" }
@@ -2144,18 +2092,18 @@
     function renderTerminal(mode) {
       activeTab = mode;
       [tabTtm, tabAgent, tabIso].forEach(t => {
-        t.classList.remove('border-cyan-400', 'text-cyan-300', 'bg-white/5');
+        t.classList.remove('border-brand-400', 'text-brand-300', 'bg-white/5');
         t.classList.add('border-transparent', 'text-slate-400');
       });
 
       if (mode === 'ttm') {
-        tabTtm.classList.add('border-cyan-400', 'text-cyan-300', 'bg-white/5');
+        tabTtm.classList.add('border-brand-400', 'text-brand-300', 'bg-white/5');
         tabTtm.classList.remove('border-transparent', 'text-slate-400');
       } else if (mode === 'agent') {
-        tabAgent.classList.add('border-cyan-400', 'text-cyan-300', 'bg-white/5');
+        tabAgent.classList.add('border-brand-400', 'text-brand-300', 'bg-white/5');
         tabAgent.classList.remove('border-transparent', 'text-slate-400');
       } else if (mode === 'iso') {
-        tabIso.classList.add('border-cyan-400', 'text-cyan-300', 'bg-white/5');
+        tabIso.classList.add('border-brand-400', 'text-brand-300', 'bg-white/5');
         tabIso.classList.remove('border-transparent', 'text-slate-400');
       }
 
@@ -2177,7 +2125,7 @@
     tabIso.addEventListener('click', () => renderTerminal('iso'));
     runSimBtn.addEventListener('click', () => renderTerminal(activeTab));
 
-    // Initial render of terminal
+    // Initial render
     renderTerminal('ttm');
 
     // =========================================================================
@@ -2213,7 +2161,7 @@
       statRms.textContent = "1.82 mm/s";
       statFreq.textContent = "24.5 Hz (1X RPM)";
       statHealth.textContent = "98.4% OPTIMAL";
-      statHealth.className = "text-base font-bold text-cyan-400";
+      statHealth.className = "text-base font-bold text-brand-400";
     });
 
     sensorAnomalyBtn.addEventListener('click', () => {
@@ -2282,7 +2230,7 @@
     requestAnimationFrame(drawWaveform);
 
     // =========================================================================
-    // PROJECT FILTERING
+    // PROJECT FILTERING (POWERED BY MOTION SPRING ANIMATIONS)
     // =========================================================================
     const filterTabs = document.querySelectorAll('.filter-tab');
     const projectCards = document.querySelectorAll('.project-card');
@@ -2290,10 +2238,10 @@
     filterTabs.forEach(tab => {
       tab.addEventListener('click', () => {
         filterTabs.forEach(t => {
-          t.classList.remove('bg-cyan-500', 'text-slate-950', 'font-bold');
+          t.classList.remove('bg-brand-500', 'text-slate-950', 'font-bold');
           t.classList.add('text-slate-400');
         });
-        tab.classList.add('bg-cyan-500', 'text-slate-950', 'font-bold');
+        tab.classList.add('bg-brand-500', 'text-slate-950', 'font-bold');
         tab.classList.remove('text-slate-400');
 
         const cat = tab.getAttribute('data-category');
@@ -2302,6 +2250,9 @@
           if (cat === 'all' || cardCat === cat) {
             card.classList.remove('is-hidden');
             card.classList.add('is-visible');
+            if (window.Motion && window.Motion.animate) {
+              window.Motion.animate(card, { opacity: [0, 1], scale: [0.95, 1] }, { duration: 0.4 });
+            }
           } else {
             card.classList.remove('is-visible');
             card.classList.add('is-hidden');
