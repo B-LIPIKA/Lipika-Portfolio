@@ -522,9 +522,14 @@
               <span>View Code</span>
               <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
             </a>
-            <a href="https://colab.research.google.com/github/B-LIPIKA/Industrial-Vibration-Anomaly-Detection/blob/main/demo_notebook.ipynb" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-rose-950/80 border border-rose-700/60 text-rose-300 text-[11px] font-mono font-bold hover:bg-rose-900 transition">
-              <span>🚀 Launch Colab</span>
-            </a>
+            <div class="flex items-center gap-2">
+              <button class="blueprint-btn text-[11px] font-mono text-slate-400 hover:text-white" data-modal="modal-vibration">
+                [Blueprint]
+              </button>
+              <a href="https://colab.research.google.com/github/B-LIPIKA/Industrial-Vibration-Anomaly-Detection/blob/main/demo_notebook.ipynb" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-rose-950/80 border border-rose-700/60 text-rose-300 text-[11px] font-mono font-bold hover:bg-rose-900 transition">
+                <span>🚀 Colab</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -1283,6 +1288,46 @@
 
       <div class="pt-2 flex justify-end">
         <a href="https://github.com/B-LIPIKA/AI-Data-Scientist-Agent" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs font-mono">
+          Go to Repository →
+        </a>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Blueprint 4: Vibration Anomaly Detection -->
+  <dialog id="modal-vibration" closedby="any" class="rounded-3xl glass-panel p-6 sm:p-8 border border-rose-500/40 text-slate-200 max-w-2xl w-full mx-auto my-auto shadow-2xl backdrop:bg-black/80">
+    <div class="space-y-6">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <div>
+          <span class="text-xs font-mono text-rose-400">// System Architecture Blueprint</span>
+          <h3 class="text-xl font-bold text-white">Vibration Anomaly & ISO 10816 Architecture</h3>
+        </div>
+        <button class="modal-close p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs font-mono">
+        <div class="p-4 rounded-xl bg-space-950 border border-white/5 space-y-2">
+          <span class="text-rose-400 font-bold">1. 2.3M+ SENSOR STREAM PIPELINE:</span>
+          <p class="text-slate-400">
+            Ingests 16-channel accelerometer telemetry at 100 Hz in partitioned Parquet chunks, calculating rolling RMS velocity, kurtosis, and spectral crest factors.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-space-950 border border-white/5 space-y-2">
+          <span class="text-rose-400 font-bold">2. ISO 10816-3 CLASSIFICATION & LOCAL LLM:</span>
+          <p class="text-slate-400">
+            Automated boundary rules (Zone A/B: Good, Zone C: Warning, Zone D: Trip Alert). Integrates local Ollama models for human-readable root-cause diagnostic synthesis.
+          </p>
+        </div>
+      </div>
+
+      <div class="pt-2 flex justify-end gap-3">
+        <a href="https://colab.research.google.com/github/B-LIPIKA/Industrial-Vibration-Anomaly-Detection/blob/main/demo_notebook.ipynb" target="_blank" class="px-4 py-2 rounded-xl bg-rose-950 border border-rose-700 text-rose-300 font-bold text-xs font-mono">
+          Launch Colab Demo 🚀
+        </a>
+        <a href="https://github.com/B-LIPIKA/Industrial-Vibration-Anomaly-Detection" target="_blank" class="px-4 py-2 rounded-xl bg-rose-500 hover:bg-rose-400 text-slate-950 font-bold text-xs font-mono">
           Go to Repository →
         </a>
       </div>
