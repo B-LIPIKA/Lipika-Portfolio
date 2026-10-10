@@ -49,9 +49,14 @@ img{max-width:100%;display:block}
 .links a{padding:8px 14px;border-radius:99px;font-size:.92rem;color:var(--muted);transition:.25s}
 .links a:hover{color:var(--text);background:var(--accent-soft)}
 .icon-btn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);
-  background:var(--surface);transition:.3s var(--ease)}
-.icon-btn:hover{transform:rotate(18deg) scale(1.06);border-color:var(--accent)}
-.menu-btn{display:none}
+  background:var(--surface);color:var(--text);cursor:pointer;transition:border-color .25s var(--ease),background .25s var(--ease);transform:none!important;-webkit-tap-highlight-color:transparent}
+.icon-btn:hover,.icon-btn:focus{border-color:var(--accent);transform:none!important}
+.icon-btn:active{transform:scale(.95)!important}
+.menu-btn{display:none;transform:none!important}
+.menu-btn:hover,.menu-btn:focus,.menu-btn:active{transform:none!important;border-color:var(--accent)}
+.menu-btn.open{border-color:var(--accent);background:var(--accent-soft);transform:none!important}
+.menu-btn svg{display:block;transform:none!important;transition:none}
+
 
 /* buttons */
 .btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:99px;font-weight:600;font-size:.95rem;
