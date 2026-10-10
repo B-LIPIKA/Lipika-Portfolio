@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Industrial Inflow Forecasting · B. Lipika</title>
-<meta name="description" content="Fine-tuned IBM Granite TTM-R3 for 24-hour industrial inflow forecasting: 61.8% lower MAE than the best baseline, served with FastAPI at ~14 ms.">
+<title>Industrial Power Demand Forecasting · B. Lipika</title>
+<meta name="description" content="Fine-tuned IBM Granite TTM-R3 for 24-hour industrial power demand forecasting: 61.8% lower MAE than the best baseline, served with FastAPI at ~14 ms.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/style.css">
@@ -16,8 +16,8 @@
   <div class="wrap">
     <a class="back" href="../index.html#work">← All projects</a><br>
     <span class="kicker">Time-series · Foundation model</span>
-    <h1 class="reveal">Forecasting a day of industrial inflow, <span class="grad">61.8% more accurately.</span></h1>
-    <p class="tagline reveal" style="--d:.08s">Sudden inflow surges cause pump cavitation and reservoir overflow. I fine-tuned IBM's Granite Tiny Time Mixer to predict the next 24 hours (96 steps of 15 minutes) and wrapped it in a real-time API.</p>
+    <h1 class="reveal">Forecasting a day of industrial power demand, <span class="grad">61.8% more accurately.</span></h1>
+    <p class="tagline reveal" style="--d:.08s">Sudden peak demand surges cause costly tariff penalties and grid instability. I fine-tuned IBM's Granite Tiny Time Mixer to predict 24 hours of 10-minute electrical load demand (96 steps) and wrapped it in a real-time API.</p>
     <div class="tags reveal" style="--d:.12s"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">IBM Granite TTM-R3</span><span class="tag">Pandas</span><span class="tag">FastAPI</span></div>
     <div class="cta reveal" style="--d:.16s">
       <a class="btn accent" href="#benchmark">See the benchmark</a>
@@ -25,9 +25,9 @@
     </div>
     <div class="metrics">
       <div class="metric reveal"><b data-count="61.8" data-dec="1" data-suf="%">0</b><span>MAE reduction vs. 24h repeat baseline</span></div>
-      <div class="metric reveal" style="--d:.06s"><b data-count="3.42" data-dec="2">0</b><span>MAE in m³/h (baseline: 8.95)</span></div>
+      <div class="metric reveal" style="--d:.06s"><b data-count="3.42" data-dec="2">0</b><span>MAE in MW (baseline: 8.95)</span></div>
       <div class="metric reveal" style="--d:.12s"><b data-count="14.2" data-dec="1" data-suf=" ms">0</b><span>inference latency</span></div>
-      <div class="metric reveal" style="--d:.18s"><b data-count="96">0</b><span>steps forecast (24 hours)</span></div>
+      <div class="metric reveal" style="--d:.18s"><b data-count="96">0</b><span>steps forecast (10-min resolution)</span></div>
     </div>
   </div>
 </header>
@@ -36,9 +36,9 @@
 <section class="sec">
   <div class="wrap two">
     <div class="panel reveal"><span class="lbl">The problem</span><h3>Simple baselines miss the shape of the day</h3>
-      <p>Repeat-last-day and moving-average forecasts can't capture overlapping daily cycles or non-linear process shifts, so operators get late warnings when inflow jumps.</p></div>
+      <p>Repeat-last-day and moving-average forecasts can't capture overlapping shift cycles or non-linear process load shifts, so operators get late warnings when power demand surges.</p></div>
     <div class="panel reveal" style="--d:.08s"><span class="lbl">The approach</span><h3>A tiny foundation model, fine-tuned</h3>
-      <ul class="ticks"><li>Chronological 70 / 15 / 15 split, so no future data leaks into training</li><li>192-step context window, 96-step forecast horizon</li><li>Multivariate inputs: inflow, pressure and turbidity</li><li>Automated error analysis for normal vs. surge regimes</li></ul></div>
+      <ul class="ticks"><li>Chronological 70 / 15 / 15 split, so no future data leaks into training</li><li>192-step context window, 96-step forecast horizon</li><li>Multivariate inputs: active power, bus voltage and power factor</li><li>Automated error analysis for baseline vs. peak surge regimes</li></ul></div>
   </div>
 </section>
 
@@ -46,7 +46,7 @@
 <section class="sec">
   <div class="wrap">
     <div class="sec-head reveal"><span class="kicker">The forecasting task</span><h2>What the model sees, and what it predicts</h2>
-      <p>The model reads 48 hours of history and predicts the next 24. Below, the forecast tracks a late surge that the repeat-last-day baseline cannot anticipate.</p></div>
+      <p>The model reads 48 hours of history and predicts the next 24. Below, the forecast tracks a late peak surge that the repeat-last-day baseline cannot anticipate.</p></div>
     <div class="panel reveal">
       <canvas class="cv" id="fc"></canvas>
       <div class="chips" style="margin-top:16px;gap:18px;font-size:.85rem">
@@ -81,14 +81,14 @@
 <!-- regime -->
 <section class="sec">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="kicker">Honest error analysis</span><h2>Where the model is weaker: surge spikes</h2>
-      <p>I split errors by regime. Accuracy is tight in normal operation but degrades during storm-runoff style surges, which is why the service is meant to sit beside safety buffer thresholds.</p></div>
+    <div class="sec-head reveal"><span class="kicker">Honest error analysis</span><h2>Where the model is weaker: peak load spikes</h2>
+      <p>I split errors by regime. Accuracy is tight during steady base-load operations but degrades during sudden multi-machine ramp-ups, which is why the service is designed alongside peak-shaving dispatch buffers.</p></div>
     <div class="two">
-      <div class="panel reveal"><span class="lbl">Normal regime · 8,460 samples</span>
-        <div class="tiles"><div class="tile"><b data-count="2.85" data-dec="2">0</b><span>MAE m³/h</span></div><div class="tile"><b data-count="3.92" data-dec="2">0</b><span>RMSE m³/h</span></div></div>
+      <div class="panel reveal"><span class="lbl">Base load regime · 8,460 samples</span>
+        <div class="tiles"><div class="tile"><b data-count="2.85" data-dec="2">0</b><span>MAE MW</span></div><div class="tile"><b data-count="3.92" data-dec="2">0</b><span>RMSE MW</span></div></div>
         <div class="bar-track" style="margin-top:20px"><div class="bar-fill" data-w="31" style="background:var(--green)"></div></div></div>
-      <div class="panel reveal" style="--d:.08s"><span class="lbl" style="color:var(--red)">Surge spike regime · 132 samples</span>
-        <div class="tiles"><div class="tile"><b data-count="9.12" data-dec="2">0</b><span>MAE m³/h</span></div><div class="tile"><b data-count="12.40" data-dec="2">0</b><span>RMSE m³/h</span></div><div class="tile"><b style="color:var(--red)">+220%</b><span>MAE degradation</span></div></div>
+      <div class="panel reveal" style="--d:.08s"><span class="lbl" style="color:var(--red)">Peak surge regime · 132 samples</span>
+        <div class="tiles"><div class="tile"><b data-count="9.12" data-dec="2">0</b><span>MAE MW</span></div><div class="tile"><b data-count="12.40" data-dec="2">0</b><span>RMSE MW</span></div><div class="tile"><b style="color:var(--red)">+220%</b><span>MAE degradation</span></div></div>
         <div class="bar-track" style="margin-top:20px"><div class="bar-fill" data-w="100" style="background:var(--red)"></div></div></div>
     </div>
   </div>
@@ -103,9 +103,9 @@
         <div class="term"><div class="bar"><i></i><i></i><i></i>&nbsp; request</div>
 <pre><span class="k">POST</span> /api/v1/telemetry/ingest
 {
-  <span class="s">"inflow_rate"</span>: <span class="n">54.2</span>,
-  <span class="s">"pressure_bar"</span>: <span class="n">3.85</span>,
-  <span class="s">"turbidity_ntu"</span>: <span class="n">14.6</span>
+  <span class="s">"active_power_mw"</span>: <span class="n">54.2</span>,
+  <span class="s">"bus_voltage_kv"</span>: <span class="n">3.85</span>,
+  <span class="s">"power_factor"</span>: <span class="n">0.94</span>
 }
 
 <span class="k">POST</span> /api/v1/forecast/predict
@@ -131,7 +131,7 @@
 <script>
 (function(){
   /* benchmark bars */
-  var D={mae:{u:' m³/h',d:2,v:[3.42,8.95,9.40,14.10]},rmse:{u:' m³/h',d:2,v:[4.88,11.82,12.15,17.65]},
+  var D={mae:{u:' MW',d:2,v:[3.42,8.95,9.40,14.10]},rmse:{u:' MW',d:2,v:[4.88,11.82,12.15,17.65]},
          mape:{u:'%',d:2,v:[6.84,18.25,19.10,29.40]},smape:{u:'%',d:2,v:[6.71,17.60,18.45,27.80]}};
   var names=[['IBM Granite TTM-R3','fine-tuned · 192/96'],['Repeat-period baseline','24h lag'],['Repeat-period baseline','7d lag'],['Rolling moving average','12h']];
   function draw(m){var c=D[m];Widgets.bars(document.getElementById('bars'),c.v.map(function(v,i){return{name:names[i][0],sub:names[i][1],v:v,best:i===0}}),c.u,c.d)}
@@ -141,12 +141,12 @@
 
   /* pipeline */
   Widgets.stepper(document.getElementById('stepper'),[
-   {t:'Industrial sensors',d:'15-minute inflow, pressure and turbidity telemetry stream in from the plant.'},
+   {t:'Industrial sensors',d:'10-minute active power, voltage and power factor telemetry stream in from the plant.'},
    {t:'Chronological split',d:'70% train, 15% validation, 15% test, in time order, so the test set is truly unseen future data.'},
    {t:'Patch embedding',d:'The series is cut into patches of length 16 so the model can learn local structure efficiently.'},
    {t:'Tiny Time Mixer blocks',d:'Intra-patch and inter-patch mixing captures daily cycles and cross-sensor relationships with a very small footprint.'},
    {t:'Forecast head',d:'Predicts 96 future steps, a full 24-hour horizon.'},
-   {t:'Evaluation',d:'MAE, RMSE, MAPE and sMAPE against three baselines, plus a split of normal vs. surge-spike error.'},
+   {t:'Evaluation',d:'MAE, RMSE, MAPE and sMAPE against three baselines, plus a split of base load vs. peak surge error.'},
    {t:'FastAPI service',d:'A rolling sensor buffer feeds /api/v1/forecast/predict for real-time sub-15 ms inference.'}]);
 
   /* forecast canvas */
@@ -175,7 +175,7 @@
   addEventListener('resize',function(){if(started)render()});addEventListener('themechange',function(){if(started)render()});
 
   /* API terminal */
-  var resp='{\n  <span class="s">"generated_at"</span>: <span class="s">"2026-10-02T19:40:00Z"</span>,\n  <span class="s">"horizon_steps"</span>: <span class="n">96</span>,\n  <span class="s">"forecast_horizon_hours"</span>: <span class="n">24.0</span>,\n  <span class="s">"predictions"</span>: [<span class="n">53.8</span>, <span class="n">54.1</span>, <span class="n">55.4</span>, <span class="n">56.2</span>, <span class="n">57.0</span>, …],\n  <span class="s">"summary_stats"</span>: {\n    <span class="s">"mean_inflow"</span>: <span class="n">52.14</span>,\n    <span class="s">"max_inflow"</span>: <span class="n">68.30</span>,\n    <span class="s">"min_inflow"</span>: <span class="n">38.10</span>\n  }\n}';
+  var resp='{\n  <span class="s">"generated_at"</span>: <span class="s">"2026-10-02T19:40:00Z"</span>,\n  <span class="s">"horizon_steps"</span>: <span class="n">96</span>,\n  <span class="s">"forecast_horizon_hours"</span>: <span class="n">24.0</span>,\n  <span class="s">"predictions"</span>: [<span class="n">53.8</span>, <span class="n">54.1</span>, <span class="n">55.4</span>, <span class="n">56.2</span>, <span class="n">57.0</span>, …],\n  <span class="s">"summary_stats"</span>: {\n    <span class="s">"mean_power_mw"</span>: <span class="n">52.14</span>,\n    <span class="s">"max_peak_mw"</span>: <span class="n">68.30</span>,\n    <span class="s">"min_power_mw"</span>: <span class="n">38.10</span>\n  }\n}';
   var btn=document.getElementById('send');
   btn.addEventListener('click',function(){btn.disabled=true;btn.textContent='Sending…';var p=document.getElementById('resp');p.style.color='';p.textContent='';
     setTimeout(function(){Widgets.terminal(p,resp,90,function(){btn.disabled=false;btn.textContent='▶ Send again'})},500)});
