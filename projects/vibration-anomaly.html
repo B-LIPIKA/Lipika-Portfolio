@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vibration Anomaly Detection · B. Lipika</title>
+<meta name="description" content="Predictive maintenance on 2.3M+ vibration records using Isolation Forest, with a local LLM that writes the maintenance plan. Includes a live interactive dashboard.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-accent="#e11d48">
+<div id="site-nav"></div>
+
+<header class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../index.html#work">← All projects</a><br>
+    <span class="kicker">Predictive maintenance · Anomaly detection</span>
+    <h1 class="reveal">Catching a failing pump <span class="grad">before it fails.</span></h1>
+    <p class="tagline reveal" style="--d:.08s">Rotating machinery produces millions of vibration readings, but teams struggle to tell a harmless load shift from early bearing damage. This pipeline finds the anomalies and explains them in plain maintenance language.</p>
+    <div class="tags reveal" style="--d:.12s"><span class="tag">Python</span><span class="tag">Scikit-learn</span><span class="tag">Isolation Forest</span><span class="tag">Apache Parquet</span><span class="tag">Ollama</span><span class="tag">Chart.js</span></div>
+    <div class="cta reveal" style="--d:.16s">
+      <a class="btn accent" href="#live">Open the live dashboard</a>
+      <a class="btn ghost" target="_blank" rel="noopener" href="https://colab.research.google.com/github/B-LIPIKA/Industrial-Vibration-Anomaly-Detection/blob/main/demo_notebook.ipynb">Run in Colab</a>
+      <a class="btn ghost" target="_blank" rel="noopener" href="https://github.com/B-LIPIKA/Industrial-Vibration-Anomaly-Detection">View code on GitHub</a>
+    </div>
+    <div class="metrics">
+      <div class="metric reveal"><b data-count="2.3" data-dec="1" data-suf="M+">0</b><span>sensor records ingested via Parquet chunks</span></div>
+      <div class="metric reveal" style="--d:.06s"><b data-count="4.48" data-dec="2" data-suf="×">0</b><span>vibration RMS spike detected (2.1 → 9.4 mm/s)</span></div>
+      <div class="metric reveal" style="--d:.12s"><b data-count="100">0</b><span>trees in the Isolation Forest ensemble</span></div>
+      <div class="metric reveal" style="--d:.18s"><b>Zone D</b><span>ISO 10816-3 danger level identified</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- toggle regime -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">What an anomaly looks like</span><h2>Normal vs. failing, side by side</h2>
+      <p>Switch regimes to see how the vibration signature changes in the project's benchmark.</p></div>
+    <div class="panel reveal">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;margin-bottom:18px">
+        <div class="seg" id="reg"><button class="on" data-r="n">Baseline normal</button><button data-r="a">Detected anomaly</button></div>
+        <span class="badge" id="zone">ISO Zone A · newly commissioned</span>
+      </div>
+      <canvas class="cv" id="wave"></canvas>
+      <p class="note">ⓘ Schematic waveform scaled to the measured RMS and dominant frequency from the benchmark table (not raw sensor data).</p>
+      <div class="tiles" style="margin-top:20px">
+        <div class="tile"><b id="v-rms">2.10</b><span>Vibration RMS (mm/s)</span></div>
+        <div class="tile"><b id="v-temp">54.0</b><span>Bearing temp (°C)</span></div>
+        <div class="tile"><b id="v-freq">29.5</b><span>Dominant frequency (Hz)</span></div>
+        <div class="tile"><b id="v-note" style="font-size:1.15rem;line-height:1.5">1X motor RPM</b><span>Signature</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- live demo -->
+<section class="sec" id="live">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Live demo</span><h2>Try the interactive dashboard</h2>
+      <p>A real-time telemetry dashboard with multi-axis waveforms, an ISO 10816 threshold visualiser and simulated fault injection. It is running right here.</p></div>
+    <div class="frame reveal">
+      <div class="chrome"><div class="dots"><i></i><i></i><i></i></div><div class="url">b-lipika.github.io/Industrial-Vibration-Anomaly-Detection</div>
+        <a class="badge acc" target="_blank" rel="noopener" href="https://b-lipika.github.io/Industrial-Vibration-Anomaly-Detection/">Open full ↗</a></div>
+      <iframe id="demo" title="Live vibration dashboard" data-src="https://b-lipika.github.io/Industrial-Vibration-Anomaly-Detection/" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- pipeline -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">How it works</span><h2>From raw telemetry to a maintenance plan</h2></div>
+    <div class="panel stepper reveal" id="stepper"><div class="steps"></div><div class="step-detail"></div></div>
+  </div>
+</section>
+
+<!-- dot grid -->
+<section class="sec">
+  <div class="wrap two">
+    <div class="panel reveal"><span class="lbl">Isolation in action</span><h3>Finding the few that don't belong</h3>
+      <p style="margin-bottom:18px">On a 50,000-record window the model isolated 1,000 anomalous signatures, a 2.0% contamination rate. Each dot below stands for ~125 readings.</p>
+      <div class="dotgrid" id="dots"></div>
+      <div class="chips" style="margin-top:16px;font-size:.84rem;gap:18px"><span style="color:var(--muted)">● normal</span><span style="color:var(--red)">● anomalous (2%)</span></div></div>
+    <div class="panel reveal" style="--d:.08s"><span class="lbl">Prescribed output</span><h3>What the local LLM writes</h3>
+      <ul class="ticks"><li><span class="badge red">Zone D</span>&nbsp; Immediate-damage boundary exceeded (RMS &gt; 7.1 mm/s)</li><li>Thermal runaway in bearing housing, likely lubrication starvation</li><li>High-frequency harmonics consistent with an inner-race defect (BPFI)</li><li>Disengage drive at next shift change, run an acoustic bearing inspection, verify laser shaft alignment</li></ul></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap pn-nav">
+    <a class="prev" href="agent-platform.html"><small>← Previous</small><b>Industrial AI Agent Platform</b></a>
+    <a class="next" href="data-scientist-agent.html"><small>Next →</small><b>AI Data Scientist Agent</b></a>
+  </div>
+</section>
+<footer id="site-footer"></footer>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/widgets.js"></script>
+<script>
+(function(){
+  /* lazy-load iframe */
+  var fr=document.getElementById('demo');Widgets.onceVisible(fr,function(){fr.src=fr.dataset.src});
+
+  /* pipeline */
+  Widgets.stepper(document.getElementById('stepper'),[
+   {t:'Multi-axis telemetry',d:'High-frequency acceleration (X/Y/Z), RMS velocity, frequency and temperature from rotating machinery.'},
+   {t:'Chunked Parquet ingest',d:'2.3M+ records stream through Apache Parquet chunks, so memory stays flat as data grows.'},
+   {t:'Data-quality audit',d:'Null checks, duplicate removal and range validation before any model sees the data.'},
+   {t:'RobustScaler',d:'Scales features using medians and IQR so extreme spikes do not distort normal behaviour.'},
+   {t:'Isolation Forest',d:'100 estimators with tuned contamination isolate outliers by how quickly they separate from the rest.'},
+   {t:'Signature extraction',d:'Compares baseline vs. anomaly regimes: RMS multipliers, temperature shifts and dominant harmonics.'},
+   {t:'Local-LLM diagnosis',d:'An Ollama model reads those numbers against ISO 10816-3 and writes prescriptive maintenance actions.'}],2800);
+
+  /* dot grid */
+  var dg=document.getElementById('dots'),hot={};[23,71,118,149,203,266,311,377].forEach(function(i){hot[i]=1});
+  for(var i=0;i<400;i++){var d=document.createElement('i');d.style.setProperty('--d',(i%20*.015+Math.floor(i/20)*.02)+'s');if(hot[i])d.className='hot';dg.appendChild(d)}
+  Widgets.onceVisible(dg,function(){dg.classList.add('in')});
+
+  /* waveform */
+  var cv=document.getElementById('wave'),S={n:{rms:2.10,f:29.5,temp:54.0,note:'1X motor RPM',zone:'ISO Zone A · newly commissioned',cls:''},
+                                          a:{rms:9.42,f:62.0,temp:78.5,note:'Harmonic sidebands',zone:'ISO Zone D · danger / shutdown',cls:'red'}};
+  var cur={rms:2.1,f:29.5,temp:54},tgt=S.n,phase=0,visible=false,key='n';
+  new IntersectionObserver(function(e){visible=e[0].isIntersecting;if(visible)loop()},{threshold:.1}).observe(cv);
+  var running=false;
+  function loop(){if(running)return;running=true;(function f(){if(!visible){running=false;return}draw();requestAnimationFrame(f)})()}
+  function draw(){
+    var c=Widgets.canvas(cv,Math.min(300,Math.max(220,cv.clientWidth*.3))),x=c.ctx,W=c.w,H=c.h;
+    cur.rms+=(tgt.rms-cur.rms)*.07;cur.f+=(tgt.f-cur.f)*.07;cur.temp+=(tgt.temp-cur.temp)*.07;phase+=.04;
+    var red=Widgets.css('--red'),grn=Widgets.css('--green'),line=Widgets.css('--line'),mut=Widgets.css('--muted'),amb=Widgets.css('--amber');
+    var scale=(H/2-16)/12,mid=H/2;
+    x.clearRect(0,0,W,H);x.strokeStyle=line;x.lineWidth=1;x.beginPath();x.moveTo(0,mid);x.lineTo(W,mid);x.stroke();
+    [7.1,-7.1].forEach(function(v){x.beginPath();x.setLineDash([6,6]);x.strokeStyle=amb;x.globalAlpha=.7;x.moveTo(0,mid-v*scale);x.lineTo(W,mid-v*scale);x.stroke();x.setLineDash([]);x.globalAlpha=1});
+    x.fillStyle=amb;x.font='600 10px JetBrains Mono, monospace';x.fillText('ZONE D LIMIT · 7.1 mm/s',8,mid-7.1*scale-6);
+    var t=(cur.rms-2.1)/(9.42-2.1),col=t>.5?red:grn;
+    x.beginPath();x.lineWidth=2.4;x.strokeStyle=col;x.lineJoin='round';
+    var cyc=cur.f/29.5*4;
+    for(var px=0;px<=W;px+=2){var u=px/W,y=Math.sin(u*Math.PI*2*cyc-phase*cyc)*cur.rms+Math.sin(u*Math.PI*2*cyc*2.1-phase*3)*cur.rms*.18*(1+t*2)+(Math.sin(px*12.9898)*.5)*(.3+t*1.2);
+      px===0?x.moveTo(px,mid-y*scale):x.lineTo(px,mid-y*scale)}
+    x.stroke();
+    document.getElementById('v-rms').textContent=cur.rms.toFixed(2);
+    document.getElementById('v-temp').textContent=cur.temp.toFixed(1);
+    document.getElementById('v-freq').textContent=cur.f.toFixed(1);
+  }
+  document.getElementById('reg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+    this.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');
+    tgt=S[b.dataset.r];var z=document.getElementById('zone');z.textContent=tgt.zone;z.className='badge '+tgt.cls;
+    document.getElementById('v-note').textContent=tgt.note});
+})();
+</script>
+</body>
+</html>

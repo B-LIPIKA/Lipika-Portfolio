@@ -1,2333 +1,446 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>B. Lipika | Machine Learning Engineer & Patent Holder</title>
-  
-  <meta name="description" content="Portfolio of B. Lipika - Machine Learning Engineer specializing in Industrial AI, Foundation Time-Series Models (IBM Granite TTM-R3), and Multi-Agent Workflows." />
-  <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml" />
-
-  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
-          },
-          colors: {
-            brand: {
-              300: '#7dd3fc',
-              400: '#38bdf8',
-              500: '#0ea5e9',
-              600: '#0284c7',
-            },
-            space: {
-              950: '#03050c',
-              900: '#070a14',
-              850: '#0d1222',
-              800: '#131b31',
-            }
-          },
-          animation: {
-            'glow-pulse': 'glow 4s ease-in-out infinite',
-            'float-smooth': 'float 5s ease-in-out infinite',
-            'spin-slow': 'spin 16s linear infinite',
-          },
-          keyframes: {
-            glow: {
-              '0%, 100%': { opacity: '0.3', transform: 'scale(1)' },
-              '50%': { opacity: '0.7', transform: 'scale(1.06)' },
-            },
-            float: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-8px)' },
-            }
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- Motion (Framer Motion Vanilla Engine for Smooth Spring Physics) -->
-  <script src="https://cdn.jsdelivr.net/npm/motion@11.11.17/dist/motion.js"></script>
-
-  <!-- EmailJS SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>
-    (function(){
-      emailjs.init({ publicKey: "Pwcr03TLnOEQIZRZp" });
-    })();
-  </script>
-
-  <style>
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #03050c; }
-    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #334155; }
-
-    /* Minimalist AI Dot Matrix Background */
-    .bg-dot-matrix {
-      background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-      background-size: 24px 24px;
-    }
-
-    /* Glass Panels */
-    .ai-card {
-      background: rgba(13, 18, 34, 0.6);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .ai-card:hover {
-      background: rgba(19, 27, 49, 0.85);
-      border-color: rgba(56, 189, 248, 0.4);
-      transform: translateY(-4px);
-      box-shadow: 0 16px 36px -12px rgba(14, 165, 233, 0.25);
-    }
-
-    /* Profile Hologram Frame */
-    .profile-glow-ring {
-      position: relative;
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.5), rgba(99, 102, 241, 0.4), rgba(16, 185, 129, 0.4));
-      padding: 2px;
-      border-radius: 1.75rem;
-    }
-
-    /* Project Filtering */
-    .project-card {
-      transition: opacity 0.35s ease, transform 0.35s ease;
-    }
-    .project-card.is-hidden {
-      display: none !important;
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    .project-card.is-visible {
-      display: flex !important;
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    /* Modern Dialog Backdrop */
-    dialog::backdrop {
-      background: rgba(3, 5, 12, 0.88);
-      backdrop-filter: blur(10px);
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>B. Lipika — AI & ML Engineer</title>
+  <meta name="description"
+    content="Portfolio of B. Lipika: industrial AI, time-series forecasting, multi-agent systems and a patented IoT irrigation system. See the results, not just the code.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Sora:wght@600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body class="bg-space-950 text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white relative bg-dot-matrix">
+<body data-root="">
+  <div id="site-nav"></div>
 
-  <!-- ========================================================================= -->
-  <!-- 🎬 CINEMATIC OPENING: AI SENTINEL DRONE, COIN TOSS & THUNDER REVEAL -->
-  <!-- ========================================================================= -->
-  <div id="intro-overlay" class="fixed inset-0 z-[100] bg-black flex items-center justify-center overflow-hidden transition-opacity duration-1000">
-    <canvas id="intro-canvas" class="absolute inset-0 w-full h-full block"></canvas>
-    
-    <!-- Thunder Flash Bloom Overlay -->
-    <div id="thunder-flash" class="absolute inset-0 bg-white pointer-events-none opacity-0 transition-opacity duration-100"></div>
-
-    <!-- Cinematic Top Controls -->
-    <div class="absolute top-6 inset-x-6 flex items-center justify-between z-10 pointer-events-auto">
-      <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-white/10 text-xs font-mono text-cyan-400">
-        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-        <span>AI AUTONOMOUS SENTINEL // ONLINE</span>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <button id="toggle-sound-btn" class="px-3 py-1.5 rounded-full bg-slate-900/90 hover:bg-slate-800 border border-white/10 text-xs font-mono text-slate-300 transition flex items-center gap-1.5">
-          <i data-lucide="volume-2" id="sound-icon" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span id="sound-text">Audio On</span>
-        </button>
-        <button id="skip-intro-btn" class="px-4 py-1.5 rounded-full bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-xs font-mono font-bold text-cyan-300 transition flex items-center gap-1.5 shadow-lg shadow-cyan-500/20">
-          <span>Skip Intro</span>
-          <i data-lucide="skip-forward" class="w-3.5 h-3.5"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- Subtitle / Cinematic Text Overlay -->
-    <div id="intro-caption" class="absolute bottom-10 inset-x-0 text-center font-mono text-xs sm:text-sm text-cyan-300 tracking-widest uppercase transition-opacity duration-500 pointer-events-none drop-shadow-[0_0_12px_rgba(6,182,212,0.8)]">
-      // AI SENTINEL APPROACHING DOCK...
-    </div>
-  </div>
-
-  <!-- Ambient Glowing Radial Auras -->
-  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <div class="absolute -top-32 -left-32 w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-[140px] animate-glow-pulse"></div>
-    <div class="absolute top-1/3 -right-32 w-[650px] h-[650px] bg-indigo-600/10 rounded-full blur-[150px] animate-glow-pulse" style="animation-delay: 2s;"></div>
-    <div class="absolute -bottom-40 left-1/4 w-[700px] h-[700px] bg-emerald-500/10 rounded-full blur-[160px] animate-glow-pulse" style="animation-delay: 4s;"></div>
-  </div>
-
-  <!-- ======================== FLOATING ISLAND NAVBAR ======================== -->
-  <header class="fixed top-5 inset-x-0 z-50 px-4 sm:px-6">
-    <nav class="max-w-6xl mx-auto h-16 rounded-full ai-card px-6 flex items-center justify-between shadow-2xl shadow-black/80 border border-white/10">
-      
-      <!-- Brand & Status Beacon -->
-      <a href="#home" class="flex items-center gap-3 group">
-        <div class="relative flex items-center justify-center">
-          <span class="w-3 h-3 rounded-full bg-brand-400 group-hover:scale-125 transition-transform"></span>
-          <span class="absolute w-3 h-3 rounded-full bg-brand-400 animate-ping opacity-75"></span>
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow reveal"><span class="dot"></span> AIML Trainee @ Tiny Prism Labs · Manipal</div>
+          <h1 class="display reveal" style="--d:.08s">
+            I build <span class="grad">industrial&nbsp;AI</span><br>
+            that <span class="rotator" id="rotator"
+              data-words="forecasts|reasons|detects|actually ships"><span>forecasts</span></span>.
+          </h1>
+          <p class="lead reveal" style="--d:.16s">Machine Learning Engineer focused on time-series foundation models,
+            evidence-grounded multi-agent systems and sensor analytics. Pick a project below to see what it actually
+            produced: results, dashboards and live demos.</p>
+          <div class="cta reveal" style="--d:.24s">
+            <a class="btn primary" href="#work">Explore projects
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg></a>
+            <a class="btn ghost" href="assets/Lipika_B_Resume.pdf" download="Lipika_B_Resume.pdf"
+              target="_blank" rel="noopener">Download résumé</a>
+          </div>
         </div>
-        <div class="flex flex-col">
-          <span class="text-sm font-bold tracking-tight text-white font-mono leading-none">
-            B. LIPIKA<span class="text-brand-400">.ai</span>
-          </span>
-          <span class="text-[10px] text-slate-400 font-mono tracking-wider">ML ENGINEER</span>
+        <div class="portrait reveal" style="--d:.2s">
+          <div class="ring"></div>
+          <div class="ring r2"></div>
+          <div class="pic">BL<img src="assets/img/lipika-profile.jpg" alt="B. Lipika" onerror="this.remove()"></div>
+          <div class="chip-float c1">📜 Indian Utility Patent</div>
+          <div class="chip-float c2">⚡ ~14 ms inference</div>
+          <div class="chip-float c3">🧠 LangGraph agents</div>
         </div>
-      </a>
-
-      <!-- Desktop Nav Items -->
-      <div class="hidden lg:flex items-center gap-7 text-xs font-semibold tracking-wider text-slate-300 uppercase font-mono">
-        <a href="#home" class="hover:text-brand-400 transition-colors">Overview</a>
-        <a href="#telemetry" class="hover:text-brand-400 transition-colors">Live Telemetry</a>
-        <a href="#projects" class="hover:text-brand-400 transition-colors">Projects (8)</a>
-        <a href="#patent" class="hover:text-amber-300 transition-colors flex items-center gap-1.5">
-          <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400"></i>
-          <span>Patent</span>
-        </a>
-        <a href="#experience" class="hover:text-brand-400 transition-colors">Experience</a>
-        <a href="#skills" class="hover:text-brand-400 transition-colors">Stack</a>
-        <a href="#contact" class="hover:text-brand-400 transition-colors">Contact</a>
       </div>
-
-      <!-- Action Cluster -->
-      <div class="flex items-center gap-3">
-        <!-- Replay Cinematic Intro Button -->
-        <button id="replay-intro-btn" title="Replay AI Sentinel Coin & Thunder Intro" class="p-2.5 rounded-full bg-slate-900/90 hover:bg-slate-800 text-brand-400 hover:text-brand-300 border border-brand-500/30 transition shadow-lg shadow-brand-500/10 flex items-center gap-1">
-          <i data-lucide="zap" class="w-4 h-4"></i>
-          <span class="hidden xl:inline text-[11px] font-mono font-bold pr-1">Replay ⚡</span>
-        </button>
-
-        <a href="Lipika_B_Resume.pdf" download class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-brand-500 to-indigo-600 hover:from-brand-400 hover:to-indigo-500 text-white text-xs font-bold font-mono tracking-wide transition shadow-lg shadow-brand-500/25">
-          <i data-lucide="file-down" class="w-3.5 h-3.5"></i>
-          <span class="hidden sm:inline">Resume PDF</span>
-          <span class="sm:hidden">CV</span>
-        </a>
-        <a href="https://github.com/B-LIPIKA" target="_blank" aria-label="GitHub Profile" class="p-2.5 rounded-full bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700/60 transition">
-          <i data-lucide="github" class="w-4 h-4"></i>
-        </a>
-        <button id="mobile-toggle" aria-label="Toggle Navigation Menu" class="lg:hidden p-2 rounded-full text-slate-400 hover:text-white">
-          <i data-lucide="menu" id="toggle-icon" class="w-5 h-5"></i>
-        </button>
+      <div class="hero-stats">
+        <div class="stat reveal"><b data-count="61.8" data-dec="1" data-suf="%">0</b><span>MAE reduction vs.
+            baseline</span></div>
+        <div class="stat reveal" style="--d:.07s"><b data-count="2.3" data-dec="1" data-suf="M+">0</b><span>vibration
+            records processed</span></div>
+        <div class="stat reveal" style="--d:.14s"><b data-count="1">0</b><span>granted Indian utility patent</span>
+        </div>
+        <div class="stat reveal" style="--d:.21s"><b data-count="17">0</b><span>public repositories</span></div>
       </div>
-
-    </nav>
-
-    <!-- Mobile Dropdown -->
-    <div id="mobile-nav" class="hidden lg:hidden max-w-md mx-auto mt-2 rounded-2xl ai-card p-5 space-y-3 border border-white/10 text-sm font-mono uppercase">
-      <a href="#home" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-slate-300">Overview & Bio</a>
-      <a href="#telemetry" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-slate-300">Live Telemetry</a>
-      <a href="#projects" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-slate-300">Projects</a>
-      <a href="#patent" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-amber-300">Indian Patent</a>
-      <a href="#experience" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-slate-300">Experience</a>
-      <a href="#skills" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-slate-300">Stack</a>
-      <a href="#contact" class="mobile-item block py-2 px-3 rounded-lg hover:bg-white/5 text-slate-300">Contact</a>
-      <button id="mobile-replay-btn" class="w-full text-left py-2 px-3 rounded-lg hover:bg-brand-500/10 text-brand-400 flex items-center gap-2">
-        <i data-lucide="zap" class="w-4 h-4"></i>
-        <span>Replay Cinematic Intro</span>
-      </button>
     </div>
   </header>
 
-  <!-- ========================================================================= -->
-  <!-- HERO INTRO: USER PHOTO BESIDE CLEAN, IMPACTFUL AI ENGINEER PROFILE -->
-  <!-- ========================================================================= -->
-  <section id="home" class="min-h-screen pt-36 pb-20 px-6 flex flex-col justify-center relative z-10">
-    <div class="max-w-6xl mx-auto w-full space-y-12">
-      
-      <!-- Top Live Badges -->
-      <div class="flex flex-wrap items-center gap-3 motion-hero-badge">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-950/70 border border-brand-500/40 text-brand-300 text-xs font-mono">
-          <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span>
-          <span>AIML Trainee @ Tiny Prism Labs • Manipal</span>
-        </div>
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-950/50 border border-amber-500/40 text-amber-300 text-xs font-mono">
-          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-amber-400"></i>
-          <span>Indian Utility Patent Granted (No. 202541061616)</span>
-        </div>
+  <!-- ============ WORK ============ -->
+  <section class="section" id="work">
+    <div class="wrap">
+      <div class="sec-title reveal">
+        <span class="kicker">Selected work</span>
+        <h2>Results first. Code is one click away.</h2>
+        <p>Each project opens its own page with the problem, the outcome and an interactive way to see it work.</p>
       </div>
 
-      <!-- Main Two-Column Intro Grid: Real Photo Beside Concise Value Info -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-        
-        <!-- ============================================================ -->
-        <!-- LEFT COLUMN: USER'S REAL PHOTO IN SLEEK AI HOLOGRAPHIC FRAME -->
-        <!-- ============================================================ -->
-        <div class="lg:col-span-5 flex flex-col items-center motion-profile-card">
-          <div class="profile-glow-ring w-full max-w-sm shadow-2xl shadow-brand-950/60 animate-float-smooth">
-            <div class="rounded-[1.6rem] bg-space-950/90 backdrop-blur-2xl p-5 border border-white/10 flex flex-col items-center relative overflow-hidden">
-              
-              <!-- Subtle Holographic Corner Markers -->
-              <div class="w-full flex items-center justify-between pb-3 border-b border-white/5 text-[11px] font-mono">
-                <span class="text-brand-400 font-bold flex items-center gap-1.5">
-                  <i data-lucide="cpu" class="w-3.5 h-3.5 text-brand-300"></i>
-                  <span>ML ENGINEER // 2026</span>
-                </span>
-                <span class="px-2 py-0.5 rounded bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 font-bold text-[10px]">
-                  ● ACTIVE
-                </span>
-              </div>
+      <div class="cards">
 
-              <!-- Real Photo Box with Subtle Depth & Cyber Accents -->
-              <div class="relative w-64 h-64 sm:w-72 sm:h-72 my-5 rounded-2xl overflow-hidden bg-space-900 border border-brand-500/40 shadow-xl group">
-                
-                <!-- 1. USER'S ACTUAL PROFILE PHOTO (Uploaded by User) -->
-                <img id="avatar-image" src="profile.jpg" alt="B. Lipika - Machine Learning Engineer" class="w-full h-full object-cover object-center filter brightness-105 contrast-105 transition-transform duration-500 group-hover:scale-105" onerror="this.src='profile.png';" />
-
-                <!-- Futuristic Corner HUD Accents -->
-                <div class="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-brand-400 pointer-events-none"></div>
-                <div class="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-brand-400 pointer-events-none"></div>
-                <div class="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-brand-400 pointer-events-none"></div>
-                <div class="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-brand-400 pointer-events-none"></div>
-
-                <!-- Hover Overlay for Instant Local Photo Change/Upload Preview -->
-                <div class="absolute inset-0 bg-space-950/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-3 text-center">
-                  <button id="upload-avatar-trigger" class="px-4 py-2 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-mono font-bold text-xs flex items-center gap-1.5 shadow-lg transition">
-                    <i data-lucide="camera" class="w-3.5 h-3.5"></i>
-                    <span>Swap Photo</span>
-                  </button>
-                  <span class="text-[10px] text-slate-400 font-mono mt-2">
-                    Profile photo: profile.jpg
-                  </span>
-                </div>
-                <!-- Hidden file input for custom image upload -->
-                <input type="file" id="avatar-file-input" accept="image/*" class="hidden" />
-
-              </div>
-
-              <!-- Persona Name & Primary Tags -->
-              <div class="w-full text-center space-y-1">
-                <h3 class="text-xl font-extrabold text-white font-mono tracking-tight">B. LIPIKA</h3>
-                <p class="text-xs font-semibold text-brand-300 font-mono">Machine Learning Engineer</p>
-                <p class="text-[11px] text-slate-400 font-mono">Tiny Prism Labs • Information Science (VTU)</p>
-              </div>
-
-              <!-- Official Patent Identifier -->
-              <div class="w-full mt-4 pt-3 border-t border-white/5 flex items-center justify-center gap-2 text-[11px] font-mono text-amber-300 bg-amber-950/30 py-2 rounded-xl border border-amber-500/20">
-                <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400"></i>
-                <span class="font-bold">Indian Patent No. 202541061616</span>
-              </div>
-
-            </div>
+        <!-- 1 TTM -->
+        <a class="card reveal" href="projects/ttm-forecasting.html" style="--pa:#4f46e5">
+          <div class="thumb">
+            <svg viewBox="0 0 400 205" preserveAspectRatio="xMidYMid slice" fill="none">
+              <g stroke="currentColor" opacity=".08">
+                <path d="M0 50h400M0 100h400M0 150h400" />
+              </g>
+              <path class="th-draw" style="--len:620;color:#9ca3af"
+                d="M10 140 C50 120 70 70 110 90 S170 150 210 120 S260 60 300 80" stroke="#9ca3af" stroke-width="2.5"
+                stroke-linecap="round" />
+              <path class="th-draw" style="--len:620;animation-delay:.25s"
+                d="M10 140 C50 118 70 68 110 88 S170 148 210 118 S260 58 300 78 S350 110 390 70" stroke="#4f46e5"
+                stroke-width="3.5" stroke-linecap="round" />
+              <path d="M300 78 S350 110 390 70" stroke="#9ca3af" stroke-width="2" stroke-dasharray="5 6" opacity=".7"
+                transform="translate(0 18)" />
+              <rect x="300" y="20" width="100" height="165" fill="#4f46e5" opacity=".07" />
+              <text x="316" y="40" font-size="10" font-family="monospace" fill="#4f46e5" font-weight="700">24h
+                FORECAST</text>
+            </svg>
           </div>
-        </div>
+          <div class="body">
+            <span class="cat">Time-series · Foundation model</span>
+            <h3>Industrial Inflow Forecasting with IBM Granite TTM-R3</h3>
+            <p>Fine-tuned a tiny time-mixer to predict 24 hours of 15-minute inflow, then served it through a real-time
+              API.</p>
+            <div class="res">
+              <div><b>61.8%</b><span>lower MAE</span></div>
+              <div><b>14 ms</b><span>inference</span></div>
+              <div><b>96</b><span>step horizon</span></div>
+            </div>
+            <div class="tags"><span class="tag">PyTorch</span><span class="tag">FastAPI</span><span class="tag">Granite
+                TTM-R3</span></div>
+            <div class="go">View the results <i>→</i></div>
+          </div>
+        </a>
 
-        <!-- ============================================================ -->
-        <!-- RIGHT COLUMN: CLEAN, PUNCHY INFO DESIGNED FOR AUDIENCE CLARITY -->
-        <!-- ============================================================ -->
-        <div class="lg:col-span-7 space-y-6 motion-hero-info">
-          
-          <div class="space-y-3">
-            <p class="text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-brand-400"></span>
-              <span>Industrial AI • Foundation Time-Series • Multi-Agent Workflows</span>
+        <!-- 2 Agent platform -->
+        <a class="card reveal" style="--pa:#7c3aed;--d:.08s" href="projects/agent-platform.html">
+          <div class="thumb">
+            <svg viewBox="0 0 400 205" preserveAspectRatio="xMidYMid slice" fill="none">
+              <g stroke="#7c3aed" stroke-width="2" opacity=".5">
+                <path d="M70 102H140M200 102H250M310 102 H335" />
+                <path d="M175 60V80M175 124V145" stroke-dasharray="4 4" />
+              </g>
+              <g font-family="monospace" font-size="10" font-weight="700" text-anchor="middle">
+                <rect x="20" y="82" width="52" height="40" rx="12" fill="#7c3aed" opacity=".15" /><text x="46" y="106"
+                  fill="#7c3aed">QUERY</text>
+                <rect class="th-pulse" x="140" y="82" width="70" height="40" rx="12" fill="#7c3aed" opacity=".25" />
+                <text x="175" y="106" fill="#7c3aed">PARSE</text>
+                <rect class="th-pulse" style="--d:.6s" x="250" y="82" width="60" height="40" rx="12" fill="#7c3aed"
+                  opacity=".25" /><text x="280" y="106" fill="#7c3aed">SQL</text>
+                <rect class="th-pulse" style="--d:1.2s" x="140" y="145" width="70" height="40" rx="12" fill="#0d9488"
+                  opacity=".3" /><text x="175" y="169" fill="#0d9488">PYTHON</text>
+                <rect class="th-pulse" style="--d:1.8s" x="335" y="82" width="52" height="40" rx="12" fill="#16a34a"
+                  opacity=".3" /><text x="361" y="106" fill="#16a34a">REPORT</text>
+              </g>
+            </svg>
+          </div>
+          <div class="body">
+            <span class="cat">Multi-agent · LangGraph</span>
+            <h3>Industrial AI Agent Platform</h3>
+            <p>Natural-language questions about plant sensors, answered with exact math the LLM can't hallucinate.</p>
+            <div class="res">
+              <div><b>4</b><span>graph nodes</span></div>
+              <div><b>6</b><span>tools</span></div>
+              <div><b>0</b><span>LLM-computed numbers</span></div>
+            </div>
+            <div class="tags"><span class="tag">LangGraph</span><span class="tag">Ollama</span><span
+                class="tag">SQL</span><span class="tag">FastAPI</span></div>
+            <div class="go">See it reason <i>→</i></div>
+          </div>
+        </a>
+
+        <!-- 3 Vibration -->
+        <a class="card reveal" style="--pa:#e11d48" href="projects/vibration-anomaly.html">
+          <div class="thumb">
+            <svg viewBox="0 0 400 205" preserveAspectRatio="xMidYMid slice" fill="none">
+              <path class="th-draw" style="--len:900" stroke="#e11d48" stroke-width="2.4" stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M0 105 L20 95 L40 115 L60 92 L80 112 L100 98 L120 108 L140 96 L160 112 L180 100 L195 60 L205 150 L215 40 L225 160 L235 85 L250 112 L270 98 L290 108 L310 96 L330 110 L350 100 L370 108 L400 102" />
+              <g class="th-pulse">
+                <circle cx="215" cy="40" r="7" fill="#e11d48" />
+                <circle cx="225" cy="160" r="7" fill="#e11d48" />
+                <circle cx="195" cy="60" r="7" fill="#e11d48" />
+              </g>
+              <path d="M0 62H400" stroke="#d97706" stroke-dasharray="6 6" opacity=".6" /><text x="8" y="56"
+                font-size="9" font-family="monospace" fill="#d97706">ISO 10816-3 · ALERT</text>
+            </svg>
+          </div>
+          <div class="body">
+            <span class="cat">Predictive maintenance · Anomaly detection</span>
+            <h3>Industrial Vibration Anomaly Detection</h3>
+            <p>Isolation Forest over millions of vibration readings, with an LLM that turns spikes into a maintenance
+              plan.</p>
+            <div class="res">
+              <div><b>2.3M+</b><span>records</span></div>
+              <div><b>4.48×</b><span>RMS spike caught</span></div>
+              <div><b>Live</b><span>web demo</span></div>
+            </div>
+            <div class="tags"><span class="tag">Scikit-learn</span><span class="tag">Parquet</span><span
+                class="tag">Ollama</span></div>
+            <div class="go">Try the live dashboard <i>→</i></div>
+          </div>
+        </a>
+
+        <!-- 4 DS agent -->
+        <a class="card reveal" style="--pa:#0d9488;--d:.08s" href="projects/data-scientist-agent.html">
+          <div class="thumb">
+            <svg viewBox="0 0 400 205" preserveAspectRatio="xMidYMid slice" fill="none">
+              <g fill="#0d9488">
+                <rect class="th-grow" style="--d:.1s" x="40" y="110" width="34" height="70" rx="8" opacity=".35" />
+                <rect class="th-grow" style="--d:.2s" x="90" y="80" width="34" height="100" rx="8" opacity=".5" />
+                <rect class="th-grow" style="--d:.3s" x="140" y="50" width="34" height="130" rx="8" opacity=".7" />
+                <rect class="th-grow" style="--d:.4s" x="190" y="95" width="34" height="85" rx="8" opacity=".5" />
+                <rect class="th-grow" style="--d:.5s" x="240" y="35" width="34" height="145" rx="8" />
+              </g>
+              <path class="th-draw" style="--len:300" d="M40 140 L120 100 L200 118 L280 60 L360 40" stroke="#4f46e5"
+                stroke-width="3" stroke-linecap="round" />
+              <circle class="th-pulse" cx="280" cy="60" r="7" fill="#e11d48" />
+              <circle class="th-pulse" style="--d:1s" cx="360" cy="40" r="5" fill="#d97706" />
+            </svg>
+          </div>
+          <div class="body">
+            <span class="cat">Automated EDA · Statistics</span>
+            <h3>AI Data Scientist Agent</h3>
+            <p>Drop in a dataset, get back a diagnostic report and a model strategy, backed by deterministic statistics.
             </p>
-            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
-              Architecting <br />
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-brand-400">
-                Industrial Intelligence
-              </span>
-            </h1>
+            <div class="res">
+              <div><b>5</b><span>statistical tests</span></div>
+              <div><b>1</b><span>command to run</span></div>
+            </div>
+            <div class="tags"><span class="tag">Pandas</span><span class="tag">Scikit-learn</span><span
+                class="tag">CUSUM</span></div>
+            <div class="go">See a sample report <i>→</i></div>
           </div>
+        </a>
 
-          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-            I am <strong class="text-white font-semibold">B. Lipika</strong>, an applied Machine Learning Engineer building evidence-grounded AI architectures for critical physical systems and industrial operations.
-          </p>
-
-          <!-- 3-Pillar Executive Summary -->
-          <div class="space-y-2 text-xs sm:text-sm text-slate-300 font-sans">
-            <div class="flex items-start gap-2.5">
-              <span class="text-brand-400 font-mono font-bold mt-0.5">01 //</span>
-              <span><strong>Foundation Forecasting:</strong> Fine-tuned <strong>IBM Granite TTM-R3</strong> mixer on 15-minute sensor streams, achieving a <strong>61.8% MAE reduction</strong> over baselines.</span>
-            </div>
-            <div class="flex items-start gap-2.5">
-              <span class="text-brand-400 font-mono font-bold mt-0.5">02 //</span>
-              <span><strong>Agentic Orchestration:</strong> Engineered <strong>LangGraph</strong> supervisors that decouple model reasoning from deterministic SQL and telemetry execution.</span>
-            </div>
-            <div class="flex items-start gap-2.5">
-              <span class="text-brand-400 font-mono font-bold mt-0.5">03 //</span>
-              <span><strong>Edge Telemetry:</strong> Ingested <strong>2.3M+ sensor records</strong> classifying vibration anomalies against ISO 10816 standards.</span>
-            </div>
+        <!-- 5 AgriFlow -->
+        <a class="card reveal" style="--pa:#16a34a" href="projects/agriflow.html">
+          <div class="thumb">
+            <svg viewBox="0 0 400 205" preserveAspectRatio="xMidYMid slice" fill="none">
+              <path d="M120 150 A80 80 0 0 1 280 150" stroke="#16a34a" opacity=".2" stroke-width="16"
+                stroke-linecap="round" />
+              <path class="th-draw" style="--len:250" d="M120 150 A80 80 0 0 1 250 88" stroke="#16a34a"
+                stroke-width="16" stroke-linecap="round" />
+              <text x="200" y="146" text-anchor="middle" font-family="Sora,sans-serif" font-weight="700" font-size="30"
+                fill="#16a34a">64%</text>
+              <text x="200" y="166" text-anchor="middle" font-family="monospace" font-size="10" fill="#6b7280">SOIL
+                MOISTURE</text>
+              <g fill="#0d9488">
+                <path class="th-pulse" d="M60 40c8 12 12 18 12 24a12 12 0 0 1-24 0c0-6 4-12 12-24z" />
+                <path class="th-pulse" style="--d:.8s" d="M340 60c8 12 12 18 12 24a12 12 0 0 1-24 0c0-6 4-12 12-24z" />
+              </g>
+            </svg>
           </div>
-
-          <!-- Key Metrics Grid -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
-            <div class="p-3.5 rounded-xl ai-card border border-white/5 space-y-1">
-              <span class="text-[11px] font-mono text-brand-400">MAE REDUCTION</span>
-              <p class="text-2xl font-extrabold font-mono text-white">61.8%</p>
-              <span class="text-[10px] text-slate-400">IBM Granite vs DLinear</span>
+          <div class="body">
+            <span class="cat">IoT · Embedded · Patent</span>
+            <h3>AgriFlow: Smart Irrigation System</h3>
+            <p>ESP8266 hardware that reads soil moisture and switches the pump automatically. Awarded an Indian utility
+              patent.</p>
+            <div class="res">
+              <div><b>Patent</b><span>202541061616</span></div>
+              <div><b>3</b><span>sensors &amp; actuators</span></div>
             </div>
-            <div class="p-3.5 rounded-xl ai-card border border-white/5 space-y-1">
-              <span class="text-[11px] font-mono text-indigo-400">DATA VOLUME</span>
-              <p class="text-2xl font-extrabold font-mono text-white">2.3M+</p>
-              <span class="text-[10px] text-slate-400">Vibration records</span>
+            <div class="tags"><span class="tag">ESP8266</span><span class="tag">Flask</span><span class="tag">C++</span>
             </div>
-            <div class="p-3.5 rounded-xl ai-card border border-white/5 space-y-1">
-              <span class="text-[11px] font-mono text-amber-400">PATENT</span>
-              <p class="text-2xl font-extrabold font-mono text-white">1 Utility</p>
-              <span class="text-[10px] text-slate-400">AgriFlow IoT system</span>
-            </div>
-            <div class="p-3.5 rounded-xl ai-card border border-white/5 space-y-1">
-              <span class="text-[11px] font-mono text-emerald-400">LATENCY</span>
-              <p class="text-2xl font-extrabold font-mono text-white">&lt;15ms</p>
-              <span class="text-[10px] text-slate-400">FastAPI microservice</span>
-            </div>
+            <div class="go">Play with the dashboard <i>→</i></div>
           </div>
+        </a>
 
-          <!-- Action CTAs -->
-          <div class="flex flex-wrap items-center gap-3.5 pt-2">
-            <a href="#projects" class="px-6 py-3.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-sm font-mono tracking-wide transition shadow-lg shadow-brand-500/20 flex items-center gap-2">
-              <span>EXPLORE SYSTEMS</span>
-              <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
-            </a>
-            <a href="Lipika_B_Resume.pdf" download class="px-6 py-3.5 rounded-xl ai-card hover:border-slate-400 text-white font-semibold text-sm font-mono transition flex items-center gap-2">
-              <i data-lucide="download" class="w-4 h-4 text-brand-400"></i>
-              <span>DOWNLOAD RESUME</span>
-            </a>
-            <button id="hero-replay-btn" class="px-4 py-3.5 rounded-xl ai-card hover:border-brand-400 text-brand-300 font-semibold text-xs font-mono transition flex items-center gap-1.5">
-              <i data-lucide="zap" class="w-4 h-4 text-brand-400"></i>
-              <span>REPLAY INTRO ⚡</span>
-            </button>
-            <a href="https://linkedin.com/in/lipika2004" target="_blank" class="p-3.5 rounded-xl ai-card hover:text-brand-400 text-slate-400 transition" aria-label="LinkedIn">
-              <i data-lucide="linkedin" class="w-5 h-5"></i>
-            </a>
-            <a href="https://github.com/B-LIPIKA" target="_blank" class="p-3.5 rounded-xl ai-card hover:text-brand-400 text-slate-400 transition" aria-label="GitHub">
-              <i data-lucide="github" class="w-5 h-5"></i>
-            </a>
+        <!-- 6 Air board -->
+        <a class="card reveal" style="--pa:#db2777;--d:.08s" href="projects/air-board.html">
+          <div class="thumb">
+            <svg viewBox="0 0 400 205" preserveAspectRatio="xMidYMid slice" fill="none">
+              <path class="th-draw" style="--len:700"
+                d="M60 140 C80 60 110 60 120 110 S150 160 170 100 S210 40 230 100 S270 170 300 90 S340 60 350 80"
+                stroke="#db2777" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+              <circle class="th-pulse" cx="350" cy="80" r="10" fill="#db2777" />
+              <g stroke="#db2777" opacity=".5" stroke-width="1.5">
+                <circle cx="350" cy="80" r="20" />
+                <circle cx="350" cy="80" r="32" opacity=".5" />
+              </g>
+            </svg>
           </div>
-
-        </div>
-
+          <div class="body">
+            <span class="cat">Computer vision · OpenCV</span>
+            <h3>Air-Board: Write in Thin Air</h3>
+            <p>A webcam turns your fingertip into a pen. Draw, change colours and erase using hand gestures only.</p>
+            <div class="res">
+              <div><b>3</b><span>gesture modes</span></div>
+              <div><b>0</b><span>touch needed</span></div>
+            </div>
+            <div class="tags"><span class="tag">OpenCV</span><span class="tag">MediaPipe</span><span
+                class="tag">NumPy</span></div>
+            <div class="go">Try drawing in the air <i>→</i></div>
+          </div>
+        </a>
       </div>
 
-      <!-- ============================================================ -->
-      <!-- FULL-WIDTH COMMAND CENTER: SIMULATED NEURAL INFERENCE TERMINAL -->
-      <!-- ============================================================ -->
-      <div class="pt-6 motion-command-center">
-        <div class="rounded-2xl ai-card border border-white/10 shadow-2xl overflow-hidden">
-          
-          <!-- Terminal Header -->
-          <div class="bg-space-900/90 px-5 py-3.5 border-b border-white/5 flex items-center justify-between">
-            <div class="flex items-center gap-2.5">
-              <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
-              <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
-              <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
-              <span class="ml-2 text-xs font-mono text-slate-400">lipika@edge-cluster:~ (Live Inference Testbench)</span>
-            </div>
-            <div class="flex items-center gap-2 bg-space-950 px-3 py-1 rounded-md border border-white/5 text-[11px] font-mono text-brand-400">
-              <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
-              <span>CUDA ENGINE :: ACTIVE</span>
-            </div>
-          </div>
-
-          <!-- Terminal Tabs -->
-          <div class="flex border-b border-white/5 bg-space-950/60 text-xs font-mono">
-            <button id="tab-ttm" class="term-tab active px-5 py-2.5 border-b-2 border-brand-400 text-brand-300 bg-white/5 transition flex items-center gap-2">
-              <i data-lucide="activity" class="w-3.5 h-3.5"></i>
-              <span>TTM-R3_Forecasting.py</span>
-            </button>
-            <button id="tab-agent" class="term-tab px-5 py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition flex items-center gap-2">
-              <i data-lucide="bot" class="w-3.5 h-3.5"></i>
-              <span>LangGraph_Supervisor.py</span>
-            </button>
-            <button id="tab-iso" class="term-tab px-5 py-2.5 border-b-2 border-transparent text-slate-400 hover:text-slate-200 transition flex items-center gap-2">
-              <i data-lucide="radio" class="w-3.5 h-3.5"></i>
-              <span>Anomaly_ISO10816.py</span>
-            </button>
-          </div>
-
-          <!-- Terminal Output Window -->
-          <div id="terminal-content" class="p-5 font-mono text-xs text-slate-300 space-y-2.5 min-h-[220px] max-h-[300px] overflow-y-auto bg-space-950/95 leading-relaxed">
-            <!-- Dynamically populated via JS -->
-          </div>
-
-          <!-- Terminal Footer Controls -->
-          <div class="px-5 py-3 bg-space-900/80 border-t border-white/5 flex items-center justify-between">
-            <span class="text-[11px] font-mono text-slate-400">Status: Verified Execution Pipeline</span>
-            <button id="run-sim-btn" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-brand-500/20 hover:bg-brand-500/30 text-brand-300 border border-brand-500/40 text-xs font-mono transition">
-              <i data-lucide="play" class="w-3 h-3"></i>
-              <span>Re-run Simulation</span>
-            </button>
-          </div>
-
-        </div>
+      <div class="sec-title reveal" style="margin:70px 0 24px">
+        <span class="kicker">More builds</span>
+        <h2 style="font-size:1.6rem">Foundations &amp; side projects</h2>
       </div>
-
-    </div>
-  </section>
-
-  <!-- ======================== LIVE TELEMETRY / VIBRATION VISUALIZER ======================== -->
-  <section id="telemetry" class="py-20 px-6 border-t border-white/5 relative z-10">
-    <div class="max-w-6xl mx-auto space-y-8">
-      
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-          <span class="text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest">// Industrial Edge Telemetry</span>
-          <h2 class="text-3xl font-extrabold text-white mt-1">Real-Time Sensor Frequency & ISO 10816 Waveform</h2>
-          <p class="text-slate-400 text-sm max-w-xl mt-1">
-            Simulating live accelerometer signals across 3 axes. Demonstrates algorithmic threshold detection with local anomaly classification.
-          </p>
-        </div>
-
-        <!-- Telemetry Controls -->
-        <div class="flex items-center gap-2 bg-space-900 p-1.5 rounded-xl border border-white/10 text-xs font-mono">
-          <button id="sensor-normal" class="sensor-mode-btn px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">Normal Operation</button>
-          <button id="sensor-anomaly" class="sensor-mode-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-rose-300">Bearing Defect (Alert)</button>
-        </div>
-      </div>
-
-      <!-- Canvas Visualizer Card -->
-      <div class="rounded-2xl ai-card p-6 border border-white/10 space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-4 text-xs font-mono pb-2 border-b border-white/5">
-          <div class="flex items-center gap-4">
-            <span class="text-slate-400">ASSET: <strong class="text-white">Hydraulic Pump #04</strong></span>
-            <span class="text-slate-400">SAMPLING: <strong class="text-white">100 Hz</strong></span>
-            <span class="text-slate-400">STANDARD: <strong class="text-white">ISO 10816-3 Class II</strong></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" id="sensor-status-dot"></span>
-            <span class="font-bold text-emerald-400" id="sensor-status-text">STATUS: NORMAL (RMS 1.8 mm/s)</span>
-          </div>
-        </div>
-
-        <!-- Live Waveform Canvas -->
-        <canvas id="waveformCanvas" class="w-full h-44 rounded-xl bg-space-950 border border-white/5 block"></canvas>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 text-xs font-mono text-slate-300">
-          <div class="p-3 rounded-lg bg-space-950/60 border border-white/5">
-            <span class="text-slate-500 block text-[10px]">RMS VELOCITY</span>
-            <span class="text-base font-bold text-white" id="stat-rms">1.82 mm/s</span>
-            <span class="text-[10px] text-emerald-400 block mt-0.5">Threshold: &lt; 2.80 mm/s</span>
-          </div>
-          <div class="p-3 rounded-lg bg-space-950/60 border border-white/5">
-            <span class="text-slate-500 block text-[10px]">PEAK HARMONIC FREQ</span>
-            <span class="text-base font-bold text-white" id="stat-freq">24.5 Hz (1X RPM)</span>
-            <span class="text-[10px] text-slate-400 block mt-0.5">FFT Spectral Peak</span>
-          </div>
-          <div class="p-3 rounded-lg bg-space-950/60 border border-white/5">
-            <span class="text-slate-500 block text-[10px]">PREDICTIVE HEALTH INDEX</span>
-            <span class="text-base font-bold text-brand-400" id="stat-health">98.4% OPTIMAL</span>
-            <span class="text-[10px] text-slate-400 block mt-0.5">Estimated RUL: 8,400 hrs</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ======================== ALL GITHUB & PRODUCTION PROJECTS ======================== -->
-  <section id="projects" class="py-24 px-6 border-t border-white/5 relative z-10">
-    <div class="max-w-6xl mx-auto space-y-12">
-      
-      <!-- Section Header -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div>
-          <span class="text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest">// Portfolios & Codebases</span>
-          <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mt-1">Featured Production Systems</h2>
-          <p class="text-slate-400 text-sm sm:text-base max-w-xl mt-2">
-            Every repository is fully functional, complete with production architectures, documentation, and verified benchmarks.
-          </p>
-        </div>
-
-        <!-- Filter Pill Bar -->
-        <div class="flex flex-wrap gap-2 p-1.5 rounded-2xl bg-space-900 border border-white/10 text-xs font-mono">
-          <button class="filter-tab px-4 py-2 rounded-xl font-bold bg-brand-500 text-slate-950 transition" data-category="all">All (8)</button>
-          <button class="filter-tab px-4 py-2 rounded-xl text-slate-400 hover:text-white transition" data-category="ml">Foundation ML</button>
-          <button class="filter-tab px-4 py-2 rounded-xl text-slate-400 hover:text-white transition" data-category="agents">AI Agents</button>
-          <button class="filter-tab px-4 py-2 rounded-xl text-slate-400 hover:text-white transition" data-category="iot">IoT & Hardware</button>
-          <button class="filter-tab px-4 py-2 rounded-xl text-slate-400 hover:text-white transition" data-category="dsa">DSA & CV</button>
-        </div>
-      </div>
-
-      <!-- Projects Grid -->
-      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <!-- Project 1: Industrial Time-Series Forecasting (TTM-R3) -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-white/10" data-category="ml">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-brand-500/15 text-brand-300 border border-brand-500/30 font-semibold">
-                Foundation Time-Series
-              </span>
-              <span class="text-[11px] font-mono text-slate-400">IBM Granite</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-white hover:text-brand-300 transition">
-                Industrial Inflow Forecasting (TTM-R3)
-              </h3>
-              <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
-                Fine-tuned IBM Granite TTM-R3 patch-mixer model for 15-minute rolling inflow telemetry. Reduced MAE by <strong>61.8%</strong> over standard baselines with sub-15ms inference latency.
-              </p>
-            </div>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">PyTorch</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">IBM Granite TTM-R3</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">FastAPI</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">MAE: 0.142</span>
-            </div>
-          </div>
-          <div class="pt-6 border-t border-white/5 flex items-center justify-between">
-            <a href="https://github.com/B-LIPIKA/Industrial-Time-Series-Forecasting-TTM-R3" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-brand-400 hover:text-brand-300 transition">
-              <span>View Code</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-            <button class="blueprint-btn text-[11px] font-mono text-slate-400 hover:text-white" data-modal="modal-ttm">
-              [Blueprint]
-            </button>
-          </div>
-        </div>
-
-        <!-- Project 2: Industrial AI Agent Platform -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-white/10" data-category="agents">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 font-semibold">
-                Autonomous Multi-Agent
-              </span>
-              <span class="text-[11px] font-mono text-slate-400">LangGraph</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-white hover:text-indigo-300 transition">
-                Industrial AI Agent Platform
-              </h3>
-              <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
-                Deterministic multi-agent orchestrator querying plant sensor catalogs. Decouples Python code execution from LLM reasoning to ensure zero mathematical hallucination.
-              </p>
-            </div>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">LangGraph</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Local LLM / Ollama</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">SQL Tools</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Deterministic Tooling</span>
-            </div>
-          </div>
-          <div class="pt-6 border-t border-white/5 flex items-center justify-between">
-            <a href="https://github.com/B-LIPIKA/Industrial-AI-Agent-Platform" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-indigo-400 hover:text-indigo-300 transition">
-              <span>View Code</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-            <button class="blueprint-btn text-[11px] font-mono text-slate-400 hover:text-white" data-modal="modal-agent">
-              [Blueprint]
-            </button>
-          </div>
-        </div>
-
-        <!-- Project 3: Industrial Vibration Anomaly Detection -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-white/10" data-category="ml">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-rose-500/15 text-rose-300 border border-rose-500/30 font-semibold">
-                Predictive Maintenance
-              </span>
-              <span class="text-[11px] font-mono text-slate-400">ISO 10816</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-white hover:text-rose-300 transition">
-                Vibration Anomaly Detection (2.3M+ Data)
-              </h3>
-              <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
-                Stream pipeline processing 2.3M+ accelerometer records. Combines Isolation Forest scoring with ISO 10816 vibration severity and local-LLM root-cause synthesis.
-              </p>
-            </div>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Isolation Forest</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Parquet</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">2.3M+ Rows</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Google Colab</span>
-            </div>
-          </div>
-          <div class="pt-6 border-t border-white/5 flex items-center justify-between gap-2">
-            <a href="https://github.com/B-LIPIKA/Industrial-Vibration-Anomaly-Detection" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-rose-400 hover:text-rose-300 transition">
-              <span>View Code</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-            <div class="flex items-center gap-2">
-              <button class="blueprint-btn text-[11px] font-mono text-slate-400 hover:text-white" data-modal="modal-vibration">
-                [Blueprint]
-              </button>
-              <a href="https://colab.research.google.com/github/B-LIPIKA/Industrial-Vibration-Anomaly-Detection/blob/main/demo_notebook.ipynb" target="_blank" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-rose-950/80 border border-rose-700/60 text-rose-300 text-[11px] font-mono font-bold hover:bg-rose-900 transition">
-                <span>🚀 Colab</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 4: AI Data Scientist Agent -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-white/10" data-category="agents">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 font-semibold">
-                Autonomous Auto-EDA
-              </span>
-              <span class="text-[11px] font-mono text-slate-400">Statistical Suite</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-white hover:text-emerald-300 transition">
-                AI Data Scientist Agent
-              </h3>
-              <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
-                Autonomous dataset profiler computing trend slope, Augmented Dickey-Fuller stationarity, CUSUM changepoints, and Pearson collinearity to formulate modeling plans.
-              </p>
-            </div>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Auto-EDA</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">ADF Stationarity</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">CUSUM</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Scikit-Learn</span>
-            </div>
-          </div>
-          <div class="pt-6 border-t border-white/5 flex items-center justify-between">
-            <a href="https://github.com/B-LIPIKA/AI-Data-Scientist-Agent" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-400 hover:text-emerald-300 transition">
-              <span>View Code</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-            <button class="blueprint-btn text-[11px] font-mono text-slate-400 hover:text-white" data-modal="modal-eda">
-              [Blueprint]
-            </button>
-          </div>
-        </div>
-
-        <!-- Project 5: AgriFlow (Indian Utility Patent) -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-amber-500/30 bg-amber-950/10" data-category="iot">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1">
-                <i data-lucide="award" class="w-3 h-3 text-amber-400"></i>
-                <span>★ Indian Utility Patent</span>
-              </span>
-              <span class="text-[11px] font-mono text-amber-400 font-bold">No. 202541061616</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-white hover:text-amber-300 transition">
-                AgriFlow Smart Irrigation System
-              </h3>
-              <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
-                Patented IoT irrigation network monitoring soil moisture in real-time with automated water pump actuation, threshold fail-safes, and remote mobile app controls.
-              </p>
-            </div>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-amber-200 border border-amber-500/30">ESP8266</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Soil Sensors</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Relay Actuators</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Mobile Control</span>
-            </div>
-          </div>
-          <div class="pt-6 border-t border-white/5 flex items-center justify-between">
-            <a href="https://github.com/B-LIPIKA/Agriflow-" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-amber-400 hover:text-amber-300 transition">
-              <span>View Code</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-            <a href="#patent" class="text-[11px] font-mono text-amber-400/80 hover:text-amber-300">
-              [Patent Details]
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 6: leetcode_learning (DSA Solutions) -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-white/10" data-category="dsa">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-amber-500/15 text-amber-300 border border-amber-500/30 font-semibold">
-                DSA Problem Solving
-              </span>
-              <span class="text-[11px] font-mono text-slate-400">LeetHub v2</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-white hover:text-amber-300 transition">
-                leetcode_learning
-              </h3>
-              <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
-                Automated LeetCode repository continuously synced via LeetHub v2. Solves algorithmic interview challenges with rigorous Big-O space and time complexity proofs.
-              </p>
-            </div>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Two Pointers</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Dynamic Prog</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Graphs & Trees</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Python / Java</span>
-            </div>
-          </div>
-          <div class="pt-6 border-t border-white/5 flex items-center justify-between">
-            <a href="https://github.com/B-LIPIKA/leetcode_learning" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-amber-400 hover:text-amber-300 transition">
-              <span>View Code</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-            <span class="text-[11px] font-mono text-emerald-400">● Daily Sync</span>
-          </div>
-        </div>
-
-        <!-- Project 7: Air-Board Gesture Canvas -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-white/10" data-category="dsa">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-teal-500/15 text-teal-300 border border-teal-500/30 font-semibold">
-                Computer Vision & HCI
-              </span>
-              <span class="text-[11px] font-mono text-slate-400">OpenCV</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-white hover:text-teal-300 transition">
-                Air-Board Gesture Canvas
-              </h3>
-              <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
-                Touchless computer vision system tracking 3D fingertip spatial trajectory in real-time, allowing users to draw and write directly on a virtual digital canvas without touch hardware.
-              </p>
-            </div>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">OpenCV</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Motion Tracking</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Color Masking</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">HCI</span>
-            </div>
-          </div>
-          <div class="pt-6 border-t border-white/5 flex items-center justify-between">
-            <a href="https://github.com/B-LIPIKA/Air-Board" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-teal-400 hover:text-teal-300 transition">
-              <span>View Code</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Project 8: Live Edge Detection to ESP8266 -->
-        <div class="project-card is-visible flex flex-col justify-between rounded-2xl ai-card p-6 border border-white/10" data-category="iot">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="text-[11px] font-mono px-2.5 py-1 rounded-md bg-blue-500/15 text-blue-300 border border-blue-500/30 font-semibold">
-                Edge Vision to IoT
-              </span>
-              <span class="text-[11px] font-mono text-slate-400">Sockets</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-white hover:text-blue-300 transition">
-                Live Edge Detection to ESP8266
-              </h3>
-              <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
-                Real-time edge filtering pipeline extracting spatial contours from camera frames and streaming binary encoded data wirelessly to an ESP8266 microcontroller over HTTP sockets.
-              </p>
-            </div>
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">ESP8266 Node</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Canny Edge</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">HTTP Sockets</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-space-950 text-slate-300 border border-white/5">Binary Framing</span>
-            </div>
-          </div>
-          <div class="pt-6 border-t border-white/5 flex items-center justify-between">
-            <a href="https://github.com/B-LIPIKA/-Live-Edge-Detection-to-ESP8266-System-Description" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-blue-400 hover:text-blue-300 transition">
-              <span>View Code</span>
-              <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ======================== INDIAN UTILITY PATENT SPOTLIGHT ======================== -->
-  <section id="patent" class="py-24 px-6 border-t border-white/5 relative z-10 bg-amber-950/10">
-    <div class="max-w-6xl mx-auto space-y-12">
-      
-      <div class="text-center max-w-2xl mx-auto space-y-3">
-        <span class="text-xs font-mono font-bold text-amber-400 uppercase tracking-widest">// Intellectual Property & Hardware</span>
-        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Indian Utility Patent Granted</h2>
-        <p class="text-slate-400 text-sm sm:text-base">
-          Recognized for original technological invention in automated agriculture and smart resource management.
-        </p>
-      </div>
-
-      <!-- Patent Master Card -->
-      <div class="rounded-3xl ai-card p-8 sm:p-12 border border-amber-500/40 relative overflow-hidden shadow-2xl shadow-amber-950/40">
-        
-        <!-- Background Ambient Glow -->
-        <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          <div class="lg:col-span-8 space-y-6">
-            <div class="flex flex-wrap items-center gap-3">
-              <span class="px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold flex items-center gap-1.5">
-                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-amber-400"></i>
-                <span>OFFICIAL GRANT</span>
-              </span>
-              <span class="text-xs font-mono text-slate-400">Application & Patent No.</span>
-              <span class="px-3 py-1 rounded-md bg-space-950 text-white font-mono font-bold text-xs border border-white/10">
-                202541061616
-              </span>
-            </div>
-
-            <h3 class="text-2xl sm:text-3xl font-extrabold text-white">
-              AgriFlow: Smart IoT Soil Monitoring & Automated Actuation System
-            </h3>
-
-            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Designed and built an end-to-end intelligent agricultural framework that prevents chronic water wastage in rural farming. The system features low-power ESP8266 nodes paired with capacitive moisture probes to execute closed-loop motor switching with remote mobile override.
-            </p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-              <div class="p-4 rounded-xl bg-space-950/80 border border-white/5 space-y-1">
-                <span class="text-[11px] font-mono text-amber-400 font-semibold">WATER SAVINGS</span>
-                <p class="text-xl font-bold text-white">Up to 45%</p>
-                <span class="text-[10px] text-slate-400">vs timed flood irrigation</span>
-              </div>
-              <div class="p-4 rounded-xl bg-space-950/80 border border-white/5 space-y-1">
-                <span class="text-[11px] font-mono text-amber-400 font-semibold">POWER SURGE SAFETY</span>
-                <p class="text-xl font-bold text-white">100% Opto-Isolated</p>
-                <span class="text-[10px] text-slate-400">Relay protective cutoffs</span>
-              </div>
-              <div class="p-4 rounded-xl bg-space-950/80 border border-white/5 space-y-1">
-                <span class="text-[11px] font-mono text-amber-400 font-semibold">STATE HONORS</span>
-                <p class="text-xl font-bold text-white">2nd Runner-Up</p>
-                <span class="text-[10px] text-slate-400">VTU State-Level Project</span>
-              </div>
-            </div>
-
-            <div class="pt-2 flex items-center gap-4">
-              <a href="https://github.com/B-LIPIKA/Agriflow-" target="_blank" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold font-mono text-xs transition inline-flex items-center gap-2">
-                <span>View AgriFlow Repo</span>
-                <i data-lucide="arrow-right" class="w-4 h-4"></i>
-              </a>
-            </div>
-          </div>
-
-          <div class="lg:col-span-4 flex justify-center">
-            <!-- Patent Seal Graphic -->
-            <div class="w-64 h-64 rounded-2xl bg-space-950 border border-amber-500/40 p-6 flex flex-col items-center justify-center text-center relative shadow-2xl">
-              <div class="w-20 h-20 rounded-full bg-amber-500/10 border border-amber-500/40 flex items-center justify-center mb-3 text-amber-400">
-                <i data-lucide="award" class="w-10 h-10"></i>
-              </div>
-              <span class="text-xs font-mono font-bold text-amber-300">GOVERNMENT OF INDIA</span>
-              <span class="text-[11px] font-mono text-slate-400 mt-1">Controller General of Patents, Designs & Trade Marks</span>
-              <span class="text-xs font-mono text-white font-bold mt-3">PATENT #202541061616</span>
-              <span class="text-[10px] text-emerald-400 font-mono mt-1">● CERTIFIED & ISSUED</span>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ======================== EXPERIENCE & EDUCATION TIMELINE ======================== -->
-  <section id="experience" class="py-24 px-6 border-t border-white/5 relative z-10">
-    <div class="max-w-6xl mx-auto space-y-14">
-      
-      <div class="text-center max-w-2xl mx-auto space-y-2">
-        <span class="text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest">// Career Milestones</span>
-        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Experience & Education</h2>
-        <p class="text-slate-400 text-sm">
-          Bridging rigorous academic computer science foundations with real-world industrial AI implementation.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        
-        <!-- Experience Column -->
-        <div class="space-y-6">
-          <h3 class="text-lg font-bold font-mono text-brand-400 uppercase tracking-wider flex items-center gap-2">
-            <i data-lucide="briefcase" class="w-5 h-5"></i>
-            <span>Professional Experience</span>
-          </h3>
-
-          <!-- Role 1: Tiny Prism Labs -->
-          <div class="rounded-2xl ai-card p-6 border border-brand-500/30 space-y-4">
-            <div class="flex items-start justify-between gap-2">
-              <div>
-                <h4 class="text-xl font-bold text-white">AIML Trainee</h4>
-                <p class="text-sm font-semibold text-brand-300">Tiny Prism Labs • Manipal, India</p>
-              </div>
-              <span class="text-xs font-mono px-3 py-1 rounded-full bg-brand-500/15 text-brand-300 border border-brand-500/30 whitespace-nowrap">
-                Feb 2026 – Present
-              </span>
-            </div>
-            <ul class="text-xs sm:text-sm text-slate-300 space-y-2.5 leading-relaxed">
-              <li class="flex items-start gap-2">
-                <span class="text-brand-400 mt-0.5">▸</span>
-                <span>Engineering time-series foundation forecasting models (IBM Granite TTM-R3) for industrial telemetry prediction.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-brand-400 mt-0.5">▸</span>
-                <span>Architecting LangGraph multi-agent supervisors with deterministic SQL sandbox tool execution.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-brand-400 mt-0.5">▸</span>
-                <span>Building automated dataset health diagnostics and sub-15ms rolling inference FastAPI endpoints.</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Role 2: InTimeTec -->
-          <div class="rounded-2xl ai-card p-6 border border-white/10 space-y-4">
-            <div class="flex items-start justify-between gap-2">
-              <div>
-                <h4 class="text-xl font-bold text-white">Machine Learning Intern</h4>
-                <p class="text-sm font-semibold text-slate-300">InTimeTec</p>
-              </div>
-              <span class="text-xs font-mono px-3 py-1 rounded-full bg-slate-800 text-slate-400 whitespace-nowrap">
-                Internship
-              </span>
-            </div>
-            <ul class="text-xs sm:text-sm text-slate-300 space-y-2.5 leading-relaxed">
-              <li class="flex items-start gap-2">
-                <span class="text-slate-400 mt-0.5">▸</span>
-                <span>Developed supervised classification pipelines and computer vision tracking algorithms.</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="text-slate-400 mt-0.5">▸</span>
-                <span>Formulated exploratory data profiling frameworks for sensor telemetry datasets.</span>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-
-        <!-- Education & Honors Column -->
-        <div class="space-y-6">
-          <h3 class="text-lg font-bold font-mono text-emerald-400 uppercase tracking-wider flex items-center gap-2">
-            <i data-lucide="graduation-cap" class="w-5 h-5"></i>
-            <span>Education & Honors</span>
-          </h3>
-
-          <div class="rounded-2xl ai-card p-6 border border-emerald-500/30 space-y-4">
-            <div class="flex items-start justify-between gap-2">
-              <div>
-                <h4 class="text-xl font-bold text-white">Bachelor of Engineering (B.E.)</h4>
-                <p class="text-sm font-semibold text-emerald-300">Information Science & Engineering</p>
-                <p class="text-xs text-slate-400 mt-0.5">Canara Engineering College, Mangalore (VTU)</p>
-              </div>
-              <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 whitespace-nowrap">
-                CGPA: 8.25 / 10
-              </span>
-            </div>
-
-            <div class="pt-2 space-y-3">
-              <div class="p-3.5 rounded-xl bg-space-950/70 border border-white/5 space-y-1">
-                <span class="text-xs font-mono font-bold text-amber-300 flex items-center gap-1.5">
-                  <i data-lucide="trophy" class="w-3.5 h-3.5 text-amber-400"></i>
-                  <span>2nd Runner-Up — State-Level Mini Project Competition</span>
-                </span>
-                <p class="text-xs text-slate-400">
-                  Awarded across Karnataka engineering colleges for AgriFlow smart IoT irrigation framework.
-                </p>
-              </div>
-
-              <div class="p-3.5 rounded-xl bg-space-950/70 border border-white/5 space-y-1">
-                <span class="text-xs font-mono font-bold text-brand-300 flex items-center gap-1.5">
-                  <i data-lucide="check-circle" class="w-3.5 h-3.5 text-brand-400"></i>
-                  <span>Professional Certifications</span>
-                </span>
-                <p class="text-xs text-slate-400">
-                  • <strong>Google Data Analytics Specialization</strong> (Coursera)<br />
-                  • <strong>Java Programming</strong> (NPTEL — Elite Score)
-                </p>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- LeetCode Spotlight Banner -->
-          <div class="rounded-2xl ai-card p-6 border border-amber-500/30 bg-amber-950/10 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-mono font-bold text-amber-400 flex items-center gap-1.5">
-                <i data-lucide="code" class="w-4 h-4"></i>
-                <span>ALGORITHMIC PROBLEM SOLVING</span>
-              </span>
-              <a href="https://github.com/B-LIPIKA/leetcode_learning" target="_blank" class="text-xs font-mono text-brand-400 hover:underline">
-                B-LIPIKA/leetcode_learning →
-              </a>
-            </div>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              Consistently sharpening core computer science fundamentals. Automated syncing with LeetHub v2 covering Two Pointers, Sliding Window, Graph BFS/DFS, and Dynamic Programming with time/space complexity notes.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ======================== COMPREHENSIVE TECH STACK ======================== -->
-  <section id="skills" class="py-24 px-6 border-t border-white/5 relative z-10">
-    <div class="max-w-6xl mx-auto space-y-12">
-      
-      <div class="text-center max-w-2xl mx-auto space-y-2">
-        <span class="text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest">// Technical Mastery</span>
-        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Engineered Stack</h2>
-        <p class="text-slate-400 text-sm">
-          Hands-on production proficiencies categorized by domain and architecture level.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        
-        <!-- Category 1 -->
-        <div class="rounded-2xl ai-card p-6 border border-white/10 space-y-4">
-          <div class="w-10 h-10 rounded-xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400">
-            <i data-lucide="brain" class="w-5 h-5"></i>
-          </div>
-          <h3 class="text-base font-bold font-mono text-white">Machine Learning & Deep Learning</h3>
-          <ul class="text-xs font-mono text-slate-300 space-y-2">
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>IBM Granite TTM-R3</span>
-              <span class="text-brand-400">High</span>
-            </li>
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>PyTorch</span>
-              <span class="text-brand-400">High</span>
-            </li>
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>Scikit-learn</span>
-              <span class="text-brand-400">High</span>
-            </li>
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>Isolation Forest</span>
-              <span class="text-brand-400">High</span>
-            </li>
-            <li class="flex items-center justify-between">
-              <span>OpenCV Vision</span>
-              <span class="text-brand-400">Medium</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Category 2 -->
-        <div class="rounded-2xl ai-card p-6 border border-white/10 space-y-4">
-          <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
-            <i data-lucide="bot" class="w-5 h-5"></i>
-          </div>
-          <h3 class="text-base font-bold font-mono text-white">Agentic AI & Orchestration</h3>
-          <ul class="text-xs font-mono text-slate-300 space-y-2">
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>LangGraph</span>
-              <span class="text-indigo-400">High</span>
-            </li>
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>Local LLMs / Ollama</span>
-              <span class="text-indigo-400">High</span>
-            </li>
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>Deterministic Tooling</span>
-              <span class="text-indigo-400">High</span>
-            </li>
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>Schema-Aware SQL</span>
-              <span class="text-indigo-400">High</span>
-            </li>
-            <li class="flex items-center justify-between">
-              <span>Agentic Evaluation</span>
-              <span class="text-indigo-400">Medium</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Category 3 -->
-        <div class="rounded-2xl ai-card p-6 border border-white/10 space-y-4">
-          <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
-            <i data-lucide="cpu" class="w-5 h-5"></i>
-          </div>
-          <h3 class="text-base font-bold font-mono text-white">IoT & Embedded Systems</h3>
-          <ul class="text-xs font-mono text-slate-300 space-y-2">
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>ESP8266 Microcontroller</span>
-              <span class="text-amber-400">Patent</span>
-            </li>
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>Sensor Interfacing</span>
-              <span class="text-amber-400">High</span>
-            </li>
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>HTTP / Sockets</span>
-              <span class="text-amber-400">High</span>
-            </li>
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>Relay Actuation</span>
-              <span class="text-amber-400">High</span>
-            </li>
-            <li class="flex items-center justify-between">
-              <span>MicroPython / C++</span>
-              <span class="text-amber-400">Proficient</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Category 4 -->
-        <div class="rounded-2xl ai-card p-6 border border-white/10 space-y-4">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
-            <i data-lucide="server" class="w-5 h-5"></i>
-          </div>
-          <h3 class="text-base font-bold font-mono text-white">Production & MLOps</h3>
-          <ul class="text-xs font-mono text-slate-300 space-y-2">
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>FastAPI (<15ms)</span>
-              <span class="text-emerald-400">High</span>
-            </li>
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>Parquet Streaming</span>
-              <span class="text-emerald-400">High</span>
-            </li>
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>Docker & Git</span>
-              <span class="text-emerald-400">High</span>
-            </li>
-            <li class="flex items-center justify-between border-b border-white/5 pb-1">
-              <span>Linux & Bash</span>
-              <span class="text-emerald-400">High</span>
-            </li>
-            <li class="flex items-center justify-between">
-              <span>Google Cloud (GCP)</span>
-              <span class="text-emerald-400">Proficient</span>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ======================== CONTACT SECTION ======================== -->
-  <section id="contact" class="py-24 px-6 border-t border-white/5 relative z-10">
-    <div class="max-w-4xl mx-auto space-y-12">
-      
-      <div class="text-center space-y-3">
-        <span class="text-xs font-mono font-semibold text-brand-400 uppercase tracking-widest">// Direct Channel</span>
-        <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Initiate Communication</h2>
-        <p class="text-slate-400 text-sm sm:text-base max-w-lg mx-auto">
-          Currently open to full-time Machine Learning Engineer, Industrial AI, and Agentic Systems opportunities.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-        
-        <!-- Left Contact Info -->
-        <div class="md:col-span-5 space-y-4">
-          <div class="rounded-2xl ai-card p-6 border border-white/10 space-y-4">
-            <h3 class="text-sm font-bold font-mono text-white uppercase tracking-wider">Direct Contacts</h3>
-            
-            <a href="mailto:Kulal123lipika@gmail.com" class="flex items-center gap-3 text-xs font-mono text-slate-300 hover:text-brand-400 transition p-2 rounded-lg hover:bg-white/5">
-              <i data-lucide="mail" class="w-4 h-4 text-brand-400"></i>
-              <span>Kulal123lipika@gmail.com</span>
-            </a>
-
-            <a href="https://linkedin.com/in/lipika2004" target="_blank" class="flex items-center gap-3 text-xs font-mono text-slate-300 hover:text-brand-400 transition p-2 rounded-lg hover:bg-white/5">
-              <i data-lucide="linkedin" class="w-4 h-4 text-brand-400"></i>
-              <span>linkedin.com/in/lipika2004</span>
-            </a>
-
-            <a href="https://github.com/B-LIPIKA" target="_blank" class="flex items-center gap-3 text-xs font-mono text-slate-300 hover:text-brand-400 transition p-2 rounded-lg hover:bg-white/5">
-              <i data-lucide="github" class="w-4 h-4 text-brand-400"></i>
-              <span>github.com/B-LIPIKA</span>
-            </a>
-
-            <div class="flex items-center gap-3 text-xs font-mono text-slate-400 p-2">
-              <i data-lucide="map-pin" class="w-4 h-4 text-slate-500"></i>
-              <span>Karnataka, India</span>
-            </div>
-          </div>
-
-          <div class="rounded-2xl ai-card p-6 border border-brand-500/20 bg-brand-950/20 space-y-2">
-            <span class="text-xs font-mono font-bold text-brand-300 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span>
-              <span>Available for Hiring</span>
-            </span>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Seeking Machine Learning Engineer or Applied AI roles in predictive time-series and agent orchestration.
-            </p>
-          </div>
-        </div>
-
-        <!-- Right EmailJS Contact Form -->
-        <div class="md:col-span-7">
-          <form id="contact-form" class="rounded-2xl ai-card p-6 sm:p-8 border border-white/10 space-y-4">
-            
-            <div class="space-y-1.5">
-              <label for="user_name" class="block text-xs font-mono text-slate-400">YOUR NAME</label>
-              <input type="text" id="user_name" name="name" required placeholder="Dr. Alex Rivera" class="w-full px-4 py-3 rounded-xl bg-space-950 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-brand-400 text-sm font-mono transition" />
-            </div>
-
-            <div class="space-y-1.5">
-              <label for="user_email" class="block text-xs font-mono text-slate-400">YOUR EMAIL</label>
-              <input type="email" id="user_email" name="email" required placeholder="alex@tech-enterprise.com" class="w-full px-4 py-3 rounded-xl bg-space-950 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-brand-400 text-sm font-mono transition" />
-            </div>
-
-            <div class="space-y-1.5">
-              <label for="user_subject" class="block text-xs font-mono text-slate-400">SUBJECT</label>
-              <input type="text" id="user_subject" name="subject" required placeholder="ML Engineering Opportunity / Collaboration" class="w-full px-4 py-3 rounded-xl bg-space-950 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-brand-400 text-sm font-mono transition" />
-            </div>
-
-            <div class="space-y-1.5">
-              <label for="user_message" class="block text-xs font-mono text-slate-400">MESSAGE</label>
-              <textarea id="user_message" name="message" rows="4" required placeholder="Hello Lipika, we reviewed your IBM Granite TTM-R3 and patent work..." class="w-full px-4 py-3 rounded-xl bg-space-950 border border-white/10 text-white placeholder-slate-600 focus:outline-none focus:border-brand-400 text-sm font-mono transition resize-none"></textarea>
-            </div>
-
-            <button type="submit" id="submit-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-500 to-indigo-600 hover:from-brand-400 hover:to-indigo-500 text-slate-950 font-bold text-sm font-mono tracking-wider transition shadow-lg shadow-brand-500/20 flex items-center justify-center gap-2">
-              <i data-lucide="send" class="w-4 h-4"></i>
-              <span>TRANSMIT DISPATCH</span>
-            </button>
-
-            <p id="status-message" class="text-xs text-center font-mono font-semibold pt-1"></p>
-
-          </form>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ======================== FOOTER ======================== -->
-  <footer class="py-10 px-6 border-t border-white/5 bg-space-950 text-slate-500 text-xs font-mono relative z-10">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-brand-400"></span>
-        <span class="text-slate-400">© 2026 B. Lipika • Indian Utility Patent #202541061616</span>
-      </div>
-      <div class="flex items-center gap-6 text-slate-400">
-        <a href="#home" class="hover:text-brand-400 transition">Return to Top ↑</a>
-        <a href="https://github.com/B-LIPIKA" target="_blank" class="hover:text-brand-400 transition">GitHub Profile</a>
-        <a href="Lipika_B_Resume.pdf" download class="hover:text-brand-400 transition">Resume PDF</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ======================== BLUEPRINT MODALS (<dialog closedby="any">) ======================== -->
-  
-  <!-- Blueprint 1: TTM-R3 -->
-  <dialog id="modal-ttm" closedby="any" class="rounded-3xl ai-card p-6 sm:p-8 border border-brand-500/40 text-slate-200 max-w-2xl w-full mx-auto my-auto shadow-2xl backdrop:bg-black/80">
-    <div class="space-y-6">
-      <div class="flex items-center justify-between border-b border-white/10 pb-4">
-        <div>
-          <span class="text-xs font-mono text-brand-400">// System Architecture Blueprint</span>
-          <h3 class="text-xl font-bold text-white">IBM Granite TTM-R3 Inflow Pipeline</h3>
-        </div>
-        <button class="modal-close p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <div class="space-y-4 text-xs font-mono">
-        <div class="p-4 rounded-xl bg-space-950 border border-white/5 space-y-2">
-          <span class="text-brand-400 font-bold">1. DATA INGESTION & ROLLING PATCH MIXING:</span>
-          <p class="text-slate-400">
-            Raw industrial telemetry → 15-minute rolling window patches → RevIN Instance Normalization → Multi-layer Perceptron Mixer Blocks.
-          </p>
-        </div>
-
-        <div class="p-4 rounded-xl bg-space-950 border border-white/5 space-y-2">
-          <span class="text-brand-400 font-bold">2. BENCHMARK COMPARISON MATRIX:</span>
-          <p class="text-slate-400">
-            • IBM Granite TTM-R3: <strong>MAE 0.142</strong> (61.8% improvement)<br />
-            • DLinear Baseline: <strong>MAE 0.372</strong><br />
-            • N-BEATS Baseline: <strong>MAE 0.285</strong>
-          </p>
-        </div>
-
-        <div class="p-4 rounded-xl bg-space-950 border border-white/5 space-y-2">
-          <span class="text-brand-400 font-bold">3. PRODUCTION SERVICE LATENCY:</span>
-          <p class="text-slate-400">
-            Packaged as an asynchronous FastAPI microservice with sub-15ms rolling inference and automated anomaly thresholds.
-          </p>
-        </div>
-      </div>
-
-      <div class="pt-2 flex justify-end">
-        <a href="https://github.com/B-LIPIKA/Industrial-Time-Series-Forecasting-TTM-R3" target="_blank" class="px-4 py-2 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-xs font-mono">
-          Go to Repository →
+      <div class="mini-grid">
+        <a class="mini reveal" target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/11470130">
+          <span class="em">📑</span>
+          <h4>Palm Sense · IEEE Paper</h4>
+          <p>Haptic vibration motor grid with voice assistance for multi-modal shape perception.</p>
+        </a>
+        <a class="mini reveal" style="--d:.06s" target="_blank" rel="noopener" href="https://github.com/B-LIPIKA/leetcode_learning"><span
+            class="em">🧠</span>
+          <h4>LeetCode Learning</h4>
+          <p>DSA solutions auto-synced with LeetHub v2: DP, graphs, sliding window.</p>
+        </a>
+        <a class="mini reveal" style="--d:.06s" target="_blank" rel="noopener"
+          href="https://github.com/B-LIPIKA/covid-19-dataset"><span class="em">🦠</span>
+          <h4>Covid-19 Dataset</h4>
+          <p>Data engineering project in Python.</p>
+        </a>
+        <a class="mini reveal" style="--d:.12s" target="_blank" rel="noopener"
+          href="https://github.com/B-LIPIKA/Clone"><span class="em">🛒</span>
+          <h4>Amazon Clone</h4>
+          <p>Front-end clone built in HTML.</p>
+        </a>
+        <a class="mini reveal" style="--d:.18s" target="_blank" rel="noopener"
+          href="https://github.com/B-LIPIKA/Clone-2"><span class="em">🎬</span>
+          <h4>Netflix Clone</h4>
+          <p>Responsive streaming UI clone.</p>
+        </a>
+        <a class="mini reveal" style="--d:.24s" target="_blank" rel="noopener"
+          href="https://github.com/B-LIPIKA/Tic-tac-toe"><span class="em">⭕</span>
+          <h4>Tic-Tac-Toe</h4>
+          <p>Logic game in JavaScript.</p>
+        </a>
+        <a class="mini reveal" style="--d:.3s" target="_blank" rel="noopener"
+          href="https://github.com/B-LIPIKA/Task-Reminder-"><span class="em">⏰</span>
+          <h4>Task Reminder</h4>
+          <p>A simple reminder web app.</p>
         </a>
       </div>
     </div>
-  </dialog>
+  </section>
 
-  <!-- Blueprint 2: LangGraph Agent -->
-  <dialog id="modal-agent" closedby="any" class="rounded-3xl ai-card p-6 sm:p-8 border border-indigo-500/40 text-slate-200 max-w-2xl w-full mx-auto my-auto shadow-2xl backdrop:bg-black/80">
-    <div class="space-y-6">
-      <div class="flex items-center justify-between border-b border-white/10 pb-4">
-        <div>
-          <span class="text-xs font-mono text-indigo-400">// System Architecture Blueprint</span>
-          <h3 class="text-xl font-bold text-white">LangGraph Multi-Agent Orchestration</h3>
-        </div>
-        <button class="modal-close p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
+  <!-- ============ ABOUT ============ -->
+  <section class="section" id="about" style="background:var(--bg2)">
+    <div class="wrap">
+      <div class="sec-title reveal"><span class="kicker">About</span>
+        <h2>B.Lipika</h2>
+        <p>I’m an AI/ML Engineer passionate about building intelligent solutions using machine learning, time-series
+          forecasting, and data analytics.</p>
       </div>
-
-      <div class="space-y-4 text-xs font-mono">
-        <div class="p-4 rounded-xl bg-space-950 border border-white/5 space-y-2">
-          <span class="text-indigo-400 font-bold">1. SUPERVISOR NODE & ROUTER:</span>
-          <p class="text-slate-400">
-            Evaluates operator natural language query → classifies intent → dispatches state to SQL Specialist or Python Telemetry Runner.
-          </p>
+      <div class="about-grid">
+        <div class="timeline reveal">
+          <div class="tl"><small>Feb 2026 – Present</small>
+            <h4>AIML Trainee · Tiny Prism Labs, Manipal</h4>
+            <p>Industrial analytics and time-series agents: forecasting, anomaly detection and orchestration.</p>
+          </div>
+          <div class="tl"><small>2025</small>
+            <h4>Indian Utility Patent No. 202541061616</h4>
+            <p>Awarded for AgriFlow, a smart irrigation system with hardware-driven pump control.</p>
+          </div>
+          <div class="tl">
+            <span class="badge-ieee">IEEE Conference Publication</span>
+            <h4>Palm Sense: A Coin Vibration Motor Grid with Voice Assistance for Real-Time Multi-Modal Shape and Object Perception</h4>
+            <p>Wearable multi-modal perception system translating digital contours and object geometry into dynamic haptic vibration patterns with coordinated voice guidance.</p>
+            <a class="tl-link" href="https://ieeexplore.ieee.org/document/11470130" target="_blank" rel="noopener noreferrer">
+              <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+              <span>Read on IEEE Xplore</span>
+              <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+          <div class="tl"><small>Education</small>
+            <h4>B.E. · CGPA 8.25 / 10</h4>
+            <p><b>Canara Engineering College, Mangalore</b><br>Strong foundation in algorithms and machine learning, sharpened with daily DSA practice.</p>
+          </div>
         </div>
-
-        <div class="p-4 rounded-xl bg-space-950 border border-white/5 space-y-2">
-          <span class="text-indigo-400 font-bold">2. DETERMINISTIC SQL / CODE SANDBOX:</span>
-          <p class="text-slate-400">
-            LLM generates parameterized query against database catalog; physical execution occurs in isolated Python runner with strict schema validation to prevent hallucinations.
-          </p>
+        <div class="reveal" style="--d:.1s">
+          <div class="skill-block">
+            <h5>Machine learning</h5>
+            <div class="chips"><span class="chip">PyTorch</span><span class="chip">TensorFlow</span><span
+                class="chip">Scikit-learn</span><span class="chip">Granite TTM-R3</span><span class="chip">Isolation
+                Forest</span><span class="chip">OpenCV</span></div>
+          </div>
+          <div class="skill-block">
+            <h5>Agents &amp; LLMs</h5>
+            <div class="chips"><span class="chip">LangGraph</span><span class="chip">Ollama</span><span
+                class="chip">Tool
+                use</span><span class="chip">Evidence-grounding</span></div>
+          </div>
+          <div class="skill-block">
+            <h5>Backend &amp; data</h5>
+            <div class="chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span
+                class="chip">Flask</span><span class="chip">PostgreSQL</span><span class="chip">Pandas</span><span
+                class="chip">Parquet</span><span class="chip">Docker</span></div>
+          </div>
+          <div class="skill-block">
+            <h5>Languages &amp; tools</h5>
+            <div class="chips"><span class="chip">C++</span><span class="chip">Java</span><span
+                class="chip">JavaScript</span><span class="chip">Linux</span><span class="chip">Git</span></div>
+          </div>
         </div>
-      </div>
-
-      <div class="pt-2 flex justify-end">
-        <a href="https://github.com/B-LIPIKA/Industrial-AI-Agent-Platform" target="_blank" class="px-4 py-2 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-bold text-xs font-mono">
-          Go to Repository →
-        </a>
       </div>
     </div>
-  </dialog>
+  </section>
 
-  <!-- Blueprint 3: AI Data Scientist Agent -->
-  <dialog id="modal-eda" closedby="any" class="rounded-3xl ai-card p-6 sm:p-8 border border-emerald-500/40 text-slate-200 max-w-2xl w-full mx-auto my-auto shadow-2xl backdrop:bg-black/80">
-    <div class="space-y-6">
-      <div class="flex items-center justify-between border-b border-white/10 pb-4">
-        <div>
-          <span class="text-xs font-mono text-emerald-400">// System Architecture Blueprint</span>
-          <h3 class="text-xl font-bold text-white">AI Data Scientist Statistical Engine</h3>
+  <!-- ============ CONTACT ============ -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="contact-card reveal">
+        <span class="kicker">Let's talk</span>
+        <h2>Have a problem worth<br><span class="grad">modelling properly?</span></h2>
+        <p>I'm open to ML engineering roles and industrial AI collaborations. Send me a message below:</p>
+
+        <!-- EmailJS Contact Form -->
+        <form class="contact-form" id="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="user_name">Your Name</label>
+              <input type="text" id="user_name" name="user_name" placeholder="John Doe" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label for="user_email">Your Email</label>
+              <input type="email" id="user_email" name="user_email" placeholder="john@example.com" required autocomplete="email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" placeholder="Write your message here..." required></textarea>
+          </div>
+          <button type="submit" class="btn primary submit-btn" id="submit-btn">
+            <span>Send message</span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </button>
+          <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+        </form>
+
+        <!-- Social Connections -->
+        <div class="contact-socials">
+          <a class="btn ghost" target="_blank" rel="noopener" href="https://linkedin.com/in/lipika2004">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.22a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z" />
+            </svg>
+            LinkedIn
+          </a>
+          <a class="btn ghost" target="_blank" rel="noopener" href="https://github.com/B-LIPIKA">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" />
+            </svg>
+            GitHub
+          </a>
         </div>
-        <button class="modal-close p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <div class="space-y-4 text-xs font-mono">
-        <div class="p-4 rounded-xl bg-space-950 border border-white/5 space-y-2">
-          <span class="text-emerald-400 font-bold">1. STATISTICAL TEST PIPELINE:</span>
-          <p class="text-slate-400">
-            • Trend Slope: Ordinary Least Squares (OLS) drift detection<br />
-            • Stationarity: Augmented Dickey-Fuller (ADF) p-value &lt; 0.05 verification<br />
-            • Changepoints: Cumulative Sum (CUSUM) mean-shift detection<br />
-            • Collinearity: Pearson correlation matrix with VIF pruning
-          </p>
-        </div>
-      </div>
-
-      <div class="pt-2 flex justify-end">
-        <a href="https://github.com/B-LIPIKA/AI-Data-Scientist-Agent" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs font-mono">
-          Go to Repository →
-        </a>
       </div>
     </div>
-  </dialog>
-
-  <!-- Blueprint 4: Vibration Anomaly Detection -->
-  <dialog id="modal-vibration" closedby="any" class="rounded-3xl ai-card p-6 sm:p-8 border border-rose-500/40 text-slate-200 max-w-2xl w-full mx-auto my-auto shadow-2xl backdrop:bg-black/80">
-    <div class="space-y-6">
-      <div class="flex items-center justify-between border-b border-white/10 pb-4">
-        <div>
-          <span class="text-xs font-mono text-rose-400">// System Architecture Blueprint</span>
-          <h3 class="text-xl font-bold text-white">Vibration Anomaly & ISO 10816 Architecture</h3>
-        </div>
-        <button class="modal-close p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <div class="space-y-4 text-xs font-mono">
-        <div class="p-4 rounded-xl bg-space-950 border border-white/5 space-y-2">
-          <span class="text-rose-400 font-bold">1. 2.3M+ SENSOR STREAM PIPELINE:</span>
-          <p class="text-slate-400">
-            Ingests 16-channel accelerometer telemetry at 100 Hz in partitioned Parquet chunks, calculating rolling RMS velocity, kurtosis, and spectral crest factors.
-          </p>
-        </div>
-
-        <div class="p-4 rounded-xl bg-space-950 border border-white/5 space-y-2">
-          <span class="text-rose-400 font-bold">2. ISO 10816-3 CLASSIFICATION & LOCAL LLM:</span>
-          <p class="text-slate-400">
-            Automated boundary rules (Zone A/B: Good, Zone C: Warning, Zone D: Trip Alert). Integrates local Ollama models for human-readable root-cause diagnostic synthesis.
-          </p>
-        </div>
-      </div>
-
-      <div class="pt-2 flex justify-end gap-3">
-        <a href="https://colab.research.google.com/github/B-LIPIKA/Industrial-Vibration-Anomaly-Detection/blob/main/demo_notebook.ipynb" target="_blank" class="px-4 py-2 rounded-xl bg-rose-950 border border-rose-700 text-rose-300 font-bold text-xs font-mono">
-          Launch Colab Demo 🚀
-        </a>
-        <a href="https://github.com/B-LIPIKA/Industrial-Vibration-Anomaly-Detection" target="_blank" class="px-4 py-2 rounded-xl bg-rose-500 hover:bg-rose-400 text-slate-950 font-bold text-xs font-mono">
-          Go to Repository →
-        </a>
-      </div>
-    </div>
-  </dialog>
-
-  <!-- ======================== INTERACTIVE JAVASCRIPT & MOTION ENGINE ======================== -->
-  <script>
-    // Initialize Lucide Icons
-    lucide.createIcons();
-
-    // =========================================================================
-    // FRAMER MOTION VANILLA INTEGRATION FOR BUTTERY SMOOTH SPRING PHYSICS
-    // =========================================================================
-    function runFramerMotionSprings() {
-      if (window.Motion && window.Motion.animate) {
-        // Animate Hero Badges
-        window.Motion.animate(".motion-hero-badge", 
-          { opacity: [0, 1], y: [20, 0] }, 
-          { duration: 0.8, easing: [0.16, 1, 0.3, 1] }
-        );
-
-        // Animate Profile Card with Smooth Spring
-        window.Motion.animate(".motion-profile-card", 
-          { opacity: [0, 1], scale: [0.93, 1], y: [30, 0] }, 
-          { duration: 1.0, easing: [0.16, 1, 0.3, 1] }
-        );
-
-        // Animate Hero Info Column with Staggered Easing
-        window.Motion.animate(".motion-hero-info", 
-          { opacity: [0, 1], x: [25, 0] }, 
-          { duration: 0.9, delay: 0.2, easing: [0.16, 1, 0.3, 1] }
-        );
-
-        // Animate Command Center Terminal
-        window.Motion.animate(".motion-command-center", 
-          { opacity: [0, 1], y: [35, 0] }, 
-          { duration: 0.9, delay: 0.4, easing: [0.16, 1, 0.3, 1] }
-        );
-      }
-    }
-
-    // Avatar File Input Live Preview Handler
-    const uploadTrigger = document.getElementById('upload-avatar-trigger');
-    const avatarInput = document.getElementById('avatar-file-input');
-    const avatarImg = document.getElementById('avatar-image');
-
-    if (uploadTrigger && avatarInput) {
-      uploadTrigger.addEventListener('click', () => avatarInput.click());
-      avatarInput.addEventListener('change', function(e) {
-        if (this.files && this.files[0]) {
-          const reader = new FileReader();
-          reader.onload = function(evt) {
-            avatarImg.src = evt.target.result;
-          };
-          reader.readAsDataURL(this.files[0]);
-        }
-      });
-    }
-
-    // Mobile Navigation Toggle
-    const mobileToggle = document.getElementById('mobile-toggle');
-    const mobileNav = document.getElementById('mobile-nav');
-    if (mobileToggle && mobileNav) {
-      mobileToggle.addEventListener('click', () => {
-        mobileNav.classList.toggle('hidden');
-      });
-      document.querySelectorAll('.mobile-item').forEach(item => {
-        item.addEventListener('click', () => mobileNav.classList.add('hidden'));
-      });
-    }
-
-    // =========================================================================
-    // 🎬 HIGH-TECH AI SENTINEL DRONE & THUNDER CANVAS ENGINE
-    // =========================================================================
-    const introOverlay = document.getElementById('intro-overlay');
-    const introCanvas = document.getElementById('intro-canvas');
-    const thunderFlash = document.getElementById('thunder-flash');
-    const introCaption = document.getElementById('intro-caption');
-    const skipIntroBtn = document.getElementById('skip-intro-btn');
-    const toggleSoundBtn = document.getElementById('toggle-sound-btn');
-    const replayIntroBtn = document.getElementById('replay-intro-btn');
-    const heroReplayBtn = document.getElementById('hero-replay-btn');
-    const mobileReplayBtn = document.getElementById('mobile-replay-btn');
-
-    const ictx = introCanvas.getContext('2d');
-    let introWidth = 0;
-    let introHeight = 0;
-    let introAnimId = null;
-    let soundEnabled = true;
-
-    // Web Audio Synthesizer for Clean Cyber SFX
-    let audioCtx = null;
-    function initAudio() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-    }
-
-    function playDroneChime() {
-      if (!soundEnabled || !audioCtx) return;
-      try {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(440, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3);
-        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.6);
-      } catch (e) {}
-    }
-
-    function playCoinPing() {
-      if (!soundEnabled || !audioCtx) return;
-      try {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(1046.50, audioCtx.currentTime); // C6
-        osc.frequency.exponentialRampToValueAtTime(1567.98, audioCtx.currentTime + 0.12); // G6
-        gain.gain.setValueAtTime(0.35, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 1.2);
-      } catch (e) {}
-    }
-
-    function playThunderBoom() {
-      if (!soundEnabled || !audioCtx) return;
-      try {
-        const bufferSize = audioCtx.sampleRate * 2.5;
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-          data[i] = Math.random() * 2 - 1;
-        }
-
-        const noise = audioCtx.createBufferSource();
-        noise.buffer = buffer;
-
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(850, audioCtx.currentTime);
-        filter.frequency.exponentialRampToValueAtTime(70, audioCtx.currentTime + 2.0);
-
-        const gain = audioCtx.createGain();
-        gain.gain.setValueAtTime(0.9, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 2.3);
-
-        noise.connect(filter);
-        filter.connect(gain);
-        gain.connect(audioCtx.destination);
-        noise.start();
-        noise.stop(audioCtx.currentTime + 2.3);
-      } catch (e) {}
-    }
-
-    function resizeIntroCanvas() {
-      introWidth = introCanvas.width = window.innerWidth;
-      introHeight = introCanvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeIntroCanvas);
-    resizeIntroCanvas();
-
-    // Intro Animation State Machine (Sleek Floating AI Sentinel Drone)
-    let droneState = {
-      phase: 'FLY_IN', // 'FLY_IN', 'HOVER_PITCH', 'COIN_ASCEND', 'THUNDER_BURST', 'DONE'
-      timer: 0,
-      x: -120,
-      y: 0,
-      targetX: 0,
-      targetY: 0,
-      ringAngle: 0,
-      pitchArm: 0,
-      coin: { x: 0, y: 0, vx: 0, vy: 0, angle: 0, active: false, particles: [] },
-      lightning: [],
-      shockwave: { radius: 0, alpha: 0 },
-      screenShake: { x: 0, y: 0 },
-      thrusterParticles: []
-    };
-
-    function startIntroSequence() {
-      initAudio();
-      cancelAnimationFrame(introAnimId);
-      introOverlay.style.opacity = '1';
-      introOverlay.style.pointerEvents = 'auto';
-      introOverlay.classList.remove('hidden');
-      resizeIntroCanvas();
-
-      droneState = {
-        phase: 'FLY_IN',
-        timer: 0,
-        x: -120,
-        y: introHeight * 0.48,
-        targetX: introWidth * 0.48,
-        targetY: introHeight * 0.48,
-        ringAngle: 0,
-        pitchArm: 0,
-        coin: { x: 0, y: 0, vx: 0, vy: 0, angle: 0, active: false, particles: [] },
-        lightning: [],
-        shockwave: { radius: 0, alpha: 0 },
-        screenShake: { x: 0, y: 0 },
-        thrusterParticles: []
-      };
-
-      introCaption.textContent = "// AI AUTONOMOUS SENTINEL APPROACHING DOCK...";
-      introCaption.style.opacity = '1';
-      thunderFlash.style.opacity = '0';
-      playDroneChime();
-
-      introLoop();
-    }
-
-    function finishIntroSequence() {
-      cancelAnimationFrame(introAnimId);
-      introOverlay.style.opacity = '0';
-      introOverlay.style.pointerEvents = 'none';
-      setTimeout(() => {
-        introOverlay.classList.add('hidden');
-        runFramerMotionSprings();
-      }, 1000);
-    }
-
-    skipIntroBtn.addEventListener('click', finishIntroSequence);
-    replayIntroBtn.addEventListener('click', startIntroSequence);
-    heroReplayBtn.addEventListener('click', startIntroSequence);
-    mobileReplayBtn.addEventListener('click', () => {
-      mobileNav.classList.add('hidden');
-      startIntroSequence();
-    });
-
-    toggleSoundBtn.addEventListener('click', () => {
-      soundEnabled = !soundEnabled;
-      const soundIcon = document.getElementById('sound-icon');
-      const soundText = document.getElementById('sound-text');
-      if (soundEnabled) {
-        initAudio();
-        soundIcon.setAttribute('data-lucide', 'volume-2');
-        soundText.textContent = "Audio On";
-      } else {
-        soundIcon.setAttribute('data-lucide', 'volume-x');
-        soundText.textContent = "Muted";
-      }
-      lucide.createIcons();
-    });
-
-    // Recursive Branching Lightning Generator
-    function createLightningBranch(x1, y1, x2, y2, displace, depth) {
-      if (depth === 0) return [[x1, y1, x2, y2]];
-      const midX = (x1 + x2) / 2 + (Math.random() - 0.5) * displace;
-      const midY = (y1 + y2) / 2 + (Math.random() - 0.5) * displace;
-      return [
-        ...createLightningBranch(x1, y1, midX, midY, displace * 0.55, depth - 1),
-        ...createLightningBranch(midX, midY, x2, y2, displace * 0.55, depth - 1)
-      ];
-    }
-
-    function introLoop() {
-      ictx.save();
-      ictx.clearRect(0, 0, introWidth, introHeight);
-
-      // Screen Shake during Thunder
-      if (droneState.screenShake.x !== 0 || droneState.screenShake.y !== 0) {
-        ictx.translate(droneState.screenShake.x, droneState.screenShake.y);
-        droneState.screenShake.x *= 0.85;
-        droneState.screenShake.y *= 0.85;
-        if (Math.abs(droneState.screenShake.x) < 0.5) droneState.screenShake.x = 0;
-        if (Math.abs(droneState.screenShake.y) < 0.5) droneState.screenShake.y = 0;
-      }
-
-      // 1. Draw Geometric Sci-Fi Grid Floor
-      drawPerspectiveGrid();
-
-      // 2. Logic Update by Phase
-      droneState.timer++;
-      droneState.ringAngle += 0.05;
-
-      // Floating sine-wave levitation
-      const hoverOffset = Math.sin(droneState.timer * 0.08) * 8;
-      const currentY = droneState.y + hoverOffset;
-
-      if (droneState.phase === 'FLY_IN') {
-        droneState.x += (droneState.targetX - droneState.x) * 0.045 + 1.2;
-        
-        // Emit blue plasma thruster particles
-        droneState.thrusterParticles.push({
-          x: droneState.x - 30,
-          y: currentY + 12 + (Math.random() - 0.5) * 8,
-          vx: -(Math.random() * 4 + 2),
-          vy: (Math.random() - 0.5) * 2,
-          alpha: 1,
-          size: Math.random() * 3 + 2
-        });
-
-        if (Math.abs(droneState.x - droneState.targetX) < 8) {
-          droneState.x = droneState.targetX;
-          droneState.phase = 'HOVER_PITCH';
-          droneState.timer = 0;
-          introCaption.textContent = "// INITIALIZING MAGNETIC COIN CATAPULT...";
-        }
-      } else if (droneState.phase === 'HOVER_PITCH') {
-        droneState.pitchArm = Math.min(1.0, droneState.timer * 0.06);
-
-        if (droneState.timer >= 22) {
-          droneState.phase = 'COIN_ASCEND';
-          droneState.timer = 0;
-          droneState.coin.active = true;
-          droneState.coin.x = droneState.x + 36;
-          droneState.coin.y = currentY - 24;
-          droneState.coin.vx = 0.5;
-          droneState.coin.vy = -18.5; // High vertical toss
-          playCoinPing();
-          introCaption.textContent = "// APEX TELEMETRY ASCENDING...";
-        }
-      } else if (droneState.phase === 'COIN_ASCEND') {
-        // Coin flight
-        const c = droneState.coin;
-        c.x += c.vx;
-        c.y += c.vy;
-        c.vy += 0.40; // Gravity
-        c.angle += 0.28;
-
-        // Particle sparks behind coin
-        c.particles.push({
-          x: c.x + (Math.random() - 0.5) * 8,
-          y: c.y + (Math.random() - 0.5) * 8,
-          alpha: 1,
-          size: Math.random() * 3 + 2,
-          color: Math.random() > 0.5 ? '#f59e0b' : '#38bdf8'
-        });
-
-        // Trigger Thunder when coin reaches Apex
-        if (c.vy >= -0.8) {
-          droneState.phase = 'THUNDER_BURST';
-          droneState.timer = 0;
-          droneState.shockwave = { radius: 10, alpha: 1 };
-          droneState.screenShake = { x: 18, y: -18 };
-          playThunderBoom();
-
-          // Flash Screen Blinding White
-          thunderFlash.style.opacity = '1';
-          setTimeout(() => { thunderFlash.style.opacity = '0.35'; }, 80);
-          setTimeout(() => { thunderFlash.style.opacity = '0'; }, 550);
-
-          introCaption.textContent = "⚡ SYSTEM ENERGIZED // WELCOME TO B. LIPIKA'S PORTFOLIO";
-
-          // Generate branching lightning bolts across entire screen
-          droneState.lightning = [];
-          for (let b = 0; b < 12; b++) {
-            const angle = (Math.PI * 2 / 12) * b + (Math.random() - 0.5) * 0.35;
-            const dist = Math.max(introWidth, introHeight) * 0.9;
-            const endX = c.x + Math.cos(angle) * dist;
-            const endY = c.y + Math.sin(angle) * dist;
-            droneState.lightning.push(...createLightningBranch(c.x, c.y, endX, endY, 75, 4));
-          }
-        }
-      } else if (droneState.phase === 'THUNDER_BURST') {
-        droneState.shockwave.radius += 28;
-        droneState.shockwave.alpha *= 0.92;
-
-        if (droneState.timer >= 52) {
-          droneState.phase = 'DONE';
-          setTimeout(finishIntroSequence, 200);
-        }
-      }
-
-      // Update thruster particles
-      for (let i = droneState.thrusterParticles.length - 1; i >= 0; i--) {
-        const tp = droneState.thrusterParticles[i];
-        tp.x += tp.vx;
-        tp.y += tp.vy;
-        tp.alpha -= 0.04;
-        if (tp.alpha <= 0) {
-          droneState.thrusterParticles.splice(i, 1);
-          continue;
-        }
-        ictx.fillStyle = `rgba(14, 165, 233, ${tp.alpha})`;
-        ictx.beginPath();
-        ictx.arc(tp.x, tp.y, tp.size, 0, Math.PI * 2);
-        ictx.fill();
-      }
-
-      // 3. Render Sleek AI Sentinel Drone
-      drawAISentinelDrone(droneState.x, currentY, droneState.ringAngle, droneState.pitchArm);
-
-      // 4. Render Coin & Trail
-      if (droneState.coin.active) {
-        drawCoin(droneState.coin);
-      }
-
-      // 5. Render Lightning Bolts & Shockwaves
-      if (droneState.phase === 'THUNDER_BURST') {
-        drawLightningEffects();
-      }
-
-      ictx.restore();
-      introAnimId = requestAnimationFrame(introLoop);
-    }
-
-    // Perspective Grid Floor
-    function drawPerspectiveGrid() {
-      const fy = introHeight * 0.75;
-      ictx.strokeStyle = 'rgba(14, 165, 233, 0.12)';
-      ictx.lineWidth = 1;
-
-      // Horizontal lines
-      for (let y = fy; y <= introHeight; y += (y - fy) * 0.35 + 8) {
-        ictx.beginPath();
-        ictx.moveTo(0, y);
-        ictx.lineTo(introWidth, y);
-        ictx.stroke();
-      }
-
-      // Perspective convergence lines
-      const centerX = introWidth * 0.5;
-      for (let x = -introWidth; x <= introWidth * 2; x += 100) {
-        ictx.beginPath();
-        ictx.moveTo(x, introHeight);
-        ictx.lineTo(centerX + (x - centerX) * 0.12, fy);
-        ictx.stroke();
-      }
-    }
-
-    // Procedural Sleek AI Sentinel Drone (Futuristic & Clean)
-    function drawAISentinelDrone(x, y, ringAngle, armProgress) {
-      ictx.save();
-      ictx.translate(x, y);
-
-      // Shadow projection on ground
-      const groundDist = (introHeight * 0.75) - y;
-      ictx.fillStyle = 'rgba(14, 165, 233, 0.2)';
-      ictx.beginPath();
-      ictx.ellipse(0, groundDist, 45, 12, 0, 0, Math.PI * 2);
-      ictx.fill();
-
-      // Outer Levitating Anti-Gravity Rings
-      ictx.save();
-      ictx.rotate(ringAngle);
-      ictx.strokeStyle = 'rgba(56, 189, 248, 0.6)';
-      ictx.lineWidth = 2.5;
-      ictx.setLineDash([14, 6]);
-      ictx.beginPath();
-      ictx.arc(0, 0, 46, 0, Math.PI * 2);
-      ictx.stroke();
-      ictx.restore();
-
-      // Inner Counter-Rotating Ring
-      ictx.save();
-      ictx.rotate(-ringAngle * 1.4);
-      ictx.strokeStyle = 'rgba(129, 140, 248, 0.6)';
-      ictx.lineWidth = 1.5;
-      ictx.beginPath();
-      ictx.arc(0, 0, 38, 0, Math.PI * 2);
-      ictx.stroke();
-      ictx.restore();
-
-      // Main Drone Chassis (Curved Matte Aerodynamic Hull)
-      ictx.fillStyle = '#0a0f1d';
-      ictx.strokeStyle = '#38bdf8';
-      ictx.lineWidth = 2.5;
-      ictx.beginPath();
-      ictx.arc(0, 0, 28, 0, Math.PI * 2);
-      ictx.fill();
-      ictx.stroke();
-
-      // Central Pulsating Optical AI Eye
-      ictx.fillStyle = '#0284c7';
-      ictx.beginPath();
-      ictx.arc(0, 0, 14, 0, Math.PI * 2);
-      ictx.fill();
-
-      // Glowing Cyan Pupil Core
-      ictx.fillStyle = '#38bdf8';
-      ictx.shadowColor = '#0ea5e9';
-      ictx.shadowBlur = 18;
-      ictx.beginPath();
-      ictx.arc(0, 0, 7, 0, Math.PI * 2);
-      ictx.fill();
-      ictx.shadowBlur = 0;
-
-      // Magnetic Deployable Catapult Arm
-      ictx.save();
-      ictx.translate(22, 4);
-      ictx.rotate(-armProgress * 1.2);
-      ictx.strokeStyle = '#38bdf8';
-      ictx.lineWidth = 3;
-      ictx.beginPath();
-      ictx.moveTo(0, 0);
-      ictx.lineTo(20, -10);
-      ictx.stroke();
-      // Arm tip magnetic pad
-      ictx.fillStyle = '#22d3ee';
-      ictx.beginPath();
-      ictx.arc(20, -10, 4, 0, Math.PI * 2);
-      ictx.fill();
-      ictx.restore();
-
-      ictx.restore();
-    }
-
-    // Glowing 3D Spinning Golden Coin
-    function drawCoin(c) {
-      // 1. Particle Sparks
-      for (let i = c.particles.length - 1; i >= 0; i--) {
-        const p = c.particles[i];
-        p.alpha -= 0.025;
-        if (p.alpha <= 0) {
-          c.particles.splice(i, 1);
-          continue;
-        }
-        ictx.fillStyle = p.color;
-        ictx.globalAlpha = p.alpha;
-        ictx.beginPath();
-        ictx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ictx.fill();
-      }
-      ictx.globalAlpha = 1;
-
-      // 2. Metallic Coin
-      ictx.save();
-      ictx.translate(c.x, c.y);
-      const scaleX = Math.cos(c.angle);
-      ictx.scale(scaleX, 1);
-
-      ictx.shadowColor = '#f59e0b';
-      ictx.shadowBlur = 18;
-
-      ictx.fillStyle = '#fbbf24';
-      ictx.beginPath();
-      ictx.arc(0, 0, 14, 0, Math.PI * 2);
-      ictx.fill();
-
-      ictx.strokeStyle = '#d97706';
-      ictx.lineWidth = 2;
-      ictx.beginPath();
-      ictx.arc(0, 0, 11, 0, Math.PI * 2);
-      ictx.stroke();
-
-      ictx.fillStyle = '#78350f';
-      ictx.font = 'bold 12px monospace';
-      ictx.textAlign = 'center';
-      ictx.textBaseline = 'middle';
-      ictx.fillText('⚡', 0, 0);
-
-      ictx.restore();
-    }
-
-    // Thunder Shockwave & Electric Lightning
-    function drawLightningEffects() {
-      const sw = droneState.shockwave;
-      if (sw.alpha > 0.01) {
-        ictx.strokeStyle = `rgba(56, 189, 248, ${sw.alpha})`;
-        ictx.lineWidth = 6;
-        ictx.beginPath();
-        ictx.arc(droneState.coin.x, droneState.coin.y, sw.radius, 0, Math.PI * 2);
-        ictx.stroke();
-      }
-
-      ictx.shadowColor = '#38bdf8';
-      ictx.shadowBlur = 22;
-      ictx.strokeStyle = '#ffffff';
-      ictx.lineWidth = 3.5;
-      ictx.beginPath();
-      droneState.lightning.forEach(([x1, y1, x2, y2]) => {
-        ictx.moveTo(x1, y1);
-        ictx.lineTo(x2, y2);
-      });
-      ictx.stroke();
-
-      ictx.strokeStyle = '#818cf8';
-      ictx.lineWidth = 1.5;
-      ictx.stroke();
-      ictx.shadowBlur = 0;
-    }
-
-    // Launch intro sequence on load
-    window.addEventListener('DOMContentLoaded', () => {
-      startIntroSequence();
-    });
-
-    // =========================================================================
-    // HERO SIMULATED TERMINAL WINDOW
-    // =========================================================================
-    const terminalData = {
-      ttm: [
-        { text: "$ python -m models.inference --checkpoint granite_ttm_r3.pt", color: "text-slate-400" },
-        { text: "[INFO] Loaded IBM Granite TTM-R3 Mixer (1024-step context, 96-step horizon)", color: "text-brand-400" },
-        { text: "[DATA] Processing sensor telemetry: batch_size=32, revin_norm=True", color: "text-slate-300" },
-        { text: "[METRIC] DLinear Baseline MAE: 0.3721", color: "text-amber-400" },
-        { text: "[METRIC] Granite TTM-R3 Fine-tuned MAE: 0.1420 (-61.8%)", color: "text-emerald-400 font-bold" },
-        { text: "[OK] Forecast written to stream. Rolling latency: 12.4ms", color: "text-brand-300" }
-      ],
-      agent: [
-        { text: "$ python -m agents.orchestrator --query \"Analyze vibration spike on Pump #3\"", color: "text-slate-400" },
-        { text: "[SUPERVISOR] Routing intent -> [Telemetry_Specialist, SQL_Catalog]", color: "text-indigo-400 font-bold" },
-        { text: "[TOOL_EXEC] SELECT rms_velocity, peak_freq FROM sensors WHERE pump_id=3", color: "text-slate-300" },
-        { text: "[TOOL_RESULT] rms_velocity=4.12 mm/s (THRESHOLD EXCEEDED: 2.80 mm/s)", color: "text-rose-400 font-bold" },
-        { text: "[SYNTHESIS] Root cause: Bearing outer race defect at 122 Hz harmonic.", color: "text-emerald-400" },
-        { text: "[ACTION] Operator alert dispatched. Confidence score: 0.98", color: "text-indigo-300" }
-      ],
-      iso: [
-        { text: "$ python -m anomaly.detector --stream /data/vibration_2.3M.parquet", color: "text-slate-400" },
-        { text: "[INGEST] 2,341,920 records loaded across 16-channel accelerometers", color: "text-slate-300" },
-        { text: "[ISOLATION_FOREST] Contamination=0.015, n_estimators=200", color: "text-brand-400" },
-        { text: "[ISO_10816] Evaluating Class II rigid foundation thresholds", color: "text-amber-400" },
-        { text: "[ALERT] Channel #04: Anomaly Score 0.892 (Zone C/D boundary)", color: "text-rose-400 font-bold" },
-        { text: "[EXPORT] 1-Click interactive Colab notebook ready.", color: "text-emerald-400" }
-      ]
-    };
-
-    let activeTab = 'ttm';
-    const termContent = document.getElementById('terminal-content');
-    const tabTtm = document.getElementById('tab-ttm');
-    const tabAgent = document.getElementById('tab-agent');
-    const tabIso = document.getElementById('tab-iso');
-    const runSimBtn = document.getElementById('run-sim-btn');
-
-    function renderTerminal(mode) {
-      activeTab = mode;
-      [tabTtm, tabAgent, tabIso].forEach(t => {
-        t.classList.remove('border-brand-400', 'text-brand-300', 'bg-white/5');
-        t.classList.add('border-transparent', 'text-slate-400');
-      });
-
-      if (mode === 'ttm') {
-        tabTtm.classList.add('border-brand-400', 'text-brand-300', 'bg-white/5');
-        tabTtm.classList.remove('border-transparent', 'text-slate-400');
-      } else if (mode === 'agent') {
-        tabAgent.classList.add('border-brand-400', 'text-brand-300', 'bg-white/5');
-        tabAgent.classList.remove('border-transparent', 'text-slate-400');
-      } else if (mode === 'iso') {
-        tabIso.classList.add('border-brand-400', 'text-brand-300', 'bg-white/5');
-        tabIso.classList.remove('border-transparent', 'text-slate-400');
-      }
-
-      termContent.innerHTML = '';
-      const lines = terminalData[mode];
-      lines.forEach((line, index) => {
-        setTimeout(() => {
-          const p = document.createElement('p');
-          p.className = line.color + ' leading-relaxed';
-          p.textContent = line.text;
-          termContent.appendChild(p);
-          termContent.scrollTop = termContent.scrollHeight;
-        }, index * 120);
-      });
-    }
-
-    tabTtm.addEventListener('click', () => renderTerminal('ttm'));
-    tabAgent.addEventListener('click', () => renderTerminal('agent'));
-    tabIso.addEventListener('click', () => renderTerminal('iso'));
-    runSimBtn.addEventListener('click', () => renderTerminal(activeTab));
-
-    // Initial render
-    renderTerminal('ttm');
-
-    // =========================================================================
-    // LIVE WAVEFORM CANVAS VISUALIZER
-    // =========================================================================
-    const canvas = document.getElementById('waveformCanvas');
-    const ctx = canvas.getContext('2d');
-    let isAnomalyMode = false;
-    let waveOffset = 0;
-
-    function resizeCanvas() {
-      canvas.width = canvas.parentElement.clientWidth - 48;
-      canvas.height = 176;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    const sensorNormalBtn = document.getElementById('sensor-normal');
-    const sensorAnomalyBtn = document.getElementById('sensor-anomaly');
-    const statusDot = document.getElementById('sensor-status-dot');
-    const statusText = document.getElementById('sensor-status-text');
-    const statRms = document.getElementById('stat-rms');
-    const statFreq = document.getElementById('stat-freq');
-    const statHealth = document.getElementById('stat-health');
-
-    sensorNormalBtn.addEventListener('click', () => {
-      isAnomalyMode = false;
-      sensorNormalBtn.className = "sensor-mode-btn px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
-      sensorAnomalyBtn.className = "sensor-mode-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-rose-300";
-      statusDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse";
-      statusText.className = "font-bold text-emerald-400";
-      statusText.textContent = "STATUS: NORMAL (RMS 1.82 mm/s)";
-      statRms.textContent = "1.82 mm/s";
-      statFreq.textContent = "24.5 Hz (1X RPM)";
-      statHealth.textContent = "98.4% OPTIMAL";
-      statHealth.className = "text-base font-bold text-brand-400";
-    });
-
-    sensorAnomalyBtn.addEventListener('click', () => {
-      isAnomalyMode = true;
-      sensorAnomalyBtn.className = "sensor-mode-btn px-3 py-1.5 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40";
-      sensorNormalBtn.className = "sensor-mode-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-emerald-300";
-      statusDot.className = "w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping";
-      statusText.className = "font-bold text-rose-400";
-      statusText.textContent = "STATUS: ALERT — ISO 10816 ZONE C (RMS 4.15 mm/s)";
-      statRms.textContent = "4.15 mm/s (ALERT)";
-      statFreq.textContent = "122.5 Hz (5X BEARING PEAK)";
-      statHealth.textContent = "42.1% DEGRADED";
-      statHealth.className = "text-base font-bold text-rose-400";
-    });
-
-    function drawWaveform() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const w = canvas.width;
-      const h = canvas.height;
-      const midY = h / 2;
-
-      // Draw Grid Lines
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      for (let x = 0; x < w; x += 40) {
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, h);
-      }
-      for (let y = 0; y < h; y += 30) {
-        ctx.moveTo(0, y);
-        ctx.lineTo(w, y);
-      }
-      ctx.stroke();
-
-      // ISO 10816 Threshold Lines
-      ctx.strokeStyle = isAnomalyMode ? 'rgba(244, 63, 94, 0.6)' : 'rgba(245, 158, 11, 0.3)';
-      ctx.setLineDash([4, 4]);
-      ctx.beginPath();
-      ctx.moveTo(0, midY - 50);
-      ctx.lineTo(w, midY - 50);
-      ctx.moveTo(0, midY + 50);
-      ctx.lineTo(w, midY + 50);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      // Draw Sensor Signal
-      ctx.strokeStyle = isAnomalyMode ? '#f43f5e' : '#38bdf8';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-
-      for (let x = 0; x < w; x++) {
-        let fundamental = Math.sin((x + waveOffset) * 0.04) * (isAnomalyMode ? 35 : 22);
-        let harmonic = Math.sin((x + waveOffset * 2) * 0.12) * (isAnomalyMode ? 28 : 6);
-        let noise = (Math.random() - 0.5) * (isAnomalyMode ? 14 : 3);
-        let y = midY + fundamental + harmonic + noise;
-
-        if (x === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-
-      waveOffset += isAnomalyMode ? 3.5 : 2;
-      requestAnimationFrame(drawWaveform);
-    }
-    requestAnimationFrame(drawWaveform);
-
-    // =========================================================================
-    // PROJECT FILTERING (POWERED BY MOTION SPRING ANIMATIONS)
-    // =========================================================================
-    const filterTabs = document.querySelectorAll('.filter-tab');
-    const projectCards = document.querySelectorAll('.project-card');
-
-    filterTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        filterTabs.forEach(t => {
-          t.classList.remove('bg-brand-500', 'text-slate-950', 'font-bold');
-          t.classList.add('text-slate-400');
-        });
-        tab.classList.add('bg-brand-500', 'text-slate-950', 'font-bold');
-        tab.classList.remove('text-slate-400');
-
-        const cat = tab.getAttribute('data-category');
-        projectCards.forEach(card => {
-          const cardCat = card.getAttribute('data-category');
-          if (cat === 'all' || cardCat === cat) {
-            card.classList.remove('is-hidden');
-            card.classList.add('is-visible');
-            if (window.Motion && window.Motion.animate) {
-              window.Motion.animate(card, { opacity: [0, 1], scale: [0.95, 1] }, { duration: 0.4 });
-            }
-          } else {
-            card.classList.remove('is-visible');
-            card.classList.add('is-hidden');
-          }
-        });
-      });
-    });
-
-    // =========================================================================
-    // MODERN DIALOG BLUEPRINTS WITH LIGHT-DISMISS FALLBACK
-    // =========================================================================
-    document.querySelectorAll('.blueprint-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const modalId = btn.getAttribute('data-modal');
-        const dialog = document.getElementById(modalId);
-        if (dialog) dialog.showModal();
-      });
-    });
-
-    document.querySelectorAll('.modal-close').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const dialog = e.target.closest('dialog');
-        if (dialog) dialog.close();
-      });
-    });
-
-    // Fallback for browsers that do not support closedby="any"
-    document.querySelectorAll('dialog').forEach(dialog => {
-      if (!('closedBy' in HTMLDialogElement.prototype)) {
-        dialog.addEventListener('click', (event) => {
-          if (event.target !== dialog) return;
-          const rect = dialog.getBoundingClientRect();
-          const isInDialog = (
-            rect.top <= event.clientY &&
-            event.clientY <= rect.top + rect.height &&
-            rect.left <= event.clientX &&
-            event.clientX <= rect.left + rect.width
-          );
-          if (!isInDialog) dialog.close();
-        });
-      }
-    });
-
-    // =========================================================================
-    // EMAILJS FORM HANDLER
-    // =========================================================================
-    const contactForm = document.getElementById('contact-form');
-    const statusMsg = document.getElementById('status-message');
-    const submitBtn = document.getElementById('submit-btn');
-
-    if (contactForm) {
-      contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span class="animate-spin inline-block mr-2">◌</span> TRANSMITTING...';
-
-        emailjs.sendForm('service_4986blu', 'template_6djf3l2', this)
-          .then(() => {
-            statusMsg.textContent = '✅ Message delivered directly to Lipika! I will respond promptly.';
-            statusMsg.className = 'text-xs text-center font-mono font-bold text-emerald-400 pt-2';
-            contactForm.reset();
-          })
-          .catch((error) => {
-            console.error('Email error:', error);
-            statusMsg.textContent = '❌ Transmission issue. Please contact directly at Kulal123lipika@gmail.com';
-            statusMsg.className = 'text-xs text-center font-mono font-bold text-rose-400 pt-2';
-          })
-          .finally(() => {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i data-lucide="send" class="w-4 h-4 mr-2"></i><span>TRANSMIT DISPATCH</span>';
-            lucide.createIcons();
-          });
-      });
-    }
-  </script>
-
+  </section>
+  <footer id="site-footer"></footer>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
+
 </html>

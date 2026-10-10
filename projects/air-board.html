@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Air-Board · B. Lipika</title>
+<meta name="description" content="A computer-vision air-writing canvas: hand tracking with OpenCV and MediaPipe turns your fingertip into a pen. Try the gesture simulator.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-accent="#db2777">
+<div id="site-nav"></div>
+
+<header class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../index.html#work">← All projects</a><br>
+    <span class="kicker">Computer vision · OpenCV</span>
+    <h1 class="reveal">Write in thin air. <span class="grad">No pen, no touch.</span></h1>
+    <p class="tagline reveal" style="--d:.08s">Air-Board tracks your fingertip through a webcam in real time, so you can draw, write, change colours and erase on a virtual canvas using nothing but hand gestures.</p>
+    <div class="tags reveal" style="--d:.12s"><span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">Google MediaPipe</span><span class="tag">NumPy</span></div>
+    <div class="cta reveal" style="--d:.16s">
+      <a class="btn accent" href="#try">Try the gesture simulator</a>
+      <a class="btn ghost" target="_blank" rel="noopener" href="https://github.com/B-LIPIKA/Air-Board">View code on GitHub</a>
+    </div>
+    <div class="metrics">
+      <div class="metric reveal"><b data-count="3">0</b><span>gesture modes: draw, select, clear</span></div>
+      <div class="metric reveal" style="--d:.06s"><b data-count="4">0</b><span>drawing colours</span></div>
+      <div class="metric reveal" style="--d:.12s"><b>Real-time</b><span>live webcam hand tracking</span></div>
+      <div class="metric reveal" style="--d:.18s"><b>0</b><span>touches needed</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="sec" id="try">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Gesture simulator</span><h2>Use your mouse as the fingertip</h2>
+      <p>The real app reads gestures from a webcam; here your cursor plays the index finger. Pick a gesture, then draw on the board.</p></div>
+    <div class="panel reveal">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;margin-bottom:16px">
+        <div class="seg" id="modes"><button class="on" data-m="draw">☝ Index up · Draw</button><button data-m="select">✌ Two fingers · Select colour</button><button data-m="clear">🖐 All fingers · Clear</button></div>
+        <div class="palette" id="pal"><span class="sw on" data-c="#ef4444" style="background:#ef4444"></span><span class="sw" data-c="#3b82f6" style="background:#3b82f6"></span><span class="sw" data-c="#22c55e" style="background:#22c55e"></span><span class="sw" data-c="#eab308" style="background:#eab308"></span></div>
+      </div>
+      <div style="position:relative">
+        <canvas id="board" width="1000" height="480" style="width:100%;height:auto;border-radius:16px;border:1px solid var(--line);background:#0d1017;touch-action:none;cursor:crosshair;display:block"></canvas>
+        <div id="hint" class="badge acc" style="position:absolute;left:14px;top:14px">Mode: Draw. Hold and drag</div>
+      </div>
+      <p class="note">ⓘ Browser simulation of the project's gesture logic (draw / select / clear). The real application runs locally in Python with a webcam.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Gestures</span><h2>Three hand shapes control everything</h2></div>
+    <div class="three">
+      <div class="gest reveal"><span class="em">☝️</span><h4>Index finger up</h4><p>Draw or write continuously on the air canvas.</p></div>
+      <div class="gest reveal" style="--d:.08s"><span class="em">✌️</span><h4>Index + middle up</h4><p>Selection mode: choose a colour from the palette.</p></div>
+      <div class="gest reveal" style="--d:.16s"><span class="em">🖐️</span><h4>All fingers up</h4><p>Clear the canvas and start fresh.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Under the hood</span><h2>From webcam frame to ink</h2></div>
+    <div class="panel stepper reveal" id="stepper"><div class="steps"></div><div class="step-detail"></div></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap two">
+    <div class="reveal"><div class="sec-head"><span class="kicker">Run it yourself</span><h2>Two commands</h2><p>Position your hand in front of any laptop or USB webcam. Press <b>q</b> to quit.</p></div>
+      <ul class="ticks"><li>Python 3.8+ with OpenCV, MediaPipe and NumPy</li><li>Works with an integrated or external camera</li><li>Minimal latency on fingertip tracking</li></ul></div>
+    <div class="term reveal" style="--d:.08s"><div class="bar"><i></i><i></i><i></i>&nbsp; terminal</div>
+<pre><span class="k">$</span> pip install opencv-python mediapipe numpy
+<span class="k">$</span> git clone https://github.com/B-LIPIKA/Air-Board.git
+<span class="k">$</span> cd Air-Board
+<span class="k">$</span> python new_device.py</pre></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap pn-nav">
+    <a class="prev" href="agriflow.html"><small>← Previous</small><b>AgriFlow Smart Irrigation</b></a>
+    <a class="next" href="ttm-forecasting.html"><small>Next →</small><b>Industrial Inflow Forecasting</b></a>
+  </div>
+</section>
+<footer id="site-footer"></footer>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/widgets.js"></script>
+<script>
+(function(){
+  Widgets.stepper(document.getElementById('stepper'),[
+   {t:'Webcam frame',d:'OpenCV grabs frames from the laptop or USB camera and mirrors them so movement feels natural.'},
+   {t:'Hand landmarks',d:'Google MediaPipe estimates the hand skeleton in each frame.'},
+   {t:'Fingertip position',d:'The index-fingertip landmark gives the pen position with very low latency.'},
+   {t:'Gesture mode',d:'Which fingers are raised decides the mode: draw, select a colour, or clear.'},
+   {t:'Canvas overlay',d:'Strokes are stored in a NumPy canvas and blended over the live video feed.'}],2600);
+
+  var cv=document.getElementById('board'),x=cv.getContext('2d'),mode='draw',col='#ef4444',down=false,last=null,touched=false,hint=document.getElementById('hint'),pal=document.getElementById('pal');
+  x.lineCap='round';x.lineJoin='round';
+  var msgs={draw:'Mode: Draw. Hold and drag',select:'Mode: Select. Click a colour above',clear:'Canvas cleared'};
+  function pos(e){var r=cv.getBoundingClientRect();return{x:(e.clientX-r.left)*cv.width/r.width,y:(e.clientY-r.top)*cv.height/r.height}}
+  function stroke(a,b,c){x.strokeStyle=c||col;x.lineWidth=7;x.shadowColor=c||col;x.shadowBlur=14;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke();x.shadowBlur=0}
+  cv.addEventListener('pointerdown',function(e){touched=true;if(mode!=='draw')return;down=true;last=pos(e);cv.setPointerCapture(e.pointerId);stroke(last,{x:last.x+.1,y:last.y})});
+  cv.addEventListener('pointermove',function(e){if(!down)return;var p=pos(e);stroke(last,p);last=p});
+  ['pointerup','pointercancel','pointerleave'].forEach(function(ev){cv.addEventListener(ev,function(){down=false})});
+  function setMode(m){mode=m;document.querySelectorAll('#modes button').forEach(function(b){b.classList.toggle('on',b.dataset.m===m)});
+    pal.classList.toggle('locked',m!=='select');hint.textContent=msgs[m];cv.style.cursor=m==='draw'?'crosshair':'default';
+    if(m==='clear'){touched=true;wipe();setTimeout(function(){setMode('draw')},900)}}
+  function wipe(){x.clearRect(0,0,cv.width,cv.height)}
+  document.getElementById('modes').addEventListener('click',function(e){var b=e.target.closest('button');if(b)setMode(b.dataset.m)});
+  pal.addEventListener('click',function(e){var s=e.target.closest('.sw');if(!s||mode!=='select')return;col=s.dataset.c;pal.querySelectorAll('.sw').forEach(function(k){k.classList.toggle('on',k===s)});setTimeout(function(){setMode('draw')},350)});
+  pal.classList.add('locked');
+
+  /* auto-demo: a fingertip writes a looping flourish until the visitor takes over */
+  function path(t){var u=t*Math.PI*2;return{x:120+t*760,y:240+Math.sin(u*2.2)*110*Math.sin(Math.PI*t)+Math.cos(u*5)*18}}
+  Widgets.onceVisible(cv,function(){
+    var t=0,prev=path(0),cols=['#ef4444','#3b82f6','#22c55e','#eab308'],ci=0;
+    (function step(){
+      if(touched)return;
+      for(var i=0;i<3;i++){t+=.0025;var p=path(t);stroke(prev,p,cols[ci]);prev=p}
+      if(t>=1){t=0;prev=path(0);ci=(ci+1)%4;setTimeout(function(){if(!touched){wipe();step()}},1200);return}
+      requestAnimationFrame(step);
+    })();
+  });
+})();
+</script>
+</body>
+</html>

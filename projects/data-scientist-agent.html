@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Data Scientist Agent · B. Lipika</title>
+<meta name="description" content="An autonomous EDA agent: deterministic statistical tools produce verifiable evidence, and the agent turns it into model-selection guidance.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-accent="#0d9488">
+<div id="site-nav"></div>
+
+<header class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../index.html#work">← All projects</a><br>
+    <span class="kicker">Automated EDA · Statistics</span>
+    <h1 class="reveal">From raw table to <span class="grad">model strategy</span> in one command.</h1>
+    <p class="tagline reveal" style="--d:.08s">Data scientists spend most of their early time profiling and checking for drift, collinearity and outliers. This agent does that work with deterministic maths, then recommends what to try next.</p>
+    <div class="tags reveal" style="--d:.12s"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Scikit-learn</span><span class="tag">Statistical testing</span></div>
+    <div class="cta reveal" style="--d:.16s">
+      <a class="btn accent" href="#toolkit">See the toolkit</a>
+      <a class="btn ghost" target="_blank" rel="noopener" href="https://github.com/B-LIPIKA/AI-Data-Scientist-Agent">View code on GitHub</a>
+    </div>
+    <div class="metrics">
+      <div class="metric reveal"><b data-count="5">0</b><span>deterministic statistical checks</span></div>
+      <div class="metric reveal" style="--d:.06s"><b>CSV · Parquet · SQL</b><span>accepted inputs</span></div>
+      <div class="metric reveal" style="--d:.12s"><b>≥ 0.70</b><span>|r| threshold to flag redundant features</span></div>
+      <div class="metric reveal" style="--d:.18s"><b>3 lines</b><span>of Python to get a full report</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Workflow</span><h2>Evidence in, recommendations out</h2></div>
+    <div class="panel stepper reveal" id="stepper"><div class="steps"></div><div class="step-detail"></div></div>
+  </div>
+</section>
+
+<section class="sec" id="toolkit">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Statistical toolkit</span><h2>Five checks, each with a clear job</h2>
+      <p>Every number the agent reports comes from one of these functions, never from the language model.</p></div>
+    <div class="three" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr))">
+
+      <div class="check reveal"><div class="viz"><svg viewBox="0 0 200 110" fill="none"><path d="M10 90 L190 30" stroke="var(--pa)" stroke-width="2" stroke-dasharray="5 5" opacity=".6"/><path class="th-draw" style="--len:260" d="M10 85 L35 78 L60 80 L85 62 L110 66 L135 48 L160 50 L190 28" stroke="var(--pa)" stroke-width="3" stroke-linecap="round"/></svg></div>
+        <h4>Trend evaluation</h4><p>Is the signal steadily drifting or stationary?</p><code>normalised polyfit · m/σ</code></div>
+
+      <div class="check reveal" style="--d:.07s"><div class="viz"><svg viewBox="0 0 200 110" fill="none"><path d="M100 10V100" stroke="var(--muted)" stroke-dasharray="3 4"/><path class="th-draw" style="--len:330" d="M10 55 L20 48 L30 62 L40 50 L50 60 L60 52 L70 58 L80 50 L90 56 L100 55 L110 30 L120 80 L130 20 L140 90 L150 35 L160 75 L170 40 L180 70 L190 50" stroke="var(--pa)" stroke-width="2.5" stroke-linejoin="round"/></svg></div>
+        <h4>Stationarity</h4><p>Has volatility changed between the first and second half?</p><code>split-half variance ratio σ₂²/σ₁²</code></div>
+
+      <div class="check reveal" style="--d:.14s"><div class="viz"><svg viewBox="0 0 200 110" fill="none"><path class="th-draw" style="--len:300" d="M10 80 L45 78 L80 82 L100 80 L100 35 L140 38 L190 34" stroke="var(--pa)" stroke-width="3" stroke-linejoin="round"/><circle class="th-pulse" cx="100" cy="57" r="8" fill="var(--red)"/></svg></div>
+        <h4>Changepoint detection</h4><p>Finds abrupt shifts and sensor resets.</p><code>z-score on first differences · CUSUM proxy</code></div>
+
+      <div class="check reveal" style="--d:.21s"><div class="viz"><svg viewBox="0 0 200 110"><g>
+        <rect x="45" y="14" width="26" height="26" rx="5" fill="var(--pa)" opacity="1"/><rect x="75" y="14" width="26" height="26" rx="5" fill="var(--pa)" opacity=".85"/><rect x="105" y="14" width="26" height="26" rx="5" fill="var(--pa)" opacity=".15"/><rect x="135" y="14" width="26" height="26" rx="5" fill="var(--pa)" opacity=".2"/>
+        <rect x="45" y="44" width="26" height="26" rx="5" fill="var(--pa)" opacity=".85"/><rect x="75" y="44" width="26" height="26" rx="5" fill="var(--pa)" opacity="1"/><rect x="105" y="44" width="26" height="26" rx="5" fill="var(--pa)" opacity=".3"/><rect x="135" y="44" width="26" height="26" rx="5" fill="var(--pa)" opacity=".1"/>
+        <rect x="45" y="74" width="26" height="26" rx="5" fill="var(--pa)" opacity=".15"/><rect x="75" y="74" width="26" height="26" rx="5" fill="var(--pa)" opacity=".3"/><rect x="105" y="74" width="26" height="26" rx="5" fill="var(--pa)" opacity="1"/><rect x="135" y="74" width="26" height="26" rx="5" fill="var(--pa)" opacity=".4"/></g></svg></div>
+        <h4>Multicollinearity</h4><p>Flags redundant feature pairs for pruning or PCA.</p><code>Pearson matrix · |r| ≥ 0.70</code></div>
+
+      <div class="check reveal" style="--d:.28s"><div class="viz"><svg viewBox="0 0 200 110" fill="none"><path d="M10 55H190" stroke="var(--line)"/><g fill="var(--pa)" opacity=".6"><circle cx="30" cy="50" r="4"/><circle cx="48" cy="60" r="4"/><circle cx="66" cy="52" r="4"/><circle cx="84" cy="58" r="4"/><circle cx="102" cy="48" r="4"/><circle cx="120" cy="56" r="4"/><circle cx="138" cy="52" r="4"/></g><circle class="th-pulse" cx="172" cy="20" r="7" fill="var(--red)"/><circle class="th-pulse" style="--d:.7s" cx="16" cy="96" r="7" fill="var(--red)"/></svg></div>
+        <h4>Outlier scoring</h4><p>Isolates non-Gaussian spikes.</p><code>Q1 − 1.5×IQR … Q3 + 1.5×IQR</code></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Play with one</span><h2>The outlier check, interactively</h2>
+      <p>Drag the IQR multiplier on a sample sensor column. The default of 1.5 is what the agent uses; larger values flag only the most extreme points.</p></div>
+    <div class="panel reveal">
+      <div class="ctl"><label>IQR multiplier (k) <span id="kv">1.5</span></label><input type="range" id="k" min="0.5" max="3.5" step="0.1" value="1.5"></div>
+      <canvas class="cv" id="iqr"></canvas>
+      <div class="tiles" style="margin-top:18px"><div class="tile"><b id="n-out">0</b><span>outliers flagged</span></div><div class="tile"><b id="lo">0</b><span>lower fence</span></div><div class="tile"><b id="hi">0</b><span>upper fence</span></div><div class="tile"><b>120</b><span>sample points</span></div></div>
+      <p class="note">ⓘ Synthetic sample column used only to demonstrate the method.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap two">
+    <div class="reveal"><div class="sec-head"><span class="kicker">Usage</span><h2>Three lines to a report</h2><p>The agent returns a full Markdown report ready to read or share.</p></div>
+      <ul class="ticks"><li>Profiles shape, types, null rates and duplicates</li><li>Runs every statistical check deterministically</li><li>Suggests preprocessing and a model family (e.g. LightGBM vs. XGBoost)</li></ul></div>
+    <div class="term reveal" style="--d:.08s"><div class="bar"><i></i><i></i><i></i>&nbsp; python</div>
+<pre><span class="k">import</span> pandas <span class="k">as</span> pd
+<span class="k">from</span> agent.eda_agent <span class="k">import</span> AIDataScientistAgent
+
+df = pd.read_csv(<span class="s">"your_data.csv"</span>)
+agent = AIDataScientistAgent()
+result = agent.analyze_dataset(df,
+    dataset_name=<span class="s">"Turbine_Sensors"</span>)
+
+<span class="k">print</span>(result[<span class="s">"markdown_report"</span>])</pre></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap pn-nav">
+    <a class="prev" href="vibration-anomaly.html"><small>← Previous</small><b>Vibration Anomaly Detection</b></a>
+    <a class="next" href="agriflow.html"><small>Next →</small><b>AgriFlow Smart Irrigation</b></a>
+  </div>
+</section>
+<footer id="site-footer"></footer>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/widgets.js"></script>
+<script>
+(function(){
+  Widgets.stepper(document.getElementById('stepper'),[
+   {t:'Load dataset',d:'CSV, Parquet or SQL results arrive as a tabular DataFrame.'},
+   {t:'Profile',d:'Shape, column types, null rates, duplicates and memory footprint.'},
+   {t:'Run statistical suite',d:'Trend, stationarity, changepoints, collinearity and outliers, all computed in plain Python.'},
+   {t:'Aggregate evidence',d:'Results are collected into one verifiable evidence payload.'},
+   {t:'Reasoning agent',d:'Interprets the evidence without recalculating or guessing numbers.'},
+   {t:'Report + ML strategy',d:'A Markdown diagnostic report with preprocessing steps and model-selection guidance.'}],2600);
+
+  /* IQR demo */
+  var s=11,r=function(){s=(s*16807)%2147483647;return s/2147483647};
+  function gauss(){return (r()+r()+r()+r()+r()+r()-3)*3.4}
+  var pts=[];for(var i=0;i<116;i++)pts.push({v:50+gauss()*4,y:r()});
+  [88,94,12,101].forEach(function(v){pts.push({v:v,y:r()})});
+  var sorted=pts.map(function(p){return p.v}).sort(function(a,b){return a-b});
+  function q(p){var i=(sorted.length-1)*p,f=Math.floor(i),c=Math.ceil(i);return sorted[f]+(sorted[c]-sorted[f])*(i-f)}
+  var Q1=q(.25),Q3=q(.75),IQR=Q3-Q1,cv=document.getElementById('iqr'),ks=document.getElementById('k');
+  function draw(){
+    var k=+ks.value,c=Widgets.canvas(cv,Math.min(240,Math.max(190,cv.clientWidth*.26))),x=c.ctx,W=c.w,H=c.h,lo=Q1-k*IQR,hi=Q3+k*IQR;
+    var min=0,max=115,X=function(v){return 14+(v-min)/(max-min)*(W-28)};
+    var red=Widgets.css('--red'),pa=Widgets.css('--pa'),mut=Widgets.css('--muted'),line=Widgets.css('--line');
+    x.clearRect(0,0,W,H);
+    x.fillStyle=pa;x.globalAlpha=.08;x.fillRect(X(Math.max(lo,min)),0,X(Math.min(hi,max))-X(Math.max(lo,min)),H);x.globalAlpha=1;
+    [lo,hi].forEach(function(v){if(v<min||v>max)return;x.beginPath();x.setLineDash([6,5]);x.strokeStyle=pa;x.lineWidth=1.6;x.moveTo(X(v),0);x.lineTo(X(v),H);x.stroke();x.setLineDash([])});
+    var n=0;pts.forEach(function(p){var out=p.v<lo||p.v>hi;if(out)n++;x.beginPath();x.arc(X(p.v),22+p.y*(H-44),out?6:4.2,0,7);x.fillStyle=out?red:mut;x.globalAlpha=out?1:.55;x.fill();x.globalAlpha=1});
+    document.getElementById('kv').textContent=k.toFixed(1);document.getElementById('n-out').textContent=n;
+    document.getElementById('lo').textContent=lo.toFixed(1);document.getElementById('hi').textContent=hi.toFixed(1);
+  }
+  ks.addEventListener('input',draw);addEventListener('resize',draw);addEventListener('themechange',draw);
+  Widgets.onceVisible(cv,draw);
+})();
+</script>
+</body>
+</html>

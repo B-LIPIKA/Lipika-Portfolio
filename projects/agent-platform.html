@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Industrial AI Agent Platform · B. Lipika</title>
+<meta name="description" content="A LangGraph multi-agent platform that separates deterministic sensor analytics from LLM reasoning, so industrial answers are never hallucinated.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-accent="#7c3aed">
+<div id="site-nav"></div>
+
+<header class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../index.html#work">← All projects</a><br>
+    <span class="kicker">Multi-agent · LangGraph</span>
+    <h1 class="reveal">An AI engineer's assistant that <span class="grad">never invents a number.</span></h1>
+    <p class="tagline reveal" style="--d:.08s">Language models can't be trusted to do exact maths on sensor data. This platform lets the LLM understand the question and explain the result, while plain Python does every calculation.</p>
+    <div class="tags reveal" style="--d:.12s"><span class="tag">Python</span><span class="tag">LangGraph</span><span class="tag">Local LLMs (Ollama)</span><span class="tag">SQL</span><span class="tag">FastAPI</span></div>
+    <div class="cta reveal" style="--d:.16s">
+      <a class="btn accent" href="#demo">Run a sample query</a>
+      <a class="btn ghost" target="_blank" rel="noopener" href="https://github.com/B-LIPIKA/Industrial-AI-Agent-Platform">View code on GitHub</a>
+    </div>
+    <div class="metrics">
+      <div class="metric reveal"><b data-count="4">0</b><span>nodes in the decoupled state graph</span></div>
+      <div class="metric reveal" style="--d:.06s"><b data-count="6">0</b><span>registered schema &amp; analytics tools</span></div>
+      <div class="metric reveal" style="--d:.12s"><b>Read-only</b><span>sanitised SQL with row limits</span></div>
+      <div class="metric reveal" style="--d:.18s"><b data-count="0">0</b><span>numbers computed by the LLM</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Core idea</span><h2>Two layers, one hard boundary</h2>
+      <p>Hallucination is the biggest risk when AI touches industrial data. The fix is architectural: keep reasoning and arithmetic apart.</p></div>
+    <div class="lanes">
+      <div class="lane det reveal"><h4>⚡ Deterministic layer</h4><ul><li>Schema discovery &amp; read-only SQL</li><li>Mean, min, max, median, std-dev</li><li>ISO vibration &amp; temperature thresholds</li><li>Linear trend and drift rate</li></ul><p style="margin-top:12px;color:var(--muted);font-size:.9rem">Exact, repeatable, testable.</p></div>
+      <div class="lane reveal" style="--d:.08s"><h4>🧠 Reasoning layer</h4><ul><li>Understands the engineer's question</li><li>Picks equipment, metric and time range</li><li>Reads the evidence payload</li><li>Writes a diagnostic report and recommendation</li></ul><p style="margin-top:12px;color:var(--muted);font-size:.9rem">Only ever interprets numbers it was given.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="demo">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Watch it work</span><h2>One question, four nodes</h2>
+      <p>This replays the sample interaction from the project's documentation, step by step.</p></div>
+    <div class="panel reveal">
+      <div class="query"><span class="badge acc">POST /api/v1/agent/query</span><span class="q">“Check vibration levels on PUMP-101 and flag any anomalies.”</span><button class="btn accent" id="run" style="padding:10px 20px">▶ Run</button></div>
+      <div class="demo-grid">
+        <div class="nodes" id="nodes">
+          <div class="node" data-i="0"><span class="c">🧠</span><div><b>Intent &amp; entity parsing</b><small>equipment · metric · range</small></div></div>
+          <div class="node" data-i="1"><span class="c">🗄️</span><div><b>Schema-aware SQL</b><small>dynamic, read-only</small></div></div>
+          <div class="node" data-i="2"><span class="c">⚡</span><div><b>Python executor</b><small>exact stats &amp; thresholds</small></div></div>
+          <div class="node" data-i="3"><span class="c">📝</span><div><b>Evidence synthesis</b><small>grounded report</small></div></div>
+        </div>
+        <div class="out" id="out"><div class="blk" style="color:var(--muted)">Press “Run” to start the agent.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Tool registry</span><h2>What the agent can call</h2></div>
+    <div class="panel reveal" style="overflow-x:auto">
+      <table class="tbl"><thead><tr><th>Tool</th><th>Type</th><th>What it does</th></tr></thead><tbody>
+        <tr><td><code>inspect_database_schema</code></td><td><span class="badge acc">Schema</span></td><td>Discovers tables, column types and foreign keys</td></tr>
+        <tr><td><code>query_sensor_database</code></td><td><span class="badge acc">Schema</span></td><td>Runs sanitised read-only SQL with row limiting</td></tr>
+        <tr><td><code>discover_available_time_ranges</code></td><td><span class="badge acc">Schema</span></td><td>Finds historical telemetry boundaries per asset</td></tr>
+        <tr><td><code>compute_series_statistics</code></td><td><span class="badge">Analytics</span></td><td>Exact mean, min, max, median and standard deviation</td></tr>
+        <tr><td><code>evaluate_anomaly_thresholds</code></td><td><span class="badge">Analytics</span></td><td>Checks readings against ISO vibration &amp; temperature limits</td></tr>
+        <tr><td><code>analyze_trend_and_slope</code></td><td><span class="badge">Analytics</span></td><td>Detects drift direction and rate of change</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap pn-nav">
+    <a class="prev" href="ttm-forecasting.html"><small>← Previous</small><b>Industrial Inflow Forecasting</b></a>
+    <a class="next" href="vibration-anomaly.html"><small>Next →</small><b>Vibration Anomaly Detection</b></a>
+  </div>
+</section>
+<footer id="site-footer"></footer>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/widgets.js"></script>
+<script>
+(function(){
+  var out=document.getElementById('out'),nodes=[].slice.call(document.querySelectorAll('.node')),btn=document.getElementById('run'),busy=false;
+  function setNode(i){nodes.forEach(function(n,k){n.classList.toggle('done',k<i);n.classList.toggle('on',k===i)})}
+  function add(html){var d=document.createElement('div');d.className='blk';d.innerHTML=html;out.appendChild(d);return d}
+  var steps=[
+    function(){add('<h5>Node 1 · parsed intent</h5><div class="kv"><span>equipment <b>PUMP-101</b></span><span>metric <b>vibration_rms</b></span><span>task <b>anomaly check</b></span></div>')},
+    function(){add('<h5>Node 2 · generated SQL · 5 rows retrieved</h5><div class="term"><pre style="font-size:.8rem"><span class="k">SELECT</span> timestamp, value, unit <span class="k">FROM</span> sensor_telemetry\n<span class="k">WHERE</span> equipment_id = <span class="s">\'PUMP-101\'</span>\n  <span class="k">AND</span> metric_name = <span class="s">\'vibration_rms\'</span>\n<span class="k">ORDER BY</span> timestamp <span class="k">ASC</span>;</pre></div>')},
+    function(){add('<h5>Node 3 · numerical evidence (computed in Python)</h5><div class="kv"><span>count <b>5</b></span><span>mean <b>3.0</b></span><span>std <b>0.91</b></span><span>min <b>2.4</b></span><span>max <b>4.8</b></span><span>trend <b>STABLE (+0.04/step)</b></span><span>critical violations <b style="color:var(--red)">1</b></span><span>is_safe <b style="color:var(--red)">false</b></span></div>')},
+    function(){add('<h5>Node 4 · final engineering report</h5><div style="display:flex;flex-direction:column;gap:8px"><div><span class="badge red">CRITICAL ANOMALY DETECTED</span></div><div>Metric: <b>vibration_rms</b> (mm/s) · Mean = 3.0 mm/s · Max = 4.8 mm/s</div><div>Threshold violations: 1 critical (≥ 4.5 mm/s)</div><div style="color:var(--muted)"><b style="color:var(--text)">Recommendation:</b> immediate maintenance inspection recommended for PUMP-101. Vibration spike of 4.8 mm/s observed.</div></div>').classList.add('report')}
+  ];
+  btn.addEventListener('click',function(){
+    if(busy)return;busy=true;btn.textContent='Running…';out.innerHTML='';setNode(-1);
+    var i=0;(function next(){
+      if(i>=steps.length){setNode(99);btn.textContent='↻ Replay';busy=false;return}
+      setNode(i);setTimeout(function(){steps[i]();i++;setTimeout(next,700)},800);
+    })();
+  });
+  Widgets.onceVisible(document.getElementById('demo'),function(){setTimeout(function(){btn.click()},600)});
+})();
+</script>
+</body>
+</html>

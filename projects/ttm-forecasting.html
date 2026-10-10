@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Industrial Inflow Forecasting · B. Lipika</title>
+<meta name="description" content="Fine-tuned IBM Granite TTM-R3 for 24-hour industrial inflow forecasting: 61.8% lower MAE than the best baseline, served with FastAPI at ~14 ms.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-root="../" data-accent="#4f46e5">
+<div id="site-nav"></div>
+
+<header class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../index.html#work">← All projects</a><br>
+    <span class="kicker">Time-series · Foundation model</span>
+    <h1 class="reveal">Forecasting a day of industrial inflow, <span class="grad">61.8% more accurately.</span></h1>
+    <p class="tagline reveal" style="--d:.08s">Sudden inflow surges cause pump cavitation and reservoir overflow. I fine-tuned IBM's Granite Tiny Time Mixer to predict the next 24 hours (96 steps of 15 minutes) and wrapped it in a real-time API.</p>
+    <div class="tags reveal" style="--d:.12s"><span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">IBM Granite TTM-R3</span><span class="tag">Pandas</span><span class="tag">FastAPI</span></div>
+    <div class="cta reveal" style="--d:.16s">
+      <a class="btn accent" href="#benchmark">See the benchmark</a>
+      <a class="btn ghost" target="_blank" rel="noopener" href="https://github.com/B-LIPIKA/Industrial-Time-Series-Forecasting-TTM-R3">View code on GitHub</a>
+    </div>
+    <div class="metrics">
+      <div class="metric reveal"><b data-count="61.8" data-dec="1" data-suf="%">0</b><span>MAE reduction vs. 24h repeat baseline</span></div>
+      <div class="metric reveal" style="--d:.06s"><b data-count="3.42" data-dec="2">0</b><span>MAE in m³/h (baseline: 8.95)</span></div>
+      <div class="metric reveal" style="--d:.12s"><b data-count="14.2" data-dec="1" data-suf=" ms">0</b><span>inference latency</span></div>
+      <div class="metric reveal" style="--d:.18s"><b data-count="96">0</b><span>steps forecast (24 hours)</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- problem / approach -->
+<section class="sec">
+  <div class="wrap two">
+    <div class="panel reveal"><span class="lbl">The problem</span><h3>Simple baselines miss the shape of the day</h3>
+      <p>Repeat-last-day and moving-average forecasts can't capture overlapping daily cycles or non-linear process shifts, so operators get late warnings when inflow jumps.</p></div>
+    <div class="panel reveal" style="--d:.08s"><span class="lbl">The approach</span><h3>A tiny foundation model, fine-tuned</h3>
+      <ul class="ticks"><li>Chronological 70 / 15 / 15 split, so no future data leaks into training</li><li>192-step context window, 96-step forecast horizon</li><li>Multivariate inputs: inflow, pressure and turbidity</li><li>Automated error analysis for normal vs. surge regimes</li></ul></div>
+  </div>
+</section>
+
+<!-- illustrative forecast chart -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">The forecasting task</span><h2>What the model sees, and what it predicts</h2>
+      <p>The model reads 48 hours of history and predicts the next 24. Below, the forecast tracks a late surge that the repeat-last-day baseline cannot anticipate.</p></div>
+    <div class="panel reveal">
+      <canvas class="cv" id="fc"></canvas>
+      <div class="chips" style="margin-top:16px;gap:18px;font-size:.85rem">
+        <span><b style="color:var(--text)">━</b> Actual</span><span style="color:var(--pa)"><b>━</b> TTM-R3 forecast</span><span style="color:var(--muted)"><b>╌</b> 24h repeat baseline</span>
+      </div>
+      <p class="note">ⓘ Illustrative visualisation of the task set-up (context 192 → horizon 96) drawn from a synthetic signal. It is not raw model output; the exact benchmark numbers are below.</p>
+    </div>
+  </div>
+</section>
+
+<!-- benchmark -->
+<section class="sec" id="benchmark">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Benchmark</span><h2>Beating every baseline on every metric</h2>
+      <p>Out-of-sample chronological test set, 24-hour horizon. Lower is better.</p></div>
+    <div class="panel reveal">
+      <div class="seg" id="seg"><button class="on" data-m="mae">MAE</button><button data-m="rmse">RMSE</button><button data-m="mape">MAPE</button><button data-m="smape">sMAPE</button></div>
+      <div class="bars" id="bars"></div>
+      <div class="callout"><b>Why it matters:</b> inference takes ~14.2 ms, versus ~0.4 ms for the lag baseline, which is still fast enough for edge PLC controllers.</div>
+    </div>
+  </div>
+</section>
+
+<!-- pipeline -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Pipeline</span><h2>From raw sensors to a live endpoint</h2><p>Click a stage, or let it play.</p></div>
+    <div class="panel stepper reveal" id="stepper"><div class="steps"></div><div class="step-detail"></div></div>
+  </div>
+</section>
+
+<!-- regime -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Honest error analysis</span><h2>Where the model is weaker: surge spikes</h2>
+      <p>I split errors by regime. Accuracy is tight in normal operation but degrades during storm-runoff style surges, which is why the service is meant to sit beside safety buffer thresholds.</p></div>
+    <div class="two">
+      <div class="panel reveal"><span class="lbl">Normal regime · 8,460 samples</span>
+        <div class="tiles"><div class="tile"><b data-count="2.85" data-dec="2">0</b><span>MAE m³/h</span></div><div class="tile"><b data-count="3.92" data-dec="2">0</b><span>RMSE m³/h</span></div></div>
+        <div class="bar-track" style="margin-top:20px"><div class="bar-fill" data-w="31" style="background:var(--green)"></div></div></div>
+      <div class="panel reveal" style="--d:.08s"><span class="lbl" style="color:var(--red)">Surge spike regime · 132 samples</span>
+        <div class="tiles"><div class="tile"><b data-count="9.12" data-dec="2">0</b><span>MAE m³/h</span></div><div class="tile"><b data-count="12.40" data-dec="2">0</b><span>RMSE m³/h</span></div><div class="tile"><b style="color:var(--red)">+220%</b><span>MAE degradation</span></div></div>
+        <div class="bar-track" style="margin-top:20px"><div class="bar-fill" data-w="100" style="background:var(--red)"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- API -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="kicker">Serving</span><h2>A production-style forecasting API</h2><p>A rolling sensor buffer feeds the model. Send telemetry in, get 24 hours out.</p></div>
+    <div class="two">
+      <div class="reveal">
+        <div class="term"><div class="bar"><i></i><i></i><i></i>&nbsp; request</div>
+<pre><span class="k">POST</span> /api/v1/telemetry/ingest
+{
+  <span class="s">"inflow_rate"</span>: <span class="n">54.2</span>,
+  <span class="s">"pressure_bar"</span>: <span class="n">3.85</span>,
+  <span class="s">"turbidity_ntu"</span>: <span class="n">14.6</span>
+}
+
+<span class="k">POST</span> /api/v1/forecast/predict
+{ <span class="s">"horizon_steps"</span>: <span class="n">96</span> }</pre></div>
+        <div class="cta" style="margin-top:18px"><button class="btn accent" id="send">▶ Send request</button></div>
+      </div>
+      <div class="term reveal" style="--d:.08s"><div class="bar"><i></i><i></i><i></i>&nbsp; response · 200 OK</div><pre id="resp" style="min-height:290px;color:#7d8798">Press “Send request” to see the response…</pre></div>
+    </div>
+    <p class="note">ⓘ Response shown is the sample from the project documentation.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap pn-nav">
+    <a class="prev" href="air-board.html"><small>← Previous</small><b>Air-Board</b></a>
+    <a class="next" href="agent-platform.html"><small>Next →</small><b>Industrial AI Agent Platform</b></a>
+  </div>
+</section>
+<footer id="site-footer"></footer>
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/widgets.js"></script>
+<script>
+(function(){
+  /* benchmark bars */
+  var D={mae:{u:' m³/h',d:2,v:[3.42,8.95,9.40,14.10]},rmse:{u:' m³/h',d:2,v:[4.88,11.82,12.15,17.65]},
+         mape:{u:'%',d:2,v:[6.84,18.25,19.10,29.40]},smape:{u:'%',d:2,v:[6.71,17.60,18.45,27.80]}};
+  var names=[['IBM Granite TTM-R3','fine-tuned · 192/96'],['Repeat-period baseline','24h lag'],['Repeat-period baseline','7d lag'],['Rolling moving average','12h']];
+  function draw(m){var c=D[m];Widgets.bars(document.getElementById('bars'),c.v.map(function(v,i){return{name:names[i][0],sub:names[i][1],v:v,best:i===0}}),c.u,c.d)}
+  document.getElementById('seg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+    this.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');draw(b.dataset.m)});
+  Widgets.onceVisible(document.getElementById('bars'),function(){draw('mae')});
+
+  /* pipeline */
+  Widgets.stepper(document.getElementById('stepper'),[
+   {t:'Industrial sensors',d:'15-minute inflow, pressure and turbidity telemetry stream in from the plant.'},
+   {t:'Chronological split',d:'70% train, 15% validation, 15% test, in time order, so the test set is truly unseen future data.'},
+   {t:'Patch embedding',d:'The series is cut into patches of length 16 so the model can learn local structure efficiently.'},
+   {t:'Tiny Time Mixer blocks',d:'Intra-patch and inter-patch mixing captures daily cycles and cross-sensor relationships with a very small footprint.'},
+   {t:'Forecast head',d:'Predicts 96 future steps, a full 24-hour horizon.'},
+   {t:'Evaluation',d:'MAE, RMSE, MAPE and sMAPE against three baselines, plus a split of normal vs. surge-spike error.'},
+   {t:'FastAPI service',d:'A rolling sensor buffer feeds /api/v1/forecast/predict for real-time sub-15 ms inference.'}]);
+
+  /* forecast canvas */
+  var cv=document.getElementById('fc'),prog=0,started=false;
+  function rng(s){return function(){s=(s*16807)%2147483647;return s/2147483647}}
+  var r=rng(7),noise=[];for(var i=0;i<400;i++)noise.push((r()-.5)*2.2);
+  function base(t){return 50+10*Math.sin(2*Math.PI*t/96)+4*Math.sin(2*Math.PI*t/32+1)}
+  function truth(t){var s=t>=222&&t<=250?14*Math.sin((t-222)/28*Math.PI):0;return base(t)+s+noise[t]}
+  function render(){
+    var c=Widgets.canvas(cv,Math.min(380,Math.max(260,cv.clientWidth*.42))),x=c.ctx,W=c.w,H=c.h,N=288,pad=10;
+    var X=function(t){return pad+t/(N-1)*(W-2*pad)},Y=function(v){return H-18-(v-30)/50*(H-40)};
+    var line=Widgets.css('--line'),mut=Widgets.css('--muted'),txt=Widgets.css('--text'),pa=Widgets.css('--pa');
+    x.clearRect(0,0,W,H);x.lineWidth=1;x.strokeStyle=line;
+    for(var g=0;g<5;g++){var yy=18+g*(H-40)/4;x.beginPath();x.moveTo(0,yy);x.lineTo(W,yy);x.stroke()}
+    x.fillStyle=pa;x.globalAlpha=.07;x.fillRect(X(192),0,W-X(192),H);x.globalAlpha=1;
+    x.fillStyle=mut;x.font='600 10px JetBrains Mono, monospace';x.fillText('CONTEXT · 48h',pad+4,14);x.fillStyle=pa;x.fillText('FORECAST · 24h',X(192)+8,14);
+    var lim=Math.floor(prog*(N-1));
+    function path(fn,from,to,col,w,dash){x.beginPath();x.setLineDash(dash||[]);x.lineWidth=w;x.strokeStyle=col;x.lineJoin='round';
+      for(var t=from;t<=Math.min(to,lim);t++){var v=fn(t);t===from?x.moveTo(X(t),Y(v)):x.lineTo(X(t),Y(v))}x.stroke();x.setLineDash([])}
+    path(truth,0,N-1,txt,2.2);
+    path(function(t){return truth(t-96)},192,N-1,mut,2,[6,6]);
+    path(function(t){return truth(t)+Math.sin(t*.7)*1.1+0.6},192,N-1,pa,3);
+    if(lim>=192){x.beginPath();x.moveTo(X(192),0);x.lineTo(X(192),H);x.strokeStyle=pa;x.setLineDash([3,4]);x.lineWidth=1;x.stroke();x.setLineDash([])}
+  }
+  Widgets.onceVisible(cv,function(){started=true;var t0=null;(function f(t){if(!t0)t0=t;prog=Math.min((t-t0)/2600,1);render();if(prog<1)requestAnimationFrame(f)})(performance.now())});
+  addEventListener('resize',function(){if(started)render()});addEventListener('themechange',function(){if(started)render()});
+
+  /* API terminal */
+  var resp='{\n  <span class="s">"generated_at"</span>: <span class="s">"2026-10-02T19:40:00Z"</span>,\n  <span class="s">"horizon_steps"</span>: <span class="n">96</span>,\n  <span class="s">"forecast_horizon_hours"</span>: <span class="n">24.0</span>,\n  <span class="s">"predictions"</span>: [<span class="n">53.8</span>, <span class="n">54.1</span>, <span class="n">55.4</span>, <span class="n">56.2</span>, <span class="n">57.0</span>, …],\n  <span class="s">"summary_stats"</span>: {\n    <span class="s">"mean_inflow"</span>: <span class="n">52.14</span>,\n    <span class="s">"max_inflow"</span>: <span class="n">68.30</span>,\n    <span class="s">"min_inflow"</span>: <span class="n">38.10</span>\n  }\n}';
+  var btn=document.getElementById('send');
+  btn.addEventListener('click',function(){btn.disabled=true;btn.textContent='Sending…';var p=document.getElementById('resp');p.style.color='';p.textContent='';
+    setTimeout(function(){Widgets.terminal(p,resp,90,function(){btn.disabled=false;btn.textContent='▶ Send again'})},500)});
+})();
+</script>
+</body>
+</html>
